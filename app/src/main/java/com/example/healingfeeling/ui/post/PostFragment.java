@@ -1,4 +1,4 @@
-package com.example.healingfeeling.ui.dashboard;
+package com.example.healingfeeling.ui.post;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.healingfeeling.R;
 
-public class DashboardFragment extends Fragment {
+public class PostFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private PostViewModel postViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_chatting, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        postViewModel =
+                new ViewModelProvider(this).get(PostViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_post, container, false);
+        final TextView textView = root.findViewById(R.id.text_post);
+        postViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

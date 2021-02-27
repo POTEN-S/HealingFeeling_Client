@@ -1,4 +1,4 @@
-package com.example.healingfeeling.ui.notifications;
+package com.example.healingfeeling.ui.chatting;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.healingfeeling.R;
 
-public class NotificationsFragment extends Fragment {
+public class ChattingFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
+    private ChattingViewModel chattingViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_post, container, false);
-        final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        chattingViewModel =
+                new ViewModelProvider(this).get(ChattingViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_chatting, container, false);
+        final TextView textView = root.findViewById(R.id.text_chatting);
+        chattingViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
