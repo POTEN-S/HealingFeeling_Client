@@ -51,33 +51,22 @@ public class SongFragment extends Fragment {
 
     private void getData() {
         // 임의의 데이터입니다.
-        List<String> listTitle = Arrays.asList("국화", "사막", "수국", "해파리", "코알라", "등대", "펭귄", "튤립",
-                "국화", "사막", "수국", "해파리", "코알라", "등대", "펭귄", "튤립");
+        List<String> listTitle = Arrays.asList("Celebrity[아이유]", "밤하늘의 별을(2020)[경서]", "Dynamite[방탄소년단]", "잠이 오질 않네요[장범준]",
+                "Lovesick Girls[블랙핑크]", "에잇[아이유]", "내 손을 잡아[아이유]", "Blueming[아이유]",
+                "오래된 노래[스탠딩에그]", "Dolphin[오마이걸]");
         List<String> listContent = Arrays.asList(
-                "이 꽃은 국화입니다.",
-                "여기는 사막입니다.",
-                "이 꽃은 수국입니다.",
-                "이 동물은 해파리입니다.",
-                "이 동물은 코알라입니다.",
-                "이것은 등대입니다.",
-                "이 동물은 펭귄입니다.",
-                "이 꽃은 튤립입니다.",
-                "이 꽃은 국화입니다.",
-                "여기는 사막입니다.",
-                "이 꽃은 수국입니다.",
-                "이 동물은 해파리입니다.",
-                "이 동물은 코알라입니다.",
-                "이것은 등대입니다.",
-                "이 동물은 펭귄입니다.",
-                "이 꽃은 튤립입니다."
+                "이 노래 좋아요.",
+                "이 노래 좋아요..",
+                "이 노래 좋아요.",
+                "이 노래 좋아요.",
+                "이 노래 좋아요.",
+                "이 노래 좋아요.",
+                "이 노래 좋아요.",
+                "이 노래 좋아요.",
+                "이 노래 좋아요.",
+                "이 노래 좋아요."
         );
         List<Integer> listResId = Arrays.asList(
-                R.drawable.ic_home_black_24dp,
-                R.drawable.ic_home_black_24dp,
-                R.drawable.ic_home_black_24dp,
-                R.drawable.ic_home_black_24dp,
-                R.drawable.ic_home_black_24dp,
-                R.drawable.ic_home_black_24dp,
                 R.drawable.ic_home_black_24dp,
                 R.drawable.ic_home_black_24dp,
                 R.drawable.ic_home_black_24dp,
