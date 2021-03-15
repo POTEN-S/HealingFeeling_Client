@@ -1,22 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.post.PostFragment">
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".ui.notifications.NotificationsFragment">
+
 
     <TextView
         android:id="@+id/text_post"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:orientation="vertical">
+
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@android:drawable/btn_dropdown" />
+
+        <EditText
+            android:id="@+id/titleinput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0"
+            android:ems="10"
+            android:hint="제목"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/textinput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="내용"
+            android:inputType="textMultiLine"
+            android:lines="10" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </TableLayout>
+
+        <ImageButton
+            android:id="@+id/gallery_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/clouds"
+            android:scaleType="fitCenter"
+            android:src="@drawable/gallery" />
+
+        <ImageButton
+            android:id="@+id/camera_btn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toEndOf="@id/gallery_btn"
+            android:backgroundTint="@color/clouds"
+            android:scaleType="fitCenter"
+            android:src="@drawable/camera" />
+
+        <Button
+            android:id="@+id/check_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gallery_btn"
+            android:text="올리기" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
