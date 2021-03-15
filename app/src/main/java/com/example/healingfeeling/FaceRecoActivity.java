@@ -78,7 +78,7 @@ public class FaceRecoActivity extends AppCompatActivity {
     private TextView guide_line;
     private Button photo_add_btn;
     private ConstraintLayout refresh_btn;
-
+    String result;
     ProgressDialog progressDialog;
 
     @Override
@@ -93,7 +93,8 @@ public class FaceRecoActivity extends AppCompatActivity {
 
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), IslandActivity.class);
+                        intent.putExtra("emotion",result);
                         startActivity(intent);
                     }
                 }
@@ -335,7 +336,7 @@ public class FaceRecoActivity extends AppCompatActivity {
                                     double confidence = celebrity.getConfidence() * 100;
                                     double percent = Double.parseDouble(String.format("%.2f", confidence));*/
 
-                                    String result = "당신의 감정은 " + angry + "이고 " + percent + "% 입니다.!!";
+                                    result = "당신의 감정은 " + angry + "이고 " + percent + "% 입니다.!!";
                                     binding.faceResult.setText(result);
                                    // face_result.setText(result);
 
