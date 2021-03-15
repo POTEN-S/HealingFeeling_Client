@@ -16,5 +16,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/feelings" />
 
-    
+
 </androidx.constraintlayout.widget.ConstraintLayout>
