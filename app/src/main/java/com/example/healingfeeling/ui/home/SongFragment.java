@@ -28,7 +28,7 @@ public class SongFragment extends Fragment {
         return tab1;
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
+    /*public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
 
@@ -92,6 +92,6 @@ public class SongFragment extends Fragment {
         // adapter의 값이 변경되었다는 것을 알려줍니다.
         adapter.notifyDataSetChanged();
     }
-
+*/
 
 }
