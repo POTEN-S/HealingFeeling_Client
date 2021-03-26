@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     ChattingFragment chattingFragment;
     PostFragment postFragment;
     HomeFragment homeFragment;
+    LoginActivity loginActivity;
 
 
     @Override
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         chattingFragment = new ChattingFragment();
         postFragment = new PostFragment();
         homeFragment = new HomeFragment();
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,postFragment).commitAllowingStateLoss();
 

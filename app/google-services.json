@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "793946107580",
+    "project_id": "emotionmatching",
+    "storage_bucket": "emotionmatching.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793946107580:android:1eab1c56e82e2054d4eab9",
+        "android_client_info": {
+          "package_name": "com.example.emotionmatching"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793946107580-d9qsb9udrssj007ojdg61g5qbdsb3fqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwsJDP5BUebtLN2JrVSRhnDRUTrmbF4pk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793946107580-d9qsb9udrssj007ojdg61g5qbdsb3fqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
