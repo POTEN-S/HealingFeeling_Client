@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_post"
-        android:name="com.example.healingfeeling.ui.post.PostFragment"
-        android:label="Post"
-        tools:layout="@layout/fragment_post" />
+        android:id="@+id/navigation_recommend"
+        android:name="com.example.healingfeeling.ui.recommend.RecommendFragment"
+        android:label="Recommend"
+        tools:layout="@layout/fragment_recommend" />
 </navigation>
