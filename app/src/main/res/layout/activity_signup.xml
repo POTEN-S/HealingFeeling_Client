@@ -9,6 +9,7 @@
     tools:context=".SignupActivity">
 
     <ImageView
+        android:src="@drawable/add_to_photos"
         android:id="@+id/signupActivity_imageview_profile"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -33,6 +34,7 @@
         <EditText
             android:id="@+id/signupActivity_edittext_password"
             android:hint="패스워드"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

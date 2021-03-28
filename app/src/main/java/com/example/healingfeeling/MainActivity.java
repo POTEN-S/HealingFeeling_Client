@@ -51,19 +51,19 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.navigation_chatting:{
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.nav_host_fragment,chattingFragment).commitAllowingStateLoss();
+                                .replace(R.id.nav_host_fragment,chattingFragment).commit();
                         return true;
                     }
 
                     case R.id.navigation_home:{
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.nav_host_fragment,homeFragment).commitAllowingStateLoss();
+                                .replace(R.id.nav_host_fragment,homeFragment).commit();
                         return true;
                     }
 
                     case R.id.navigation_post:{
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.nav_host_fragment,postFragment).commitAllowingStateLoss();
+                                .replace(R.id.nav_host_fragment,postFragment).commit();
                         return true;
                     }
 
