@@ -1,95 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp">
 
-    <LinearLayout
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="도서" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="장소" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="노래" />
+
+    </RadioGroup>
+
+
+    <EditText
+        android:id="@+id/titleinput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_weight="0"
+        android:ems="10"
+        android:hint="제목"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@android:drawable/btn_dropdown" />
-
-        <EditText
-            android:id="@+id/titleinput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_weight="0"
-            android:ems="10"
-            android:hint="제목"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/textinput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="내용"
-            android:inputType="textMultiLine"
-            android:lines="10" />
-    </LinearLayout>
-
-    <RelativeLayout
+    <EditText
+        android:id="@+id/textinput"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="내용"
+        android:inputType="textMultiLine"
+        android:lines="10"
+        app:layout_constraintStart_toStartOf="@+id/titleinput"
+        app:layout_constraintTop_toBottomOf="@+id/titleinput" />
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <ImageButton
+        android:id="@+id/gallery_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/clouds"
+        android:scaleType="fitCenter"
+        android:src="@drawable/gallery"
+        app:layout_constraintStart_toEndOf="@+id/camera_btn"
+        app:layout_constraintTop_toTopOf="@+id/camera_btn" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+    <ImageButton
+        android:id="@+id/camera_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toEndOf="@id/gallery_btn"
+        android:backgroundTint="@color/clouds"
+        android:scaleType="fitCenter"
+        android:src="@drawable/camera"
+        app:layout_constraintStart_toStartOf="@+id/textinput"
+        app:layout_constraintTop_toBottomOf="@+id/textinput" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="행복"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/camera_btn"
+        app:layout_constraintTop_toBottomOf="@+id/camera_btn" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </TableLayout>
-
-        <ImageButton
-            android:id="@+id/gallery_btn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@color/clouds"
-            android:scaleType="fitCenter"
-            android:src="@drawable/gallery" />
-
-        <ImageButton
-            android:id="@+id/camera_btn"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_toEndOf="@id/gallery_btn"
-            android:backgroundTint="@color/clouds"
-            android:scaleType="fitCenter"
-            android:src="@drawable/camera" />
-
-        <Button
-            android:id="@+id/check_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/gallery_btn"
-            android:text="올리기" />
-
-
-    </RelativeLayout>
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="슬픔"
+        app:layout_constraintStart_toEndOf="@+id/chip4"
+        app:layout_constraintTop_toTopOf="@+id/chip4" />
 
 
-</LinearLayout>
+    <com.google.android.material.chip.Chip
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="분노"
+        app:layout_constraintStart_toEndOf="@+id/chip5"
+        app:layout_constraintTop_toTopOf="@+id/chip5" />
+
+    <Button
+        android:id="@+id/check_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/gallery_btn"
+        android:text="등록"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textinput"
+        app:layout_constraintStart_toStartOf="@+id/textinput" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
