@@ -23,7 +23,7 @@ public class IslandActivity extends AppCompatActivity {
         binding.sadBtn.setOnClickListener(v ->startActivity(new Intent(this,MainActivity.class)));
         binding.angryBtn.setOnClickListener(v ->startActivity(new Intent(this,MainActivity.class)));
 
-        binding.myPage.setOnClickListener(v -> startActivity(new Intent(IslandActivity.this,LoginActivity.class)));
+        binding.myPage.setOnClickListener(v -> startActivity(new Intent(this,MainActivity.class)));
 
 
 
