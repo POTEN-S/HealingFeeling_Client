@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.healingfeeling.R;
+import com.example.healingfeeling.model.User;
 
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class ChatAdapter extends BaseAdapter {
         View itemView=null;
 
         //메세지가 내 메세지인지??
-        if(item.getName().equals(G.nickName)){
+        if(item.getName().equals(User.userName)){
             itemView= layoutInflater.inflate(R.layout.my_msgbox,viewGroup,false);
         }else{
             itemView= layoutInflater.inflate(R.layout.other_msgbox,viewGroup,false);
