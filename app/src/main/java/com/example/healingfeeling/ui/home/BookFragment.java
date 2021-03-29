@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,8 +37,8 @@ public class BookFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
+        GridLayoutManager GridLayoutManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(GridLayoutManager);
 
         adapter = new RecyclerAdapter();
         recyclerView.setAdapter(adapter);
@@ -93,6 +94,7 @@ public class BookFragment extends Fragment {
             // 각 List의 값들을 data 객체에 set 해줍니다.
             Data data = new Data();
             data.setTitle(listTitle.get(i));
+            data.setSubtitle(listTitle.get(i));
             data.setContent(listContent.get(i));
             data.setResId(listResId.get(i));
 

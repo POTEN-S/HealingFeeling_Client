@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,8 +37,8 @@ public class SongFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
+        GridLayoutManager GridLayoutManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(GridLayoutManager);
 
         adapter = new RecyclerAdapter();
         recyclerView.setAdapter(adapter);
@@ -51,9 +52,12 @@ public class SongFragment extends Fragment {
 
     private void getData() {
         // 임의의 데이터입니다.
-        List<String> listTitle = Arrays.asList("Celebrity[아이유]", "밤하늘의 별을(2020)[경서]", "Dynamite[방탄소년단]", "잠이 오질 않네요[장범준]",
-                "Lovesick Girls[블랙핑크]", "에잇[아이유]", "내 손을 잡아[아이유]", "Blueming[아이유]",
+        List<String> listTitle = Arrays.asList("Celebrity", "밤하늘의 별을(2020)", "Dynamite", "잠이 오질 않네요",
+                "Lovesick Girls", "에잇", "내 손을 잡아", "Blueming",
                 "오래된 노래[스탠딩에그]", "Dolphin[오마이걸]");
+        List<String> listSubtitle = Arrays.asList("아이유", "경서", "방탄소년단", "장범준",
+                "블랙핑크", "아이유", "아이유", "아이유",
+                "스탠딩에그", "오마이걸");
         List<String> listContent = Arrays.asList(
                 "이 노래 좋아요.",
                 "이 노래 좋아요..",
@@ -82,6 +86,7 @@ public class SongFragment extends Fragment {
             // 각 List의 값들을 data 객체에 set 해줍니다.
             Data data = new Data();
             data.setTitle(listTitle.get(i));
+            data.setSubtitle(listSubtitle.get(i));
             data.setContent(listContent.get(i));
             data.setResId(listResId.get(i));
 
