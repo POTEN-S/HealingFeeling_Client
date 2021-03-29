@@ -3,8 +3,8 @@ package com.example.healingfeeling.model;
 
 public class User {
 
-    public String emotion;
-    public String userName;
-    public String profileImageUrl;
-    public String uid;
+    public static String emotion;
+    public static String userName;
+    public static String profileImageUrl;
+    public static String uid;
 }

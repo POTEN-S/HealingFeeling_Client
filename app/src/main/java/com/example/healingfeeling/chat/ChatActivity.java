@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.healingfeeling.R;
+import com.example.healingfeeling.model.User;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,7 +42,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         //제목줄 제목글시를 닉네임으로(또는 채팅방)
-        getSupportActionBar().setTitle(G.nickName);
+        getSupportActionBar().setTitle(User.userName);
 
         et=findViewById(R.id.et);
         listView=findViewById(R.id.listview);
@@ -98,9 +99,9 @@ public class ChatActivity extends AppCompatActivity {
     public void clickSend(View view) {
 
         //firebase DB에 저장할 값들( 닉네임, 메세지, 프로필 이미지URL, 시간)
-        String nickName= G.nickName;
+        String nickName= User.userName;
         String message= et.getText().toString();
-        String pofileUrl= G.porfileUrl;
+        String pofileUrl= User.profileImageUrl;
 
         //메세지 작성 시간 문자열로..
         Calendar calendar= Calendar.getInstance(); //현재 시간을 가지고 있는 객체
