@@ -37,8 +37,10 @@ public class SongFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
 
+
         GridLayoutManager GridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(GridLayoutManager);
+
 
         adapter = new RecyclerAdapter();
         recyclerView.setAdapter(adapter);
