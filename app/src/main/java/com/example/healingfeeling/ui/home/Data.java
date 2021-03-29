@@ -5,6 +5,7 @@ public class Data {
 
     private String title;
     private String content;
+    private String subtitle;
     private int resId;
 
     public String getTitle() {
@@ -21,6 +22,14 @@ public class Data {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     public int getResId() {
