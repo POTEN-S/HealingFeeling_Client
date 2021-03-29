@@ -5,13 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp">
+  >
 
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -36,7 +36,7 @@
 
     <EditText
         android:id="@+id/titleinput"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:ems="10"
@@ -47,13 +47,15 @@
 
     <EditText
         android:id="@+id/textinput"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="내용"
         android:inputType="textMultiLine"
-        android:lines="10"
+        android:lines="5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/titleinput"
         app:layout_constraintTop_toBottomOf="@+id/titleinput" />
 
@@ -82,8 +84,8 @@
         android:id="@+id/chip4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="행복"
-        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="@+id/camera_btn"
         app:layout_constraintTop_toBottomOf="@+id/camera_btn" />
 
