@@ -33,6 +33,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<String> tabNames = new ArrayList<>();
 
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -63,7 +64,9 @@ public class HomeFragment extends Fragment {
             }
 
             private void setViewPager() {
-                FragmentAdapter adapter = new FragmentAdapter(getFragmentManager() );
+                // fragment 안에서 또 다른 fragment를 관리할 경우 getFragmentManager()가 아니라
+                // getChildFragmentManager를 사용해줄 것 ! => 화면 유지
+                FragmentAdapter adapter = new FragmentAdapter(getChildFragmentManager());
                 ViewPager viewPager = root.findViewById(R.id.viewPager);
                 viewPager.setAdapter(adapter);
                 viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

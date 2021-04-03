@@ -7,6 +7,8 @@ public class Data {
     private String content;
     private String subtitle;
     private int resId;
+    private int favoriteCount;
+    private int registerCount;
 
     public String getTitle() {
         return title;
@@ -39,4 +41,14 @@ public class Data {
     public void setResId(int resId) {
         this.resId = resId;
     }
+
+    public int getFavoriteCount() { return favoriteCount; }
+
+    public void setFavoriteCount(int favoriteCount) { this.favoriteCount = favoriteCount; }
+
+    public int getRegisterCount() { return registerCount; }
+
+    public void setRegisterCount(int registerCount) { this.registerCount = registerCount; }
+
+
 }

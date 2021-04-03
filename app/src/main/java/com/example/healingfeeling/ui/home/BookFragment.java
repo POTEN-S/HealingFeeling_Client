@@ -33,7 +33,7 @@ public class BookFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
 
-        View root = inflater.inflate(R.layout.fragment_song, container, false);
+        View root = inflater.inflate(R.layout.fragment_book, container, false);
 
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
 

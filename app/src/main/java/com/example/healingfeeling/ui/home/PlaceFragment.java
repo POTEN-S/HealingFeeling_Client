@@ -33,7 +33,7 @@ public class PlaceFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
 
-        View root = inflater.inflate(R.layout.fragment_song, container, false);
+        View root = inflater.inflate(R.layout.fragment_place, container, false);
 
         RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
 
@@ -90,6 +90,10 @@ public class PlaceFragment extends Fragment {
                 R.drawable.ic_home_black_24dp,
                 R.drawable.ic_home_black_24dp
         );
+
+        List<Integer> listFavorite = Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
+        List<Integer> listCount = Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
+
         for (int i = 0; i < listTitle.size(); i++) {
             // 각 List의 값들을 data 객체에 set 해줍니다.
             Data data = new Data();

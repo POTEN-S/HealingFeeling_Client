@@ -3,6 +3,7 @@ package com.example.healingfeeling.ui.home;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder> {
 
+
     // adapter에 들어갈 list 입니다.
     private ArrayList<Data> listData = new ArrayList<>();
 
@@ -24,6 +26,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         // LayoutInflater를 이용하여 전 단계에서 만들었던 item.xml을 inflate 시킵니다.
         // return 인자는 ViewHolder 입니다.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+
+
         return new ItemViewHolder(view);
     }
 
@@ -53,6 +57,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         private TextView subtitletext;
         private ImageView imageView;
 
+        private Button button;
+
         ItemViewHolder(View itemView) {
             super(itemView);
 
@@ -67,6 +73,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             subtitletext.setText(data.getSubtitle());
             contenttext.setText(data.getContent());
             imageView.setImageResource(data.getResId());
+
+            button.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    button.setSelected(true);
+                }
+            });
         }
     }
 }
