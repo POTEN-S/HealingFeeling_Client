@@ -7,7 +7,7 @@ public class Data {
     private String content;
     private String subtitle;
     private int resId;
-    private int favoriteCount;
+    private boolean favorite;
     private int registerCount;
 
     public String getTitle() {
@@ -42,9 +42,10 @@ public class Data {
         this.resId = resId;
     }
 
-    public int getFavoriteCount() { return favoriteCount; }
 
-    public void setFavoriteCount(int favoriteCount) { this.favoriteCount = favoriteCount; }
+    public boolean getFavorite() { return favorite; }
+
+    public void setFavorite(boolean favorite) { this.favorite = favorite; }
 
     public int getRegisterCount() { return registerCount; }
 

@@ -1,5 +1,6 @@
 package com.example.healingfeeling.ui.home;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.healingfeeling.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder> {
 
@@ -46,6 +49,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
     void addItem(Data data) {
         // 외부에서 item을 추가시킬 함수입니다.
         listData.add(data);
+
+        Comparator<Data> noAsc = new Comparator<Data>() {
+            @Override
+            public int compare(Data item1, Data item2) {
+                int ret ;
+
+                if (item1.getRegisterCount() < item2.getRegisterCount())
+                    ret = 1 ;
+                else if (item1.getRegisterCount() == item2.getRegisterCount())
+                    ret = 0 ;
+                else
+                    ret = -1 ;
+
+                return ret ;
+            }
+        };
+
+        Collections.sort(listData, noAsc) ;
     }
 
     // RecyclerView의 핵심인 ViewHolder 입니다.
@@ -57,6 +78,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         private TextView subtitletext;
         private ImageView imageView;
 
+        private boolean favorite;
+        private TextView registerCount;
+
         private Button button;
 
         ItemViewHolder(View itemView) {
@@ -66,6 +90,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             subtitletext = itemView.findViewById(R.id.subtitletext);
             contenttext = itemView.findViewById(R.id.contenttext);
             imageView = itemView.findViewById(R.id.imageView);
+            registerCount = itemView.findViewById(R.id.registercount);
+            button = itemView.findViewById(R.id.favoritebutton);
+
         }
 
         void onBind(Data data) {
@@ -73,11 +100,26 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             subtitletext.setText(data.getSubtitle());
             contenttext.setText(data.getContent());
             imageView.setImageResource(data.getResId());
+            favorite = data.getFavorite();
+            registerCount.setText(String.valueOf(data.getRegisterCount()));
+
+            button.setSelected(favorite);
 
             button.setOnClickListener(new Button.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    button.setSelected(true);
+
+
+                    view.setSelected(!view.isSelected()); // 선택여부 반전시키기
+
+                    if(view.isSelected()){
+                        favorite = Boolean.TRUE;
+
+                    }
+                    else{
+
+                        favorite = Boolean.FALSE;
+                    }
                 }
             });
         }
