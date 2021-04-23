@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "103395167070",
+    "project_id": "healingfeeling-9c1bf",
+    "storage_bucket": "healingfeeling-9c1bf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103395167070:android:2d504d617b00da27cdddcf",
+        "android_client_info": {
+          "package_name": "com.example.emotionmatching"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "103395167070-umtflvj6q9b97rl28adupeqhdv2jijne.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbvpQe5PxYPGpOReTxqvk0BnyTmaKhNtw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "103395167070-umtflvj6q9b97rl28adupeqhdv2jijne.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
