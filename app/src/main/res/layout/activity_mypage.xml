@@ -25,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
@@ -40,8 +41,8 @@
         app:layout_constraintStart_toStartOf="@+id/myPageNickName"
         app:layout_constraintTop_toBottomOf="@+id/myPageNickName" />
 
-    <TextView
-        android:id="@+id/textView3"
+    <Button
+        android:id="@+id/userDeleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="57dp"
@@ -82,7 +83,7 @@
         android:layout_marginTop="88dp"
         app:layout_constraintEnd_toStartOf="@+id/progressAngry"
         app:layout_constraintStart_toEndOf="@+id/progressHappy"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/userDeleteButton"
         app:progress_background_color="#F4F1F1"
         app:progress_start_color="#03A9F4"
        app:progress_end_color="#03A9F4"
