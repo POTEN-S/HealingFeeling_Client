@@ -1,5 +1,6 @@
 package com.example.healingfeeling;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -11,10 +12,23 @@ import android.widget.TextView;
 import com.example.healingfeeling.databinding.ActivityMypageBinding;
 import com.example.healingfeeling.model.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MypageActivity extends AppCompatActivity {
 
     ActivityMypageBinding binding;
+    DatabaseReference mDatabase;
+    TextView myname;
+    FirebaseUser user;
+    FirebaseAuth mAuth;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,18 +44,27 @@ public class MypageActivity extends AppCompatActivity {
 
         findViewById(R.id.logoutButton).setOnClickListener(onClickListener);
 
-        TextView textView_name = (TextView) findViewById(R.id.myPageNickName);
+        myname = (TextView) findViewById(R.id.myPageNickName);
 
-        Intent intent_01 = getIntent();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user!= null? user.getUid() : null;
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference username = mDatabase.child(uid).child("userName");
 
-        String name = intent_01.getStringExtra("입력한 이름");
+        username.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String name = snapshot.getValue(String.class);
+                myname.setText(name);
+            }
 
-        textView_name.setText(String.valueOf(name));
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
 
-
-
-        User user;
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {

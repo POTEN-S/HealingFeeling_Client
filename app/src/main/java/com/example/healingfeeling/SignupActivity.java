@@ -50,6 +50,11 @@ public class SignupActivity extends AppCompatActivity {
     private FirebaseStorage mStorage;
     private String pathUri;
     private File tempFile;
+    private EditText etname;
+    private EditText etemail;
+    private EditText etpwd;
+
+
 
 
 
@@ -68,6 +73,9 @@ public class SignupActivity extends AppCompatActivity {
         findViewById(R.id.signupActivity_imageview_profile).setOnClickListener(onClickListener);
         profile = (ImageView)findViewById(R.id.signupActivity_imageview_profile);
         findViewById(R.id.gotoLoginBtn).setOnClickListener(onClickListener);
+
+        etemail = (EditText) findViewById(R.id.signupActivity_edittext_email);
+
 
 
 
@@ -154,13 +162,10 @@ public class SignupActivity extends AppCompatActivity {
                             });
 
 
-
-
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             startToast("회원가입에 성공하였습니다.");
-
 
                             //UI
                         } else {
