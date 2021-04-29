@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Map;
 
@@ -31,9 +34,11 @@ public class MypageActivity extends AppCompatActivity {
     ActivityMypageBinding binding;
     DatabaseReference myRef;
     TextView myname;
+    ImageView iv;
     FirebaseUser user;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
+
 
 
 
@@ -54,6 +59,7 @@ public class MypageActivity extends AppCompatActivity {
         findViewById(R.id.userDeleteButton).setOnClickListener(onClickListener);
 
         myname = (TextView) findViewById(R.id.myPageNickName);
+        iv=findViewById(R.id.mypageActivity_imageview_profile);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user!= null? user.getUid() : null;
@@ -61,6 +67,9 @@ public class MypageActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("users");
         DatabaseReference username = myRef.child(uid).child("userName");
+
+
+
 
         username.addValueEventListener(new ValueEventListener() {
             @Override
@@ -95,10 +104,6 @@ public class MypageActivity extends AppCompatActivity {
 
 
 
-
-
-
-
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -117,7 +122,11 @@ public class MypageActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             //yes 클릭
                             mAuth.getCurrentUser().delete();
-                            myRef.child("/users").setValue(null);
+                            deleteUserData(mAuth.getCurrentUser().getDisplayName());
+
+
+
+
                             myStartActivity(LoginActivity.class);
 
                         }
@@ -141,10 +150,36 @@ public class MypageActivity extends AppCompatActivity {
     };
 
 
+
+
+    public void deleteUserData(final String userName){
+        //get userID
+        String uid = mAuth.getInstance().getCurrentUser().getUid();
+        myRef.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+
+                    for(DataSnapshot data: snapshot.getChildren()){
+                        data.getRef().removeValue();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
     private void myStartActivity(Class c) {
         Intent intent = new Intent(this, c);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
+
+
 
 }

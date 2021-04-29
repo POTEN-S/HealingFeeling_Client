@@ -11,7 +11,7 @@
     tools:context=".MypageActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/mypageActivity_imageview_profile"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="84dp"
@@ -26,10 +26,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="@+id/mypageActivity_imageview_profile"
         app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintStart_toStartOf="@+id/mypageActivity_imageview_profile"
+        app:layout_constraintTop_toBottomOf="@+id/mypageActivity_imageview_profile" />
 
     <Button
         android:id="@+id/logoutButton"
