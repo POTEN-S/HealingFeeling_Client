@@ -3,6 +3,7 @@ package com.example.healingfeeling.ui.home;
 
 public class Data {
 
+    private String photo;
     private String title;
     private String content;
     private String subtitle;
@@ -10,6 +11,15 @@ public class Data {
     private boolean favorite;
     private int registerCount;
 
+    public Data(){}
+
+    public String getPhoto(){
+        return photo;
+    }
+
+    public void setPhoto(String photo){
+        this.photo = photo;
+    }
     public String getTitle() {
         return title;
     }

@@ -1,6 +1,7 @@
 package com.example.healingfeeling.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healingfeeling.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +32,10 @@ public class BookFragment extends Fragment {
 
     private RecyclerAdapter adapter;
 
+    private ArrayList<Data> arrayList;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+
     public static BookFragment newInstance() {
         BookFragment tab2 = new BookFragment();
         return tab2;
@@ -32,6 +43,29 @@ public class BookFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
+
+        databaseReference = database.getReference("User"); // DB 테이블 연결
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
+                arrayList.clear(); // 기존 배열리스트가 존재하지않게 초기화
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
+                    Data data = snapshot.getValue(Data.class); // 만들어뒀던 User 객체에 데이터를 담는다.
+                    arrayList.add(data); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
+                }
+                adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // 디비를 가져오던중 에러 발생 시
+                Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+            }
+        });
+
 
 
         View root = inflater.inflate(R.layout.fragment_book, container, false);
@@ -43,7 +77,7 @@ public class BookFragment extends Fragment {
 
         adapter = new RecyclerAdapter();
         recyclerView.setAdapter(adapter);
-        getData();
+        //getData();
 
 
         return root;

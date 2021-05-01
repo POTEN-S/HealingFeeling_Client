@@ -11,7 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.healingfeeling.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +25,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
     // adapter에 들어갈 list 입니다.
     private ArrayList<Data> listData = new ArrayList<>();
+
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
 
     @NonNull
     @Override
@@ -37,6 +43,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         // Item을 하나, 하나 보여주는(bind 되는) 함수입니다.
+
+        // 서버로부터 image 불러와 imageview안에 넣어줌
+        Glide.with(holder.itemView)
+                .load(listData.get(position).getPhoto())
+                .into(holder.imageView);
+
         holder.onBind(listData.get(position));
     }
 
@@ -45,6 +57,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         // RecyclerView의 총 개수 입니다.
         return listData.size();
     }
+
 
     void addItem(Data data) {
         // 외부에서 item을 추가시킬 함수입니다.
@@ -95,6 +108,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
         }
 
+
         void onBind(Data data) {
             titletext.setText(data.getTitle());
             subtitletext.setText(data.getSubtitle());
@@ -123,5 +137,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                 }
             });
         }
+
+
     }
 }
