@@ -7,12 +7,14 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
-    dataBinding {
-        enabled = true
+    buildFeatures{
+
+        dataBinding = true
+
     }
 
     defaultConfig {
-        applicationId "com.example.emotionmatching"
+        applicationId "com.example.healingfeeling"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
@@ -34,6 +36,7 @@ android {
 
     buildFeatures {
         dataBinding true
+        viewBinding true
     }
 }
 
@@ -52,7 +55,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
     implementation 'com.google.firebase:firebase-storage:19.2.2'
-    implementation 'com.google.firebase:firebase-database:19.2.1'
+    implementation 'com.google.firebase:firebase-database:19.7.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -73,6 +76,12 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:27.0.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
+
+    implementation platform('com.google.firebase:firebase-bom:26.8.0')
+
+    // Declare the dependency for the Realtime Database library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-database'
 
 
 }

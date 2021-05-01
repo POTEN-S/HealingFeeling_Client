@@ -1,6 +1,7 @@
 package com.example.healingfeeling;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -16,18 +17,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.CursorLoader;
 
 
 import com.example.healingfeeling.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
 
 
 public class SignupActivity extends AppCompatActivity {
@@ -35,12 +39,15 @@ public class SignupActivity extends AppCompatActivity {
 
     private static final String TAG = "SignUpActivity";
     private static final int PICK_FROM_ALBUM = 10 ;
-    private EditText name;
 
-    private Button signup;
+
     private ImageView profile;
     private Uri imageUri;
     private FirebaseAuth mAuth;
+    private FirebaseDatabase mDatabase;
+    private FirebaseStorage mStorage;
+    private String pathUri;
+    private File tempFile;
 
 
 
@@ -51,6 +58,9 @@ public class SignupActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance();
+        mStorage = FirebaseStorage.getInstance();
+
 
         findViewById(R.id.signupActivity_button_signup).setOnClickListener(onClickListener);
         findViewById(R.id.signupActivity_imageview_profile).setOnClickListener(onClickListener);
@@ -118,11 +128,36 @@ public class SignupActivity extends AppCompatActivity {
                         });
 
                         if (task.isSuccessful()) {
+
+                            final Uri file = Uri.fromFile(new File(pathUri)); // path
+                            StorageReference storageReference = mStorage.getReference()
+                                    .child("usersprofileImages").child("uid/"+file.getLastPathSegment());
+                            storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                    final Task<Uri> imageUrl = task.getResult().getStorage().getDownloadUrl();
+                                    while (!imageUrl.isComplete()) ;
+
+                                    User userModel = new User();
+
+                                    userModel.userName = name;
+                                    userModel.uid = uid;
+                                    userModel.profileImageUrl = imageUrl.getResult().toString();
+
+                                    // database에 저장
+                                    mDatabase.getReference().child("users").child(uid)
+                                            .setValue(userModel);
+
+                                }
+                            });
+
+
+
+
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             startToast("회원가입에 성공하였습니다.");
-                            myStartActivity(FaceRecoActivity.class);
 
 
                             //UI
@@ -153,11 +188,45 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_FROM_ALBUM && resultCode == RESULT_OK) {
-            profile.setImageURI(data.getData()); //가운데 뷰를 바꿈
-            imageUri = data.getData(); //이미지 경로 원본
-
+        if (resultCode != RESULT_OK) { // 코드가 틀릴경우
+            startToast("취소 되었습니다");
+            if (tempFile != null) {
+                if (tempFile.exists()) {
+                    if (tempFile.delete()) {
+                        Log.e(TAG, tempFile.getAbsolutePath() + " 삭제 성공");
+                        tempFile = null;
+                    }
+                }
+            }
+            return;
         }
+
+        switch (requestCode) {
+            case PICK_FROM_ALBUM: { // 코드 일치
+                // Uri
+                imageUri = data.getData();
+                pathUri = getPath(data.getData());
+                Log.d(TAG, "PICK_FROM_ALBUM photoUri : " + imageUri);
+                profile.setImageURI(imageUri); // 이미지 띄움
+                break;
+            }
+        }
+
+
+    }
+
+    public String getPath(Uri uri) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        CursorLoader cursorLoader = new CursorLoader(this, uri, proj, null, null, null);
+
+        Cursor cursor = cursorLoader.loadInBackground();
+        int index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+
+        cursor.moveToFirst();
+        return cursor.getString(index);
+
+
+
     }
 
     private void myStartActivity(Class c) {
