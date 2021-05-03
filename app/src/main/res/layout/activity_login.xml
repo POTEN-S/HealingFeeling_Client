@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:text="로그인"
                 android:layout_marginTop="30dp"
-                android:layout_marginLeft="55dp"/>
+                android:layout_marginLeft="50dp"/>
 
             <Button
                 android:id="@+id/loginActivity_button_signup"
