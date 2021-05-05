@@ -6,6 +6,7 @@
 
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:background="#A4E2EA"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MypageActivity">
@@ -14,7 +15,7 @@
         android:id="@+id/imageView2"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,28 +25,32 @@
         android:id="@+id/myPageNickName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:text="생각이안나영"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="60dp"
+        android:layout_marginEnd="28dp"
+        android:background="@drawable/btn_bg"
         android:text="로그아웃"
-        app:layout_constraintEnd_toEndOf="@+id/myPageNickName"
-        app:layout_constraintStart_toStartOf="@+id/myPageNickName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myPageNickName" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="57dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_bg"
         android:text="회원탈퇴"
         app:layout_constraintEnd_toEndOf="@+id/logoutButton"
         app:layout_constraintStart_toStartOf="@+id/logoutButton"
@@ -53,12 +58,11 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/logoutButton"
+        app:layout_constraintStart_toStartOf="@+id/logoutButton"
         app:layout_constraintTop_toBottomOf="@+id/myPageNickName"
         app:srcCompat="@drawable/mypage_div" />
 

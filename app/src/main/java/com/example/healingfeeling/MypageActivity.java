@@ -30,18 +30,17 @@ public class MypageActivity extends AppCompatActivity {
 
         findViewById(R.id.logoutButton).setOnClickListener(onClickListener);
 
-        TextView textView_name = (TextView) findViewById(R.id.myPageNickName);
+       // TextView textView_name = (TextView) findViewById(R.id.myPageNickName);
 
         Intent intent_01 = getIntent();
 
         String name = intent_01.getStringExtra("입력한 이름");
 
-        textView_name.setText(String.valueOf(name));
+       // textView_name.setText(String.valueOf(name));
 
 
 
 
-        User user;
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
