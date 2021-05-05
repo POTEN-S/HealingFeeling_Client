@@ -2,6 +2,7 @@ package com.example.healingfeeling;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.example.healingfeeling.ui.recommend.RecommendViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.chip.Chip;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -65,10 +67,15 @@ public class PostFragment extends Fragment {
     private Button btChoose;
     private Button btUpload;
     private ImageView ivPreview;
-
+    private FirebaseAuth mAuth;
     private Uri filePath;
     String radioValue;
     View root;
+
+    SharedPreferences pref;          // 프리퍼런스
+    SharedPreferences.Editor editor;
+
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -76,7 +83,7 @@ public class PostFragment extends Fragment {
         RecommendViewModel =
                 new ViewModelProvider(this).get(RecommendViewModel.class);
         root = inflater.inflate(R.layout.fragment_post, container, false);
-
+        mAuth = FirebaseAuth.getInstance();
         binding=FragmentPostBinding.bind(root);
         //final TextView textView = root.findViewById(R.id.text_post);
       /*  postViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -178,19 +185,19 @@ public class PostFragment extends Fragment {
                             if(binding.chipHappy.isChecked()){
                                 Chip chip=root.findViewById(binding.chipHappy.getId());
                                 chip.getText().toString();
-                                writeNewUser("3", radioValue, binding.titleinput.toString(), binding.detailinput.toString(), storageRef.getDownloadUrl().toString(), chip.getText().toString());
+                                writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.toString(), binding.detailinput.toString(), storageRef.getDownloadUrl().toString(), chip.getText().toString());
 
                             }
                             else if(binding.chipSad.isChecked()){
                                 Chip chip=root.findViewById(binding.chipSad.getId());
                                 chip.getText().toString();
-                                writeNewUser("3", radioValue, binding.titleinput.toString(), binding.detailinput.toString(), storageRef.getDownloadUrl().toString(), chip.getText().toString());
+                                writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.toString(), binding.detailinput.toString(), storageRef.getDownloadUrl().toString(), chip.getText().toString());
 
                             }
                             else{
                                 Chip chip=root.findViewById(binding.chipAngry.getId());
                                 chip.getText().toString();
-                                writeNewUser("3", radioValue, binding.titleinput.toString(), binding.detailinput.toString(), storageRef.getDownloadUrl().toString(), chip.getText().toString());
+                                writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.toString(), binding.detailinput.toString(), storageRef.getDownloadUrl().toString(), chip.getText().toString());
 
                             }
                             //storageRef.getDownloadUrl();

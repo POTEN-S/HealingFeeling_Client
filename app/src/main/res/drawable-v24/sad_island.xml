@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    android:shape="oval">
+    <item android:state_pressed="true"
+        android:drawable="@drawable/angry_island"/>
 
-    <solid android:color="@color/teal_200"/>
-    <size android:width="50dp" android:height="50dp"/>
+</selector>
 
-</shape>
