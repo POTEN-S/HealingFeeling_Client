@@ -29,10 +29,9 @@ import java.util.List;
 
 public class BookFragment extends Fragment {
 
-
+    private RecyclerView recyclerView;
     private RecyclerAdapter adapter;
-
-    private ArrayList<Data> arrayList;
+    private ArrayList<Data> listData;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
@@ -46,36 +45,44 @@ public class BookFragment extends Fragment {
 
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
 
-        databaseReference = database.getReference("User"); // DB 테이블 연결
+        databaseReference = database.getReference().child("posttest"); // DB 테이블 연결
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
-                arrayList.clear(); // 기존 배열리스트가 존재하지않게 초기화
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
-                    Data data = snapshot.getValue(Data.class); // 만들어뒀던 User 객체에 데이터를 담는다.
-                    arrayList.add(data); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
-                }
+                listData.clear(); // 기존 배열리스트가 존재하지않게 초기화
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
+//                    String data = snapshot.child("title").getValue(Data.class); // 만들어뒀던 Data 객체에 데이터를 담는다.
+//                    listData.add(data); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
+//                }
+                Data data = dataSnapshot.getValue(Data.class);
+                listData.add(data);
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
+
+                Log.d("asdf",data.getTitle().toString());
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // 디비를 가져오던중 에러 발생 시
-                Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+                Log.e("BookFragment", String.valueOf(databaseError.toException())); // 에러문 출력
             }
         });
 
 
 
+
+
         View root = inflater.inflate(R.layout.fragment_book, container, false);
 
-        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
 
         GridLayoutManager GridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(GridLayoutManager);
 
-        adapter = new RecyclerAdapter();
+        listData = new ArrayList<>();   // Data 객체를 담을 어레이 리스트 (어댑터쪽으로)
+        adapter = new RecyclerAdapter(listData, getContext());
         recyclerView.setAdapter(adapter);
         //getData();
 
@@ -84,7 +91,7 @@ public class BookFragment extends Fragment {
     }
 
 
-
+/*
     private void getData() {
         // 임의의 데이터입니다.
         List<String> listTitle = Arrays.asList("국화", "사막", "수국", "해파리", "코알라", "등대", "펭귄", "튤립",
@@ -149,6 +156,6 @@ public class BookFragment extends Fragment {
         // adapter의 값이 변경되었다는 것을 알려줍니다.
         adapter.notifyDataSetChanged();
     }
-
+*/
 
 }

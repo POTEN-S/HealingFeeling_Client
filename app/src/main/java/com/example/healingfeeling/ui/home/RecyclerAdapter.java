@@ -1,5 +1,6 @@
 package com.example.healingfeeling.ui.home;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
 
     // adapter에 들어갈 list 입니다.
-    private ArrayList<Data> listData = new ArrayList<>();
+    private ArrayList<Data> listData;
+    //private ArrayList<Data> listData = new ArrayList<>();
+    private Context context;
+
+    public RecyclerAdapter(ArrayList<Data> listData, Context context) {
+        this.listData = listData;
+        this.context = context;
+
+    }
 
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
@@ -42,23 +51,31 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        // Item을 하나, 하나 보여주는(bind 되는) 함수입니다.
 
+/*
         // 서버로부터 image 불러와 imageview안에 넣어줌
         Glide.with(holder.itemView)
                 .load(listData.get(position).getPhoto())
                 .into(holder.imageView);
+*/
+        holder.titletext.setText(listData.get(position).getTitle());
+        holder.subtitletext.setText(listData.get(position).getSubtitle());
+        holder.contenttext.setText(listData.get(position).getContent());
+        holder.registerCount.setText(listData.get(position).getRegisterCount());
 
-        holder.onBind(listData.get(position));
+
+        // Item을 하나, 하나 보여주는(bind 되는) 함수입니다.
+        //holder.onBind(listData.get(position));
     }
 
     @Override
     public int getItemCount() {
         // RecyclerView의 총 개수 입니다.
-        return listData.size();
+        // 삼항 연산자
+        return (listData != null ? listData.size() : 0);
     }
 
-
+/*
     void addItem(Data data) {
         // 외부에서 item을 추가시킬 함수입니다.
         listData.add(data);
@@ -78,10 +95,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                 return ret ;
             }
         };
-
         Collections.sort(listData, noAsc) ;
     }
-
+*/
     // RecyclerView의 핵심인 ViewHolder 입니다.
     // 여기서 subView를 setting 해줍니다.
     class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -89,12 +105,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         private TextView titletext;
         private TextView contenttext;
         private TextView subtitletext;
-        private ImageView imageView;
+       // private ImageView imageView;
 
-        private boolean favorite;
+      //  private boolean favorite;
         private TextView registerCount;
 
-        private Button button;
+       // private Button button;
 
         ItemViewHolder(View itemView) {
             super(itemView);
@@ -102,9 +118,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             titletext = itemView.findViewById(R.id.titletext);
             subtitletext = itemView.findViewById(R.id.subtitletext);
             contenttext = itemView.findViewById(R.id.contenttext);
-            imageView = itemView.findViewById(R.id.imageView);
+          //  imageView = itemView.findViewById(R.id.imageView);
             registerCount = itemView.findViewById(R.id.registercount);
-            button = itemView.findViewById(R.id.favoritebutton);
+          //  button = itemView.findViewById(R.id.favoritebutton);
 
         }
 
@@ -113,10 +129,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             titletext.setText(data.getTitle());
             subtitletext.setText(data.getSubtitle());
             contenttext.setText(data.getContent());
-            imageView.setImageResource(data.getResId());
-            favorite = data.getFavorite();
+        //    imageView.setImageResource(data.getResId());
+         //   favorite = data.getFavorite();
             registerCount.setText(String.valueOf(data.getRegisterCount()));
-
+/*
             button.setSelected(favorite);
 
             button.setOnClickListener(new Button.OnClickListener() {
@@ -136,6 +152,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                     }
                 }
             });
+
+            */
         }
 
 

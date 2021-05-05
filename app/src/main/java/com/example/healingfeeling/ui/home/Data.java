@@ -4,12 +4,13 @@ package com.example.healingfeeling.ui.home;
 public class Data {
 
     private String photo;
+    private String category;
+    private String uid;
+    private Boolean favorite;
     private String title;
     private String content;
     private String subtitle;
-    private int resId;
-    private boolean favorite;
-    private int registerCount;
+    private String registerCount;
 
     public Data(){}
 
@@ -20,6 +21,23 @@ public class Data {
     public void setPhoto(String photo){
         this.photo = photo;
     }
+
+    public String getCategory(){
+        return photo;
+    }
+
+    public void setCategory(String category){
+        this.photo = photo;
+    }
+
+    public String getUid(){
+        return uid;
+    }
+
+    public void setUid(String uid){
+        this.uid = uid;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -44,22 +62,15 @@ public class Data {
         this.subtitle = subtitle;
     }
 
-    public int getResId() {
-        return resId;
-    }
-
-    public void setResId(int resId) {
-        this.resId = resId;
-    }
 
 
     public boolean getFavorite() { return favorite; }
 
     public void setFavorite(boolean favorite) { this.favorite = favorite; }
 
-    public int getRegisterCount() { return registerCount; }
+    public String getRegisterCount() { return registerCount; }
 
-    public void setRegisterCount(int registerCount) { this.registerCount = registerCount; }
+    public void setRegisterCount(String registerCount) { this.registerCount = registerCount; }
 
 
 }

@@ -15,14 +15,11 @@ import com.example.healingfeeling.model.Post;
 import com.example.healingfeeling.model.UserInfo;
 import com.example.healingfeeling.ui.recommend.RecommendViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static android.os.Build.ID;
 
 public class PostFragment extends Fragment {
 
