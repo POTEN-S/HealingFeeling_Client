@@ -1,8 +1,10 @@
 package com.example.healingfeeling.ui.home;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,25 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
 
+/*
+        //MainActivity에서 전달한 번들 저장
+        Bundle bundle = getArguments();
+        // 번들 안의 텍스트 불러오기
+        String emotion = bundle.getString("emotion");
+
+        Log.d("emotion", emotion);*/
+        /*
+        SongFragment sf = new SongFragment();
+        BookFragment bf = new BookFragment();
+        PlaceFragment pf = new PlaceFragment();
+
+        Bundle sendbundle = new Bundle();
+        sendbundle.putString("emotion", emotion);
+
+        sf.setArguments(sendbundle);
+        bf.setArguments(sendbundle);
+        pf.setArguments(sendbundle);
+*/
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);

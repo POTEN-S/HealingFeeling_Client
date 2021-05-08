@@ -17,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
+            android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="도서" />
@@ -46,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <EditText
-        android:id="@+id/textinput"
+        android:id="@+id/detailinput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -77,33 +78,37 @@
         android:backgroundTint="@color/clouds"
         android:scaleType="fitCenter"
         android:src="@drawable/camera"
-        app:layout_constraintStart_toStartOf="@+id/textinput"
-        app:layout_constraintTop_toBottomOf="@+id/textinput" />
+        app:layout_constraintStart_toStartOf="@+id/detailinput"
+        app:layout_constraintTop_toBottomOf="@+id/detailinput" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip4"
+        android:id="@+id/chipHappy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="행복"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
         app:layout_constraintStart_toStartOf="@+id/camera_btn"
-        app:layout_constraintTop_toBottomOf="@+id/camera_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip5"
+        android:id="@+id/chipSad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="슬픔"
-        app:layout_constraintStart_toEndOf="@+id/chip4"
-        app:layout_constraintTop_toTopOf="@+id/chip4" />
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        app:layout_constraintStart_toEndOf="@+id/chipHappy"
+        app:layout_constraintTop_toTopOf="@+id/chipHappy" />
 
 
     <com.google.android.material.chip.Chip
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Chip.Choice"
+        android:id="@+id/chipAngry"
         android:text="분노"
-        app:layout_constraintStart_toEndOf="@+id/chip5"
-        app:layout_constraintTop_toTopOf="@+id/chip5" />
+        app:layout_constraintStart_toEndOf="@+id/chipSad"
+        app:layout_constraintTop_toTopOf="@+id/chipSad" />
 
     <Button
         android:id="@+id/check_btn"
@@ -112,10 +117,16 @@
         android:layout_below="@id/gallery_btn"
         android:text="등록"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textinput"
-        app:layout_constraintStart_toStartOf="@+id/textinput" />
+        app:layout_constraintEnd_toEndOf="@+id/detailinput"
+        app:layout_constraintStart_toStartOf="@+id/detailinput" />
 
-
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toEndOf="@+id/gallery_btn"
+        app:layout_constraintTop_toTopOf="@+id/gallery_btn"
+        app:srcCompat="@drawable/feelings" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

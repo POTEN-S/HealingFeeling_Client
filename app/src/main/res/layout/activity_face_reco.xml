@@ -13,88 +13,78 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B1E0E6"
+    android:background="#62C9D6"
     tools:context=".MainActivity">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/movie_item"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
+        android:id="@+id/photo_frame"
+        android:layout_width="320dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/polaroid_bg"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/photo_frame"
-            android:layout_width="320dp"
-            android:layout_height="400dp"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:layout_margin="4dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/polaroid_bg"
-            android:orientation="vertical"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emotionNextBtn">
-
-            <FrameLayout
-                android:id="@+id/frameLayout"
-                android:layout_width="match_parent"
-                android:layout_height="350dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/photo_image"
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="bottom"
-                    android:background="@drawable/polaroid_text_bg"
-                    android:scaleType="fitXY"
-                    app:riv_border_width="0dp"
-                    app:riv_corner_radius="8dp" />
-
-                <TextView
-                    android:id="@+id/guide_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_gravity="top"
-                    android:background="@drawable/polaroid_text_bg"
-                    android:gravity="center"
-                    android:padding="4dp"
-                    android:text="당신의 감정을 찾아보세요!!"
-                    android:textColor="@color/white"
-                    android:textSize="24sp" />
-
-                <Button
-                    android:id="@+id/photo_add_btn"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/ic_posterplus" />
-
-
-            </FrameLayout>
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/photo_image"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="#AFE0E6"
+                android:scaleType="fitXY"
+                app:riv_border_width="0dp"
+                app:riv_corner_radius="8dp" />
 
             <TextView
-                android:id="@+id/face_result"
-                android:layout_width="wrap_content"
+                android:id="@+id/guide_line"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_gravity="top"
+                android:background="#FFEB3B"
                 android:gravity="center"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-                app:text="@{user.emotion}"
-                tools:text="감정 분석중"/>
+                android:padding="4dp"
+                android:text="당신의 감정을 분석합니다!!"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/photo_add_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_posterplus" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/face_result"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+            app:text="@{user.emotion}"
+            tools:text="감정 분석중" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/refresh_btn"
             android:layout_width="320dp"
             android:layout_height="50dp"
@@ -141,8 +131,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_baseline_arrow_forward_24" />
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

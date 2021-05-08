@@ -1,6 +1,7 @@
 package com.example.healingfeeling;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -48,6 +49,12 @@ public class SignupActivity extends AppCompatActivity {
     private FirebaseStorage mStorage;
     private String pathUri;
     private File tempFile;
+    private EditText etname;
+    private EditText etemail;
+    private EditText etpwd;
+
+    SharedPreferences pref;          // 프리퍼런스
+    SharedPreferences.Editor editor;
 
 
 
@@ -66,6 +73,9 @@ public class SignupActivity extends AppCompatActivity {
         findViewById(R.id.signupActivity_imageview_profile).setOnClickListener(onClickListener);
         profile = (ImageView)findViewById(R.id.signupActivity_imageview_profile);
         findViewById(R.id.gotoLoginBtn).setOnClickListener(onClickListener);
+
+        etemail = (EditText) findViewById(R.id.signupActivity_edittext_email);
+
 
 
 
@@ -122,7 +132,10 @@ public class SignupActivity extends AppCompatActivity {
                                 User userModel = new User();
                                 userModel.userName = name;
                                 userModel.profileImageUrl = imageUrl;
-
+                                pref = getSharedPreferences("pref", MODE_PRIVATE);
+                                editor = pref.edit();
+                                editor.putString("uid",uid);
+                                editor.apply();
 
                             }
                         });
@@ -144,6 +157,13 @@ public class SignupActivity extends AppCompatActivity {
                                     userModel.uid = uid;
                                     userModel.profileImageUrl = imageUrl.getResult().toString();
 
+                                    pref = getSharedPreferences("pref", MODE_PRIVATE);
+                                    editor = pref.edit();
+                                    editor.putString("uid",uid);
+                                    editor.apply();
+
+
+
                                     // database에 저장
                                     mDatabase.getReference().child("users").child(uid)
                                             .setValue(userModel);
@@ -152,13 +172,10 @@ public class SignupActivity extends AppCompatActivity {
                             });
 
 
-
-
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             startToast("회원가입에 성공하였습니다.");
-
 
                             //UI
                         } else {

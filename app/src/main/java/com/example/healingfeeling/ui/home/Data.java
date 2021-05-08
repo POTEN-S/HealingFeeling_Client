@@ -1,33 +1,35 @@
 package com.example.healingfeeling.ui.home;
 
 
+import java.lang.reflect.Array;
+import java.util.List;
+
 public class Data {
 
-    private String photo;
+    private String image;
     private String category;
     private String uid;
-    private Boolean favorite;
+    private String favorite;
     private String title;
-    private String content;
     private String subtitle;
-    private String registerCount;
+    private String registercount;
 
     public Data(){}
 
     public String getPhoto(){
-        return photo;
+        return image;
     }
 
-    public void setPhoto(String photo){
-        this.photo = photo;
+    public void setPhoto(String image){
+        this.image = image;
     }
 
     public String getCategory(){
-        return photo;
+        return category;
     }
 
     public void setCategory(String category){
-        this.photo = photo;
+        this.category = category;
     }
 
     public String getUid(){
@@ -46,14 +48,6 @@ public class Data {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public String getSubtitle() {
         return subtitle;
     }
@@ -64,13 +58,13 @@ public class Data {
 
 
 
-    public boolean getFavorite() { return favorite; }
+    public String getFavorite() { return favorite; }
 
-    public void setFavorite(boolean favorite) { this.favorite = favorite; }
+    public void setFavorite(String favorite) { this.favorite = favorite; }
 
-    public String getRegisterCount() { return registerCount; }
+    public String getRegisterCount() { return registercount; }
 
-    public void setRegisterCount(String registerCount) { this.registerCount = registerCount; }
+    public void setRegisterCount(String registercount) { this.registercount = registercount; }
 
 
 }

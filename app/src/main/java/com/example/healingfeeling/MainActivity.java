@@ -2,8 +2,14 @@ package com.example.healingfeeling;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.healingfeeling.ui.home.BookFragment;
+import com.example.healingfeeling.ui.home.HomeFragment;
+import com.example.healingfeeling.ui.home.PlaceFragment;
+import com.example.healingfeeling.ui.home.SongFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -24,10 +30,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        //IslandActivity로부터 값 전달받기
+        Intent intent = getIntent();
+        String emotion = intent.getStringExtra("emotion");
+
+        //Log.d("asdf",emotion);
+
+
+        //SongFragment sf = new SongFragment();
+        //BookFragment bf = new BookFragment();
+        //PlaceFragment pf = new PlaceFragment();
+
+       // Bundle sendbundle = new Bundle();
+        //sendbundle.putString("emotion", emotion);
+
+        //sf.setArguments(sendbundle);
+        //bf.setArguments(sendbundle);
+        //pf.setArguments(sendbundle);
+
+
         if(FirebaseAuth.getInstance().getCurrentUser() == null){
             startLoginActivity();
-
-
         }
 
 

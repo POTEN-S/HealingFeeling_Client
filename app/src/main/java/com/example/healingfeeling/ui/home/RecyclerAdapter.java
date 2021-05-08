@@ -45,22 +45,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         // return 인자는 ViewHolder 입니다.
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
 
-
         return new ItemViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
 
-/*
+
         // 서버로부터 image 불러와 imageview안에 넣어줌
-        Glide.with(holder.itemView)
+        Glide.with(holder.imageView)
                 .load(listData.get(position).getPhoto())
                 .into(holder.imageView);
-*/
+
         holder.titletext.setText(listData.get(position).getTitle());
         holder.subtitletext.setText(listData.get(position).getSubtitle());
-        holder.contenttext.setText(listData.get(position).getContent());
         holder.registerCount.setText(listData.get(position).getRegisterCount());
 
 
@@ -105,7 +103,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         private TextView titletext;
         private TextView contenttext;
         private TextView subtitletext;
-       // private ImageView imageView;
+        private ImageView imageView;
 
       //  private boolean favorite;
         private TextView registerCount;
@@ -117,21 +115,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
             titletext = itemView.findViewById(R.id.titletext);
             subtitletext = itemView.findViewById(R.id.subtitletext);
-            contenttext = itemView.findViewById(R.id.contenttext);
-          //  imageView = itemView.findViewById(R.id.imageView);
+            imageView = itemView.findViewById(R.id.imageView);
             registerCount = itemView.findViewById(R.id.registercount);
           //  button = itemView.findViewById(R.id.favoritebutton);
 
         }
 
-
+/*
         void onBind(Data data) {
             titletext.setText(data.getTitle());
             subtitletext.setText(data.getSubtitle());
-            contenttext.setText(data.getContent());
-        //    imageView.setImageResource(data.getResId());
+            imageView.setImageResource(data.getPhoto());
          //   favorite = data.getFavorite();
             registerCount.setText(String.valueOf(data.getRegisterCount()));
+            */
 /*
             button.setSelected(favorite);
 
@@ -158,4 +155,3 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
 
     }
-}
