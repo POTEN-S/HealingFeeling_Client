@@ -112,7 +112,7 @@ public class FaceRecoActivity extends AppCompatActivity {
         //다이얼로그
         progressDialog = new ProgressDialog(FaceRecoActivity.this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage("서버통신중~~");
+        progressDialog.setMessage("얼굴인식중~~");
 
         guide_line = findViewById(R.id.guide_line);
         photo_image = findViewById(R.id.photo_image);
