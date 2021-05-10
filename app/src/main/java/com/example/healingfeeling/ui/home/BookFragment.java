@@ -105,10 +105,10 @@ public class BookFragment extends Fragment {
             Data data = new Data();
             data.setTitle(listTitle.get(i));
             data.setSubtitle(listTitle.get(i));
-            data.setContent(listContent.get(i));
-            data.setResId(listResId.get(i));
-            data.setFavorite(listFavorite.get(i));
-            data.setRegisterCount(listRegister.get(i));
+            //data.setContent(listContent.get(i));
+            //data.setResId(listResId.get(i));
+           // data.setFavorite(listFavorite.get(i));
+            //data.setRegisterCount(listRegister.get(i));
 
             // 각 값이 들어간 data를 adapter에 추가합니다.
             //adapter.addItem(data);

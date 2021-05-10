@@ -56,7 +56,7 @@ public class PlaceFragment extends Fragment {
 
         LinearLayoutManager GridLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(GridLayoutManager);
-          //번들 받기. getArguments() 메소드로 받음.
+        //번들 받기. getArguments() 메소드로 받음.
         Bundle bundle = getArguments();
         if(bundle != null){
             String emotion = bundle.getString("emotion"); //Name 받기.
@@ -112,12 +112,9 @@ public class PlaceFragment extends Fragment {
                 R.drawable.ic_home_black_24dp,
                 R.drawable.ic_home_black_24dp
         );
-
         List<Boolean> listFavorite = Arrays.asList(new Boolean[16]);
         Collections.fill(listFavorite, Boolean.FALSE);
-
         List<Integer> listRegister = Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
-
         for (int i = 0; i < listTitle.size(); i++) {
             // 각 List의 값들을 data 객체에 set 해줍니다.
             Data data = new Data();
@@ -127,7 +124,6 @@ public class PlaceFragment extends Fragment {
             data.setResId(listResId.get(i));
             data.setFavorite(listFavorite.get(i));
             data.setRegisterCount(listRegister.get(i));
-
             // 각 값이 들어간 data를 adapter에 추가합니다.
             adapter.addItem(data);
         }*/

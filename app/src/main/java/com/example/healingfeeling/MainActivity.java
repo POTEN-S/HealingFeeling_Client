@@ -1,3 +1,4 @@
+
 package com.example.healingfeeling;
 
 import android.annotation.SuppressLint;
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 // 또는 view 를 이용하여 찾을수도 있다.
 
 
-       // getSupportActionBar().setTitle("healingfeeling");
+        // getSupportActionBar().setTitle("healingfeeling");
 
     }
 

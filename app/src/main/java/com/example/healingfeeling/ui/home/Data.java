@@ -1,14 +1,44 @@
 package com.example.healingfeeling.ui.home;
 
 
+import java.lang.reflect.Array;
+import java.util.List;
+
 public class Data {
 
+    private String image;
+    private String category;
+    private String uid;
+    private String favorite;
     private String title;
-    private String content;
     private String subtitle;
-    private int resId;
-    private boolean favorite;
-    private int registerCount;
+    private String registercount;
+
+    public Data(){}
+
+    public String getPhoto(){
+        return image;
+    }
+
+    public void setPhoto(String image){
+        this.image = image;
+    }
+
+    public String getCategory(){
+        return category;
+    }
+
+    public void setCategory(String category){
+        this.category = category;
+    }
+
+    public String getUid(){
+        return uid;
+    }
+
+    public void setUid(String uid){
+        this.uid = uid;
+    }
 
     public String getTitle() {
         return title;
@@ -16,14 +46,6 @@ public class Data {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public String getSubtitle() {
@@ -34,22 +56,15 @@ public class Data {
         this.subtitle = subtitle;
     }
 
-    public int getResId() {
-        return resId;
-    }
-
-    public void setResId(int resId) {
-        this.resId = resId;
-    }
 
 
-    public boolean getFavorite() { return favorite; }
+    public String getFavorite() { return favorite; }
 
-    public void setFavorite(boolean favorite) { this.favorite = favorite; }
+    public void setFavorite(String favorite) { this.favorite = favorite; }
 
-    public int getRegisterCount() { return registerCount; }
+    public String getRegisterCount() { return registercount; }
 
-    public void setRegisterCount(int registerCount) { this.registerCount = registerCount; }
+    public void setRegisterCount(String registercount) { this.registercount = registercount; }
 
 
 }

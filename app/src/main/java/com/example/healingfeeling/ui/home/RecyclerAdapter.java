@@ -61,18 +61,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             @Override
             public int compare(Data item1, Data item2) {
                 int ret ;
-
                 if (item1.getRegisterCount() < item2.getRegisterCount())
                     ret = 1 ;
                 else if (item1.getRegisterCount() == item2.getRegisterCount())
                     ret = 0 ;
                 else
                     ret = -1 ;
-
                 return ret ;
             }
         };
-
         Collections.sort(listData, noAsc) ;*/
     }
 

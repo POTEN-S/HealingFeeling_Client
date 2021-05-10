@@ -104,7 +104,6 @@ public class PostFragment extends Fragment {
             userInfo = new UserInfo(ID, PW, name, birth, gender, height, weight, disease, purpose)
             userValue = userInfo.toMap();
         }
-
         childUpdates.put("/User_info/" + ID, userValue);
         mDBReference.updateChildren(childUpdates);*/
 
@@ -122,7 +121,7 @@ public class PostFragment extends Fragment {
                 //uploadImg();
                 uploadFile();
             }}
-            );
+        );
 
         binding.cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
