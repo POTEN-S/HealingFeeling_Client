@@ -37,20 +37,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/titletext" />
 
-    <TextView
-        android:id="@+id/contenttext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:text="contenttext"
-        android:textSize="15dp"
-        app:layout_constraintStart_toStartOf="@+id/titletext"
-        app:layout_constraintTop_toTopOf="@+id/titletext" />
-
     <Button
         android:id="@+id/favoritebutton"
         android:layout_width="35dp"
         android:layout_height="35dp"
+        android:layout_marginBottom="280dp"
         android:background="@drawable/item_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

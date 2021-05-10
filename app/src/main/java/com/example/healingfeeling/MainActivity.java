@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.example.healingfeeling.ui.chatting.ChattingFragment;
 import com.example.healingfeeling.ui.home.HomeFragment;
+import com.example.healingfeeling.ui.home.SongFragment;
 import com.example.healingfeeling.ui.recommend.RecommendFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private HomeFragment menu1Fragment = new HomeFragment();
+    private SongFragment songFragment = new SongFragment();
     private RecommendFragment menu2Fragment = new RecommendFragment();
     private ChattingFragment menu3Fragment = new ChattingFragment();
 
@@ -64,9 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.navigation_home: {
                         transaction.replace(R.id.nav_host_fragment, menu1Fragment);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("emotion", emotion);
-                        menu1Fragment.setArguments(bundle);
                         transaction.commitAllowingStateLoss();
                         break;
                     }

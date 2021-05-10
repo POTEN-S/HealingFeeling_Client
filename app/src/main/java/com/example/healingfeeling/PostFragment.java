@@ -430,7 +430,7 @@ public class PostFragment extends Fragment {
         mDBReference.child(emotion).child(key).setValue(post)
                 .addOnSuccessListener(aVoid -> {
                     // Write was successful!
-                   // Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override

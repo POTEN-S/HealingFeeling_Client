@@ -78,7 +78,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
     class ItemViewHolder extends RecyclerView.ViewHolder {
 
         private TextView titletext;
-        private TextView contenttext;
         private TextView subtitletext;
         private ImageView imageView;
 
@@ -92,7 +91,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
             titletext = itemView.findViewById(R.id.titletext);
             subtitletext = itemView.findViewById(R.id.subtitletext);
-            contenttext = itemView.findViewById(R.id.contenttext);
             imageView = itemView.findViewById(R.id.imageView);
             registerCount = itemView.findViewById(R.id.registercount);
             button = itemView.findViewById(R.id.favoritebutton);
