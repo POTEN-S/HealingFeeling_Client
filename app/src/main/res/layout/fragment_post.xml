@@ -17,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
+            android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="도서" />
@@ -46,18 +47,15 @@
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <EditText
-        android:id="@+id/textinput"
+        android:id="@+id/subtitleinput"
         android:layout_width="0dp"
+        android:hint="서브타이"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="내용"
-        android:inputType="textMultiLine"
-        android:lines="5"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/titleinput"
         app:layout_constraintStart_toStartOf="@+id/titleinput"
         app:layout_constraintTop_toBottomOf="@+id/titleinput" />
+
+
 
     <ImageButton
         android:id="@+id/gallery_btn"
@@ -77,45 +75,70 @@
         android:backgroundTint="@color/clouds"
         android:scaleType="fitCenter"
         android:src="@drawable/camera"
-        app:layout_constraintStart_toStartOf="@+id/textinput"
-        app:layout_constraintTop_toBottomOf="@+id/textinput" />
+        app:layout_constraintStart_toStartOf="@+id/subtitleinput"
+        app:layout_constraintTop_toBottomOf="@+id/subtitleinput" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip4"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="행복"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="76dp"
+        app:singleSelection="true"
         app:layout_constraintStart_toStartOf="@+id/camera_btn"
-        app:layout_constraintTop_toBottomOf="@+id/camera_btn" />
+        app:layout_constraintTop_toBottomOf="@id/camera_btn">
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="슬픔"
-        app:layout_constraintStart_toEndOf="@+id/chip4"
-        app:layout_constraintTop_toTopOf="@+id/chip4" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipHappy"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="행복"
+            app:layout_constraintStart_toStartOf="@+id/camera_btn"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipSad"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="슬픔"
+            app:layout_constraintStart_toEndOf="@+id/chipHappy"
+            app:layout_constraintTop_toTopOf="@+id/chipHappy" />
 
 
-    <com.google.android.material.chip.Chip
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="분노"
-        app:layout_constraintStart_toEndOf="@+id/chip5"
-        app:layout_constraintTop_toTopOf="@+id/chip5" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipAngry"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="분노"
+            app:layout_constraintStart_toEndOf="@+id/chipSad"
+            app:layout_constraintTop_toTopOf="@+id/chipSad" />
+    </com.google.android.material.chip.ChipGroup>
 
     <Button
         android:id="@+id/check_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/gallery_btn"
+        android:layout_marginStart="28dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="32dp"
         android:text="등록"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textinput"
-        app:layout_constraintStart_toStartOf="@+id/textinput" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
-
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toEndOf="@+id/gallery_btn"
+        app:layout_constraintTop_toTopOf="@+id/gallery_btn"
+        app:srcCompat="@drawable/feelings" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,135 +5,135 @@
     <data>
 
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MypageActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MypageActivity">
 
-    <ImageView
-        android:id="@+id/mypageActivity_imageview_profile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="84dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-         />
+        <ImageView
+            android:id="@+id/mypageActivity_imageview_profile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="84dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
-    <TextView
-        android:id="@+id/myPageNickName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/mypageActivity_imageview_profile"
-        app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="@+id/mypageActivity_imageview_profile"
-        app:layout_constraintTop_toBottomOf="@+id/mypageActivity_imageview_profile" />
+        <TextView
+            android:id="@+id/myPageNickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/mypageActivity_imageview_profile"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintStart_toStartOf="@+id/mypageActivity_imageview_profile"
+            app:layout_constraintTop_toBottomOf="@+id/mypageActivity_imageview_profile" />
 
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:text="로그아웃"
-        app:layout_constraintEnd_toEndOf="@+id/myPageNickName"
-        app:layout_constraintStart_toStartOf="@+id/myPageNickName"
-        app:layout_constraintTop_toBottomOf="@+id/myPageNickName" />
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:text="로그아웃"
+            app:layout_constraintEnd_toEndOf="@+id/myPageNickName"
+            app:layout_constraintStart_toStartOf="@+id/myPageNickName"
+            app:layout_constraintTop_toBottomOf="@+id/myPageNickName" />
 
-    <Button
-        android:id="@+id/userDeleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="57dp"
-        android:text="회원탈퇴"
-        app:layout_constraintEnd_toEndOf="@+id/logoutButton"
-        app:layout_constraintStart_toStartOf="@+id/logoutButton"
-        app:layout_constraintTop_toBottomOf="@+id/logoutButton" />
+        <Button
+            android:id="@+id/userDeleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="57dp"
+            android:text="회원탈퇴"
+            app:layout_constraintEnd_toEndOf="@+id/logoutButton"
+            app:layout_constraintStart_toStartOf="@+id/logoutButton"
+            app:layout_constraintTop_toBottomOf="@+id/logoutButton" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myPageNickName"
-        app:srcCompat="@drawable/mypage_div" />
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/myPageNickName"
+            app:srcCompat="@drawable/mypage_div" />
 
-    <com.dinuscxj.progressbar.CircleProgressBar
-        android:id="@+id/progressHappy"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/progressSad"
-        app:progress_start_color="#F1B7F3"
-        app:progress_end_color="#F1B7F3"
-        app:progress_background_color="#F4F1F1"
-        app:progress_stroke_cap="round"
-        app:progress_stroke_width="10dp"
-        app:style="solid_line" />
+        <com.dinuscxj.progressbar.CircleProgressBar
+            android:id="@+id/progressHappy"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/progressSad"
+            app:progress_start_color="#F1B7F3"
+            app:progress_end_color="#F1B7F3"
+            app:progress_background_color="#F4F1F1"
+            app:progress_stroke_cap="round"
+            app:progress_stroke_width="10dp"
+            app:style="solid_line" />
 
-    <com.dinuscxj.progressbar.CircleProgressBar
-        android:id="@+id/progressSad"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="88dp"
-        app:layout_constraintEnd_toStartOf="@+id/progressAngry"
-        app:layout_constraintStart_toEndOf="@+id/progressHappy"
-        app:layout_constraintTop_toBottomOf="@+id/userDeleteButton"
-        app:progress_background_color="#F4F1F1"
-        app:progress_start_color="#03A9F4"
-       app:progress_end_color="#03A9F4"
-        app:progress_stroke_cap="round"
-        app:progress_stroke_width="10dp"
-        app:style="solid_line" />
+        <com.dinuscxj.progressbar.CircleProgressBar
+            android:id="@+id/progressSad"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="88dp"
+            app:layout_constraintEnd_toStartOf="@+id/progressAngry"
+            app:layout_constraintStart_toEndOf="@+id/progressHappy"
+            app:layout_constraintTop_toBottomOf="@+id/userDeleteButton"
+            app:progress_background_color="#F4F1F1"
+            app:progress_start_color="#03A9F4"
+            app:progress_end_color="#03A9F4"
+            app:progress_stroke_cap="round"
+            app:progress_stroke_width="10dp"
+            app:style="solid_line" />
 
-    <com.dinuscxj.progressbar.CircleProgressBar
-        android:id="@+id/progressAngry"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/progressSad"
-        app:progress_start_color="#F44336"
-        app:progress_end_color="#F44336"
-        app:progress_background_color="#F4F1F1"
+        <com.dinuscxj.progressbar.CircleProgressBar
+            android:id="@+id/progressAngry"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginEnd="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/progressSad"
+            app:progress_start_color="#F44336"
+            app:progress_end_color="#F44336"
+            app:progress_background_color="#F4F1F1"
 
-        app:progress_stroke_cap="round"
-        app:progress_stroke_width="10dp"
-        app:style="solid_line" />
+            app:progress_stroke_cap="round"
+            app:progress_stroke_width="10dp"
+            app:style="solid_line" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="행복"
-        app:layout_constraintEnd_toEndOf="@+id/progressHappy"
-        app:layout_constraintStart_toStartOf="@+id/progressHappy"
-        app:layout_constraintTop_toBottomOf="@+id/progressHappy" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="행복"
+            app:layout_constraintEnd_toEndOf="@+id/progressHappy"
+            app:layout_constraintStart_toStartOf="@+id/progressHappy"
+            app:layout_constraintTop_toBottomOf="@+id/progressHappy" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="슬픔"
-        app:layout_constraintEnd_toEndOf="@+id/progressSad"
-        app:layout_constraintStart_toStartOf="@+id/progressSad"
-        app:layout_constraintTop_toBottomOf="@+id/progressSad" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="슬픔"
+            app:layout_constraintEnd_toEndOf="@+id/progressSad"
+            app:layout_constraintStart_toStartOf="@+id/progressSad"
+            app:layout_constraintTop_toBottomOf="@+id/progressSad" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="분노"
-        app:layout_constraintEnd_toEndOf="@+id/progressAngry"
-        app:layout_constraintStart_toStartOf="@+id/progressAngry"
-        app:layout_constraintTop_toBottomOf="@+id/progressAngry" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="분노"
+            app:layout_constraintEnd_toEndOf="@+id/progressAngry"
+            app:layout_constraintStart_toStartOf="@+id/progressAngry"
+            app:layout_constraintTop_toBottomOf="@+id/progressAngry" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

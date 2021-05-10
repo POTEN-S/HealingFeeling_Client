@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,7 +12,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
+import com.bumptech.glide.Glide;
+import com.example.healingfeeling.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,42 +26,38 @@ public class LoginActivity extends AppCompatActivity  {
     private static final String TAG = "SignUpActivity";
     private FirebaseAuth mAuth;
 
-
+    private ActivityLoginBinding binding;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
 
+
+        binding= ActivityLoginBinding.inflate(getLayoutInflater());
         mAuth = FirebaseAuth.getInstance();
+        View view = binding.getRoot();
+        setContentView(view);
 
-
-
-        findViewById(R.id.loginActivity_button_login).setOnClickListener(onClickListener);
-        findViewById(R.id.loginActivity_button_signup).setOnClickListener(onClickListener);
-
+        binding.loginActivityButtonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginEvent();
+            }
+        });
+        binding.loginActivityButtonSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myStartActivity(SignupActivity.class);
+            }
+        });
 
 
 
     }
 
 
-    View.OnClickListener onClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.loginActivity_button_login:
-                    loginEvent();
-                    break;
-                case R.id.loginActivity_button_signup:
-                    myStartActivity(SignupActivity.class);
-                    break;
-
-            }
-        }
-    };
 
 
 

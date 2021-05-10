@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healingfeeling.R;
+import com.example.healingfeeling.model.Post;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +26,7 @@ public class BookFragment extends Fragment {
 
 
     private RecyclerAdapter adapter;
-
+    ArrayList<Post> arraypost=new ArrayList<>();
     public static BookFragment newInstance() {
         BookFragment tab2 = new BookFragment();
         return tab2;
@@ -41,7 +43,7 @@ public class BookFragment extends Fragment {
         GridLayoutManager GridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(GridLayoutManager);
 
-        adapter = new RecyclerAdapter();
+        adapter = new RecyclerAdapter(arraypost);
         recyclerView.setAdapter(adapter);
         getData();
 
@@ -103,13 +105,13 @@ public class BookFragment extends Fragment {
             Data data = new Data();
             data.setTitle(listTitle.get(i));
             data.setSubtitle(listTitle.get(i));
-            data.setContent(listContent.get(i));
-            data.setResId(listResId.get(i));
-            data.setFavorite(listFavorite.get(i));
-            data.setRegisterCount(listRegister.get(i));
+            //data.setContent(listContent.get(i));
+            //data.setResId(listResId.get(i));
+           // data.setFavorite(listFavorite.get(i));
+            //data.setRegisterCount(listRegister.get(i));
 
             // 각 값이 들어간 data를 adapter에 추가합니다.
-            adapter.addItem(data);
+            //adapter.addItem(data);
         }
 
         // adapter의 값이 변경되었다는 것을 알려줍니다.

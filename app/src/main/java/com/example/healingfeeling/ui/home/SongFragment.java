@@ -1,6 +1,9 @@
 package com.example.healingfeeling.ui.home;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +18,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healingfeeling.R;
+import com.example.healingfeeling.model.Post;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,6 +33,12 @@ import java.util.List;
 
 public class SongFragment extends Fragment {
 
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    ArrayList<String> aa=new ArrayList<>();
+    ArrayList<Post> arraypost=new ArrayList<>();
+    RecyclerView recyclerView;
+    String emotion;
 
     private RecyclerAdapter adapter;
 
@@ -37,15 +53,15 @@ public class SongFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_song, container, false);
 
-        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
 
 
         GridLayoutManager GridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(GridLayoutManager);
 
+        SharedPreferences sharedPreferences= this.getActivity().getSharedPreferences("test", Context.MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
+        emotion = sharedPreferences.getString("emotion","");
 
-        adapter = new RecyclerAdapter();
-        recyclerView.setAdapter(adapter);
         getData();
 
 
@@ -56,59 +72,33 @@ public class SongFragment extends Fragment {
 
     private void getData() {
         // 임의의 데이터입니다.
-        List<String> listTitle = Arrays.asList("Celebrity", "밤하늘의 별을(2020)", "Dynamite", "잠이 오질 않네요",
-                "Lovesick Girls", "에잇", "내 손을 잡아", "Blueming",
-                "오래된 노래[스탠딩에그]", "Dolphin[오마이걸]");
-        List<String> listSubtitle = Arrays.asList("아이유", "경서", "방탄소년단", "장범준",
-                "블랙핑크", "아이유", "아이유", "아이유",
-                "스탠딩에그", "오마이걸");
-        List<String> listContent = Arrays.asList(
-                "이 노래 좋아요.",
-                "이 노래 좋아요..",
-                "이 노래 좋아요.",
-                "이 노래 좋아요.",
-                "이 노래 좋아요.",
-                "이 노래 좋아요.",
-                "이 노래 좋아요.",
-                "이 노래 좋아요.",
-                "이 노래 좋아요.",
-                "이 노래 좋아요."
-        );
-        List<Integer> listResId = Arrays.asList(
-                R.drawable.ic_home_black_24dp,
-                R.drawable.ic_home_black_24dp,
-                R.drawable.ic_home_black_24dp,
-                R.drawable.ic_home_black_24dp,
-                R.drawable.ic_home_black_24dp,
-                R.drawable.ic_home_black_24dp,
-                R.drawable.ic_home_black_24dp,
-                R.drawable.ic_home_black_24dp,
-                R.drawable.ic_home_black_24dp,
-                R.drawable.ic_home_black_24dp
-        );
+        database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
 
-        List<Boolean> listFavorite = Arrays.asList(new Boolean[16]);
-        Collections.fill(listFavorite, Boolean.FALSE);
+        databaseReference = database.getReference().child(emotion); // DB 테이블 연결
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
+                arraypost.clear(); // 기존 배열리스트가 존재하지않게 초기화
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
+                    Post data = snapshot.getValue(Post.class); // 만들어뒀던 Data 객체에 데이터를 담는다.
+                    arraypost.add(data); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
 
-        List<Integer> listRegister = Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
+                }
+                adapter = new RecyclerAdapter(arraypost);
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
+            }
 
-        for (int i = 0; i < listTitle.size(); i++) {
-            // 각 List의 값들을 data 객체에 set 해줍니다.
-            Data data = new Data();
-            data.setTitle(listTitle.get(i));
-            data.setSubtitle(listTitle.get(i));
-            data.setContent(listContent.get(i));
-            data.setResId(listResId.get(i));
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // 디비를 가져오던중 에러 발생 시
+                Log.e("BookFragment", String.valueOf(databaseError.toException())); // 에러문 출력
+            }
+        });
 
-            data.setFavorite(listFavorite.get(i));
-            data.setRegisterCount(listRegister.get(i));
 
-            // 각 값이 들어간 data를 adapter에 추가합니다.
-            adapter.addItem(data);
-        }
 
-        // adapter의 값이 변경되었다는 것을 알려줍니다.
-        adapter.notifyDataSetChanged();
     }
 
 

@@ -1,7 +1,9 @@
 package com.example.healingfeeling;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +21,45 @@ public class IslandActivity extends AppCompatActivity {
 
         binding= DataBindingUtil.setContentView(this,R.layout.activity_island);
 
-        binding.happyBtn.setOnClickListener(v ->startActivity(new Intent(this,MainActivity.class)));
-        binding.sadBtn.setOnClickListener(v ->startActivity(new Intent(this,MainActivity.class)));
-        binding.angryBtn.setOnClickListener(v ->startActivity(new Intent(this,MainActivity.class)));
+        binding.happyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(IslandActivity.this,MainActivity.class);
+
+                SharedPreferences sharedPreferences= getSharedPreferences("test", MODE_PRIVATE);    // test 이름의 기본모드 설정
+                SharedPreferences.Editor editor= sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
+                editor.putString("emotion","행복"); // key,value 형식으로 저장
+                editor.commit();    //최종 커밋. 커밋을 해야 저장이 된다.
+
+                startActivity(intent);
+            }
+        });
+        binding.sadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(IslandActivity.this,MainActivity.class);
+
+                SharedPreferences sharedPreferences= getSharedPreferences("test", MODE_PRIVATE);    // test 이름의 기본모드 설정
+                SharedPreferences.Editor editor= sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
+                editor.putString("emotion","슬픔"); // key,value 형식으로 저장
+                editor.commit();    //최종 커밋. 커밋을 해야 저장이 된다.
+
+                startActivity(intent);
+            }
+        });
+        binding.angryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(IslandActivity.this,MainActivity.class);
+
+                SharedPreferences sharedPreferences= getSharedPreferences("test", MODE_PRIVATE);    // test 이름의 기본모드 설정
+                SharedPreferences.Editor editor= sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
+                editor.putString("emotion","분노"); // key,value 형식으로 저장
+                editor.commit();    //최종 커밋. 커밋을 해야 저장이 된다.
+
+                startActivity(intent);
+            }
+        });
 
         binding.myPage.setOnClickListener(v -> startActivity(new Intent(this,MypageActivity.class)));
 

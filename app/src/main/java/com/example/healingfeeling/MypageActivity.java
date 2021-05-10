@@ -118,7 +118,6 @@ public class MypageActivity extends AppCompatActivity {
 
 
 
-
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
