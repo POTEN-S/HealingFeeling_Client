@@ -173,8 +173,8 @@ public class PostFragment extends Fragment {
             Date now = new Date();
             String filename = formatter.format(now) + ".png";
             //storage 주소와 폴더 파일명을 지정해 준다.
-           // StorageReference storageRef = storage.getReferenceFromUrl("healingfeeling-9c1bf.appspot.com").child("images/" + filename);
-            StorageReference storageRef = storage.getReference().child("postimage");
+            StorageReference storageRef = storage.getReferenceFromUrl("gs://healingfeeling-9c1bf.appspot.com").child("post/" + filename);
+            //StorageReference storageRef = storage.getReference().child("postimage");
             //StorageReference storageRef = storage.child("profileImage").child();
             //올라가거라...
             UploadTask uploadTask = storageRef.putFile(filePath);
@@ -430,7 +430,7 @@ public class PostFragment extends Fragment {
         mDBReference.child(emotion).child(key).setValue(post)
                 .addOnSuccessListener(aVoid -> {
                     // Write was successful!
-                   // Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override

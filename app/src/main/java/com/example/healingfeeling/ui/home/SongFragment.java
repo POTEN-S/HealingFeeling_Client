@@ -1,5 +1,7 @@
 package com.example.healingfeeling.ui.home;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +38,7 @@ public class SongFragment extends Fragment {
     ArrayList<String> aa=new ArrayList<>();
     ArrayList<Post> arraypost=new ArrayList<>();
     RecyclerView recyclerView;
+    String emotion;
 
     private RecyclerAdapter adapter;
 
@@ -56,6 +59,8 @@ public class SongFragment extends Fragment {
         GridLayoutManager GridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(GridLayoutManager);
 
+        SharedPreferences sharedPreferences= this.getActivity().getSharedPreferences("test", Context.MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
+        emotion = sharedPreferences.getString("emotion","");
 
         getData();
 
@@ -69,7 +74,7 @@ public class SongFragment extends Fragment {
         // 임의의 데이터입니다.
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
 
-        databaseReference = database.getReference().child("행복"); // DB 테이블 연결
+        databaseReference = database.getReference().child(emotion); // DB 테이블 연결
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

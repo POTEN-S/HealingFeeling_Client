@@ -1,3 +1,4 @@
+
 package com.example.healingfeeling.ui.home;
 
 import android.annotation.TargetApi;
@@ -52,15 +53,6 @@ public class HomeFragment extends Fragment {
 
         ViewPager viewPager = root.findViewById(R.id.viewPager);
         tabLayout = root.findViewById(R.id.tab);
-
-
-        Bundle bundle = getArguments();  //번들 받기. getArguments() 메소드로 받음.
-        if(bundle != null){
-            String emotion = bundle.getString("emotion"); //Name 받기.
-//            Log.d("home",emotion); //확인
-
-        }
-
 
 
         tabLayout.addTab(tabLayout.newTab().setText("노래"));
