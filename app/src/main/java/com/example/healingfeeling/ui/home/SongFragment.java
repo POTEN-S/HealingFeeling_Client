@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healingfeeling.R;
+import com.example.healingfeeling.model.Post;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,43 +26,63 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SongFragment extends Fragment {
 
-    private RecyclerView recyclerView;
-    private RecyclerAdapter adapter;
-    private ArrayList<Data> listData;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+    ArrayList<String> aa=new ArrayList<>();
+    ArrayList<Post> arraypost=new ArrayList<>();
+    RecyclerView recyclerView;
 
-    public static BookFragment newInstance() {
-        BookFragment tab2 = new BookFragment();
-        return tab2;
+    private RecyclerAdapter adapter;
+
+    public static SongFragment newInstance() {
+        SongFragment tab1 = new SongFragment();
+        return tab1;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
 
-        //Bundle bundle = getArguments();
-        //String emotion = bundle.getString("emotion");
+        View root = inflater.inflate(R.layout.fragment_song, container, false);
 
+        recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
+
+
+        GridLayoutManager GridLayoutManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(GridLayoutManager);
+
+
+        getData();
+
+
+        return root;
+    }
+
+
+
+    private void getData() {
+        // 임의의 데이터입니다.
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
 
-        databaseReference = database.getReference().child("happy"); // DB 테이블 연결
+        databaseReference = database.getReference().child("행복"); // DB 테이블 연결
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
-                listData.clear(); // 기존 배열리스트가 존재하지않게 초기화
+                arraypost.clear(); // 기존 배열리스트가 존재하지않게 초기화
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
-                    Data data = snapshot.getValue(Data.class); // 만들어뒀던 Data 객체에 데이터를 담는다.
-                    listData.add(data); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
-                }
-                adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
+                    Post data = snapshot.getValue(Post.class); // 만들어뒀던 Data 객체에 데이터를 담는다.
+                    arraypost.add(data); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
 
-                Log.d("dfs", listData.toString());
+                }
+                adapter = new RecyclerAdapter(arraypost);
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
             }
 
             @Override
@@ -73,25 +94,7 @@ public class SongFragment extends Fragment {
 
 
 
-
-
-
-
-        View root = inflater.inflate(R.layout.fragment_book, container, false);
-
-        recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화
-
-        GridLayoutManager GridLayoutManager = new GridLayoutManager(getContext(), 2);
-        recyclerView.setLayoutManager(GridLayoutManager);
-
-        listData = new ArrayList<>();   // Data 객체를 담을 어레이 리스트 (어댑터쪽으로)
-        adapter = new RecyclerAdapter(listData, getContext());
-        recyclerView.setAdapter(adapter);
-        //getData();
-
-
-        return root;
     }
+
 
 }

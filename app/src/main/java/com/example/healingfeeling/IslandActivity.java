@@ -23,29 +23,13 @@ public class IslandActivity extends AppCompatActivity {
         binding.happyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(IslandActivity.this, MainActivity.class);
-                intent.putExtra("emotion", "happy");
+                Intent intent = new Intent(IslandActivity.this,MainActivity.class);
+                intent.putExtra("emotion","happy");
                 startActivity(intent);
             }
         });
-        binding.sadBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                Intent intent = new Intent(IslandActivity.this, MainActivity.class);
-                intent.putExtra("emotion", "sad");
-                startActivity(intent);
-            }
-        });
-        binding.angryBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(IslandActivity.this, MainActivity.class);
-                intent.putExtra("emotion", "angry");
-                startActivity(intent);
-            }
-        });
+        binding.sadBtn.setOnClickListener(v ->startActivity(new Intent(this,MainActivity.class)));
+        binding.angryBtn.setOnClickListener(v ->startActivity(new Intent(this,MainActivity.class)));
 
         binding.myPage.setOnClickListener(v -> startActivity(new Intent(this,MypageActivity.class)));
 

@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_chatting"
-        android:icon="@drawable/ic_baseline_group_24"
-        android:title="Chatting" />
-
-    <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="Home" />
+
+    <item
+        android:id="@+id/navigation_chatting"
+        android:icon="@drawable/ic_baseline_group_24"
+        android:title="chatting" />
 
     <item
         android:id="@+id/navigation_recommend"
