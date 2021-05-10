@@ -2,6 +2,7 @@ package com.example.healingfeeling;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,14 @@ public class IslandActivity extends AppCompatActivity {
 
         binding= DataBindingUtil.setContentView(this,R.layout.activity_island);
 
-        binding.happyBtn.setOnClickListener(v ->startActivity(new Intent(this,MainActivity.class)));
+        binding.happyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(IslandActivity.this,MainActivity.class);
+                intent.putExtra("emotion","happy");
+                startActivity(intent);
+            }
+        });
         binding.sadBtn.setOnClickListener(v ->startActivity(new Intent(this,MainActivity.class)));
         binding.angryBtn.setOnClickListener(v ->startActivity(new Intent(this,MainActivity.class)));
 

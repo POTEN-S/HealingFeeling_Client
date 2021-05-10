@@ -1,14 +1,23 @@
 package com.example.healingfeeling;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.healingfeeling.ui.chatting.ChattingFragment;
+import com.example.healingfeeling.ui.home.HomeFragment;
+import com.example.healingfeeling.ui.recommend.RecommendFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -19,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
 
     NavController navController;
 
+
+    private HomeFragment menu1Fragment = new HomeFragment();
+    private RecommendFragment menu2Fragment = new RecommendFragment();
+    private ChattingFragment menu3Fragment = new ChattingFragment();
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,15 +43,54 @@ public class MainActivity extends AppCompatActivity {
         if(FirebaseAuth.getInstance().getCurrentUser() == null){
             startLoginActivity();
 
-
         }
 
+        String emotion = getIntent().getStringExtra("emotion");
+
+        //Log.d("asdf",emotion);
+
+
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.nav_host_fragment, menu1Fragment).commitAllowingStateLoss();
+
+
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                switch (item.getItemId()) {
+                    case R.id.navigation_home: {
+                        transaction.replace(R.id.nav_host_fragment, menu1Fragment);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("emotion", emotion);
+                        menu1Fragment.setArguments(bundle);
+                        transaction.commitAllowingStateLoss();
+                        break;
+                    }
+                    case R.id.navigation_chatting: {
+                        transaction.replace(R.id.nav_host_fragment, menu3Fragment).commitAllowingStateLoss();
+                        break;
+                    }
+                    case R.id.navigation_recommend: {
+                        transaction.replace(R.id.nav_host_fragment, menu2Fragment).commitAllowingStateLoss();
+                        break;
+                    }
+
+                }
+
+                return true;
+            }
+        });
+
+        //getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,HomeFragment).commit();
 
 
         Toolbar tb = (Toolbar) findViewById(R.id.toolbar) ;
         setSupportActionBar(tb) ;
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        /*BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -43,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+        NavigationUI.setupWithNavController(navView, navController);*/
 
 
 // 또는 view 를 이용하여 찾을수도 있다.
@@ -65,7 +120,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_add) {
             //등록하기 버튼
-            navController.navigate(R.id.navigation_post);
+            //navController.navigate(R.id.navigation_post);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.nav_host_fragment, new PostFragment()).commit();
             return true;
         }
         else if(item.getItemId()==R.id.action_island){
