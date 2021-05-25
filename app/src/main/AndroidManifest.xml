@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.EmotionMatching">
+
         <activity android:name=".MypageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -32,6 +33,9 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".FaceRecoActivity" />
         <activity android:name=".IslandActivity" />
+        <activity
+            android:name=".ui.chatting.ChatActivity">
+        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -51,6 +55,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".MainActivity" />
     </application>
