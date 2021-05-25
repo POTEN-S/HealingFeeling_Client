@@ -338,12 +338,22 @@ public class FaceRecoActivity extends AppCompatActivity {
                                     double percent = Double.parseDouble(String.format("%.2f", confidence));*/
 
                                     result = "당신의 감정은 " + angry + "이고 " + percent + "% 입니다.!!";
+
+                                    String faceemotion="";
+                                    if(angry.equals("smile")){
+                                        faceemotion="행복";
+                                    }else if(angry.equals("angry")){
+                                        faceemotion="분노";
+                                    }else if(angry.equals("sad")){
+                                        faceemotion="슬픔";
+                                    }
+
                                     binding.faceResult.setText(result);
                                    // face_result.setText(result);
 
                                     SharedPreferences sharedPreferences= getSharedPreferences("test", MODE_PRIVATE);    // test 이름의 기본모드 설정
                                     SharedPreferences.Editor editor= sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
-                                    editor.putString("emotion","슬픔"); // key,value 형식으로 저장
+                                    editor.putString("emotion",faceemotion); // key,value 형식으로 저장
                                     editor.commit();    //최종 커밋. 커밋을 해야 저장이 된다.
 
                                     Intent intent = new Intent(FaceRecoActivity.this,MainActivity.class);
