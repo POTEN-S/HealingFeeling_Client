@@ -1,6 +1,7 @@
 package com.example.healingfeeling.ui.chatting;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -35,6 +36,10 @@ public class ChatActivity extends AppCompatActivity {
     //'chat'노드의 참조객체 참조변수
     DatabaseReference chatRef;
 
+    String chat;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +53,16 @@ public class ChatActivity extends AppCompatActivity {
         adapter=new ChatAdapter(messageItems,getLayoutInflater());
         listView.setAdapter(adapter);
 
+
+
         //Firebase DB관리 객체와 'caht'노드 참조객체 얻어오기
         firebaseDatabase= FirebaseDatabase.getInstance();
-        chatRef= firebaseDatabase.getReference("chat");
+
+
+        SharedPreferences sharedPreferences= getSharedPreferences("test", Context.MODE_PRIVATE);
+        chat = sharedPreferences.getString("chat","");
+
+        chatRef= firebaseDatabase.getReference().child(chat);
 
 
         //firebaseDB에서 채팅 메세지들 실시간 읽어오기..

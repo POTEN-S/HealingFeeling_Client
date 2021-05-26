@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.example.healingfeeling.ui.chatting.ChattingFragment;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -30,13 +32,15 @@ public class FragmentAdapter extends FragmentPagerAdapter {
                 return BookFragment.newInstance();
             case 2:
                 return PlaceFragment.newInstance();
+            case 3:
+                return ChattingFragment.newInstance();
             default:
                 return null;
         }
     }
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
 
