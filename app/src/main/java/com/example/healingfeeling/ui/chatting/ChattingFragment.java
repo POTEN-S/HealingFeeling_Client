@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.healingfeeling.R;
+import com.example.healingfeeling.ui.home.SongFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,6 +45,12 @@ public class ChattingFragment extends Fragment {
     Uri imgUri; //선택한 프로필 이미지 경로 uri
     //선택한 프로필 이미지 경로 uri
 
+
+    public static ChattingFragment newInstance() {
+        ChattingFragment tab4 = new ChattingFragment();
+        return tab4;
+    }
+
     boolean isFirst = true; //앱을 처음 실행한 것인가
     boolean isChanged = false;//프로필을 변경한적이 있는가?
 
@@ -63,6 +70,7 @@ public class ChattingFragment extends Fragment {
                 if (!isChanged && !isFirst) {
                     //ChatActivity로 전환
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
+
                     startActivity(intent);
 
 
@@ -174,6 +182,9 @@ public class ChattingFragment extends Fragment {
 
                         editor.commit();
                         //저장이 완료되었으니 ChatActivity로 전환
+
+
+
                         Intent intent=new Intent(getActivity(), ChatActivity.class);
                         startActivity(intent);
                     }
