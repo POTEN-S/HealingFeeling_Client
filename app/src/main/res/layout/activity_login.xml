@@ -47,11 +47,21 @@
         app:layout_constraintStart_toStartOf="@+id/loginActivity_edittext_id"
         app:layout_constraintTop_toBottomOf="@+id/loginActivity_edittext_id" />
 
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="자동로그인"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/loginActivity_edittext_password"
+        app:layout_constraintStart_toStartOf="@+id/loginActivity_edittext_password"
+        app:layout_constraintTop_toBottomOf="@+id/loginActivity_edittext_password"/>
+
     <Button
         android:id="@+id/loginActivity_button_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="60dp"
 
         android:text="로그인"
         app:layout_constraintEnd_toEndOf="@+id/loginActivity_edittext_password"
