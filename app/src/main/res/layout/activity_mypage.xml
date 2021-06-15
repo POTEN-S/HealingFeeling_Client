@@ -11,20 +11,29 @@
         tools:context=".MypageActivity">
 
         <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/mypagelogo"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ImageView
             android:id="@+id/mypageActivity_imageview_profile"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="84dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            android:layout_marginTop="100dp"
+            app:layout_constraintEnd_toEndOf="@id/imageView6"
+            app:layout_constraintStart_toStartOf="@id/imageView6"
+            app:layout_constraintTop_toTopOf="@id/imageView6" />
 
         <TextView
             android:id="@+id/myPageNickName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/mypageActivity_imageview_profile"
             app:layout_constraintHorizontal_bias="0.454"
@@ -35,7 +44,7 @@
             android:id="@+id/logoutButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="30dp"
             android:text="로그아웃"
             app:layout_constraintEnd_toEndOf="@+id/myPageNickName"
             app:layout_constraintStart_toStartOf="@+id/myPageNickName"
@@ -45,7 +54,7 @@
             android:id="@+id/userDeleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="57dp"
+            android:layout_marginTop="30dp"
             android:text="회원탈퇴"
             app:layout_constraintEnd_toEndOf="@+id/logoutButton"
             app:layout_constraintStart_toStartOf="@+id/logoutButton"
