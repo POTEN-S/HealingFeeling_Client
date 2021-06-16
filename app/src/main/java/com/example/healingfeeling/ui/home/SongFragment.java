@@ -84,7 +84,9 @@ public class SongFragment extends Fragment {
                 arraypost.clear(); // 기존 배열리스트가 존재하지않게 초기화
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
                     Post data = snapshot.getValue(Post.class); // 만들어뒀던 Data 객체에 데이터를 담는다.
-                    arraypost.add(data); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
+
+                    if (data.category.equals("노래")){
+                        arraypost.add(data); }
 
                 }
                 adapter = new RecyclerAdapter(arraypost);
@@ -95,7 +97,7 @@ public class SongFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // 디비를 가져오던중 에러 발생 시
-                Log.e("BookFragment", String.valueOf(databaseError.toException())); // 에러문 출력
+                Log.e("SongFragment", String.valueOf(databaseError.toException())); // 에러문 출력
             }
         });
 
