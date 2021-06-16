@@ -18,6 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healingfeeling.MainActivity;
 import com.example.healingfeeling.R;
+import com.example.healingfeeling.api.MyApi;
+import com.example.healingfeeling.databinding.FragmentPostBinding;
+import com.example.healingfeeling.databinding.FragmentRecommendBinding;
 import com.example.healingfeeling.model.Post;
 import com.example.healingfeeling.ui.home.PlaceFragment;
 import com.example.healingfeeling.ui.home.PostRecyclerAdapter;
@@ -28,6 +31,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RecommendFragment extends Fragment {
 
@@ -38,6 +48,10 @@ public class RecommendFragment extends Fragment {
     private DatabaseReference databaseReference;
     ArrayList<Post> arraypost=new ArrayList<>();
 
+    FragmentRecommendBinding binding;
+    private final String BASE_URL = "http://4220f4acce86.ngrok.io/";
+    private MyApi mMyAPI;
+    private final  String TAG = getClass().getSimpleName();
 
     public static RecommendFragment newInstance() {
         RecommendFragment recommendFragment = new RecommendFragment();
@@ -50,11 +64,12 @@ public class RecommendFragment extends Fragment {
 
 
         View root = inflater.inflate(R.layout.fragment_recommend, container, false);
+        binding= FragmentRecommendBinding.bind(root);
 
-        recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
+        initMyAPI(BASE_URL);
 
-        LinearLayoutManager GridLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(GridLayoutManager);
+
+
         //번들 받기. getArguments() 메소드로 받음.
         Bundle bundle = getArguments();
         if(bundle != null){
@@ -62,11 +77,166 @@ public class RecommendFragment extends Fragment {
             Log.d("Recommend",emotion); //확인
 
         }
+        binding.btnPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                com.example.healingfeeling.api.Post item = new com.example.healingfeeling.api.Post();
+                item.setTitle("Android title");
+                item.setText("Android text");
+                Call<com.example.healingfeeling.api.Post> postCall = mMyAPI.post_posts(item);
+                postCall.enqueue(new Callback<com.example.healingfeeling.api.Post>() {
+                    @Override
+                    public void onResponse(Call<com.example.healingfeeling.api.Post> call, Response<com.example.healingfeeling.api.Post> response) {
+                        if(response.isSuccessful()){
+                            Log.d(TAG,"등록 완료");
+                        }else {
+                            Log.d(TAG,"Status Code : " + response.code());
+                            Log.d(TAG,response.errorBody().toString());
+                            Log.d(TAG,call.request().body().toString());
+                        }
+                    }
 
-        getData();
+                    @Override
+                    public void onFailure(Call<com.example.healingfeeling.api.Post> call, Throwable t) {
+                        Log.d(TAG,"Fail msg : " + t.getMessage());
+                    }
+                });
+            }
+        });
+
+        //getData();
+        Call<List<com.example.healingfeeling.api.Post>> getCall = mMyAPI.get_posts();
+        getCall.enqueue(new Callback<List<com.example.healingfeeling.api.Post>>() {
+            @Override
+            public void onResponse(Call<List<com.example.healingfeeling.api.Post>> call, Response<List<com.example.healingfeeling.api.Post>> response) {
+                if( response.isSuccessful()){
+                    List<com.example.healingfeeling.api.Post> mList = response.body();
+                    String result ="";
+                    Boolean check = false;
+                    for( com.example.healingfeeling.api.Post item : mList){
+                        result =item.getTitle() ;
+                    }
+                    Log.d(TAG,"겟 성공");
+                    binding.songRecommend.setText(result);
+                }else {
+                    Log.d(TAG,"Status Code : " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<com.example.healingfeeling.api.Post>> call, Throwable t) {
+                Log.d(TAG,"Fail msg : " + t.getMessage());
+            }
+        });
 
 
         return root;
+    }
+    private void initMyAPI(String baseUrl){
+
+        Log.d(TAG,"initMyAPI : " + baseUrl);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        mMyAPI = retrofit.create(MyApi.class);
+    }
+
+    /*void setListener(){
+        if( v == mGetButton){
+            Log.d(TAG,"GET");
+            Call<List<com.example.healingfeeling.api.Post>> getCall = mMyAPI.get_posts();
+            getCall.enqueue(new Callback<List<com.example.healingfeeling.api.Post>>() {
+                @Override
+                public void onResponse(Call<List<com.example.healingfeeling.api.Post>> call, Response<List<com.example.healingfeeling.api.Post>> response) {
+                    if( response.isSuccessful()){
+                        List<com.example.healingfeeling.api.Post> mList = response.body();
+                        String result ="";
+                        for( com.example.healingfeeling.api.Post item : mList){
+                            result += "title : " + item.getTitle() + " text: " + item.getText() + "\n";
+                        }
+                        Log.d(TAG,"겟 성공");
+                        mListTv.setText(result);
+                    }else {
+                        Log.d(TAG,"Status Code : " + response.code());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<com.example.healingfeeling.api.Post>> call, Throwable t) {
+                    Log.d(TAG,"Fail msg : " + t.getMessage());
+                }
+            });
+        }else if(v == mPostButton){
+            Log.d(TAG,"POST");
+
+
+            com.example.healingfeeling.api.Post item = new com.example.healingfeeling.api.Post();
+            item.setTitle("Android title");
+            item.setText("Android text");
+            Call<com.example.healingfeeling.api.Post> postCall = mMyAPI.post_posts(item);
+            postCall.enqueue(new Callback<com.example.healingfeeling.api.Post>() {
+                @Override
+                public void onResponse(Call<com.example.healingfeeling.api.Post> call, Response<com.example.healingfeeling.api.Post> response) {
+                    if(response.isSuccessful()){
+                        Log.d(TAG,"등록 완료");
+                    }else {
+                        Log.d(TAG,"Status Code : " + response.code());
+                        Log.d(TAG,response.errorBody().toString());
+                        Log.d(TAG,call.request().body().toString());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<com.example.healingfeeling.api.Post> call, Throwable t) {
+                    Log.d(TAG,"Fail msg : " + t.getMessage());
+                }
+            });
+        }else if( v == mPatchButton){
+            Log.d(TAG,"PATCH");
+            com.example.healingfeeling.api.Post item = new com.example.healingfeeling.api.Post();
+            item.setTitle("android patch title");
+            item.setText("android patch text");
+            //pk 값은 임의로 하드코딩하였지만 동적으로 setting 해서 사용가능
+            Call<com.example.healingfeeling.api.Post> patchCall = mMyAPI.patch_posts(1,item);
+            patchCall.enqueue(new Callback<com.example.healingfeeling.api.Post>() {
+                @Override
+                public void onResponse(Call<com.example.healingfeeling.api.Post> call, Response<com.example.healingfeeling.api.Post> response) {
+                    if(response.isSuccessful()){
+                        Log.d(TAG,"patch 성공");
+                    }else{
+                        Log.d(TAG,"Status Code : " + response.code());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<com.example.healingfeeling.api.Post> call, Throwable t) {
+                    Log.d(TAG,"Fail msg : " + t.getMessage());
+                }
+            });
+
+
+        }else if( v == mDeleteButton){
+            Log.d(TAG,"DELETE");
+            // pk 값은 임의로 변경가능
+            Call<com.example.healingfeeling.api.Post> deleteCall = mMyAPI.delete_posts(2);
+            deleteCall.enqueue(new Callback<com.example.healingfeeling.api.Post>() {
+                @Override
+                public void onResponse(Call<com.example.healingfeeling.api.Post> call, Response<com.example.healingfeeling.api.Post> response) {
+                    if(response.isSuccessful()){
+                        Log.d(TAG,"삭제 완료");
+                    }else {
+                        Log.d(TAG,"Status Code : " + response.code());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<com.example.healingfeeling.api.Post> call, Throwable t) {
+                    Log.d(TAG,"Fail msg : " + t.getMessage());
+                }
+            });
+        }
     }
 
 
@@ -97,7 +267,7 @@ public class RecommendFragment extends Fragment {
                 Log.e("RecommendFragment", String.valueOf(databaseError.toException())); // 에러문 출력
             }
         });
-    }
+    }*/
 
 
 }
