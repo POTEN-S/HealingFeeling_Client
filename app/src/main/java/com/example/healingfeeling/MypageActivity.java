@@ -50,11 +50,12 @@ public class MypageActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseDatabase database;
 
+
     private SharedPreferences pref;
+
     TextView angry_text;
     TextView sad_text;
     TextView happy_text;
-
 
 
     @Override
