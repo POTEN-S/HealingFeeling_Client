@@ -349,7 +349,7 @@ public class FaceRecoActivity extends AppCompatActivity {
                                     }
 
                                     binding.faceResult.setText(result);
-                                   // face_result.setText(result);
+                                    // face_result.setText(result);
 
                                     SharedPreferences sharedPreferences= getSharedPreferences("test", MODE_PRIVATE);    // test 이름의 기본모드 설정
                                     SharedPreferences.Editor editor= sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
@@ -493,3 +493,4 @@ public class FaceRecoActivity extends AppCompatActivity {
         return currentPosterPath;
     }
 }
+

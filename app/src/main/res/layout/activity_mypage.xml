@@ -44,7 +44,7 @@
             android:id="@+id/logoutButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:text="로그아웃"
             app:layout_constraintEnd_toEndOf="@+id/myPageNickName"
             app:layout_constraintStart_toStartOf="@+id/myPageNickName"
@@ -54,9 +54,10 @@
             android:id="@+id/userDeleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="4dp"
             android:text="회원탈퇴"
             app:layout_constraintEnd_toEndOf="@+id/logoutButton"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/logoutButton"
             app:layout_constraintTop_toBottomOf="@+id/logoutButton" />
 
@@ -71,13 +72,14 @@
             app:layout_constraintTop_toBottomOf="@+id/myPageNickName"
             app:srcCompat="@drawable/mypage_div" />
 
-        <com.dinuscxj.progressbar.CircleProgressBar
+        <ImageView
             android:id="@+id/progressHappy"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginStart="50dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/progressSad"
+            app:srcCompat="@drawable/smile"
             app:progress_start_color="#F1B7F3"
             app:progress_end_color="#F1B7F3"
             app:progress_background_color="#F4F1F1"
@@ -85,11 +87,12 @@
             app:progress_stroke_width="10dp"
             app:style="solid_line" />
 
-        <com.dinuscxj.progressbar.CircleProgressBar
+        <ImageView
             android:id="@+id/progressSad"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginTop="88dp"
+            android:layout_marginTop="50dp"
+            app:srcCompat="@drawable/sad"
             app:layout_constraintEnd_toStartOf="@+id/progressAngry"
             app:layout_constraintStart_toEndOf="@+id/progressHappy"
             app:layout_constraintTop_toBottomOf="@+id/userDeleteButton"
@@ -100,11 +103,12 @@
             app:progress_stroke_width="10dp"
             app:style="solid_line" />
 
-        <com.dinuscxj.progressbar.CircleProgressBar
+        <ImageView
             android:id="@+id/progressAngry"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginEnd="50dp"
+            app:srcCompat="@drawable/angry"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/progressSad"
             app:progress_start_color="#F44336"
