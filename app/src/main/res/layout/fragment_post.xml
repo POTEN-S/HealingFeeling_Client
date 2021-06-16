@@ -140,5 +140,15 @@
         app:layout_constraintTop_toTopOf="@+id/gallery_btn"
         app:srcCompat="@drawable/feelings" />
 
+    <EditText
+        android:id="@+id/inputRatings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="평점을 소수점단위로 남겨주세요"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/chipGroup"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
