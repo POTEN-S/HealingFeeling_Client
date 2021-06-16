@@ -7,8 +7,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,11 +49,12 @@ public class MypageActivity extends AppCompatActivity {
     FirebaseUser user;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
+
     TextView angry_text;
     TextView sad_text;
     TextView happy_text;
 
-
+    private SharedPreferences pref;
 
 
 
@@ -202,6 +205,10 @@ public class MypageActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.logoutButton:
+                    pref = getSharedPreferences("settings", Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.remove("id");
+                    editor.remove("pw");
                     FirebaseAuth.getInstance().signOut();
                     myStartActivity(LoginActivity.class);
                     break;
