@@ -31,12 +31,12 @@
             android:inputType="textMultiLine"
             android:padding="10dp"
             android:maxLines="3"
-            android:background="@drawable/back_et_name"/>
+            android:background="@drawable/input_bg"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="send"
-            android:backgroundTint="#ff8800"
+            android:text="전송"
+            android:background="@drawable/btn_bg"
             android:layout_marginLeft="8dp"
             android:onClick="clickSend"
             tools:ignore="OnClick" />

@@ -208,21 +208,21 @@ public class PostFragment extends Fragment {
                             Chip chip=root.findViewById(binding.chipHappy.getId());
                             chip.getText().toString();
                             writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
-                                    binding.subtitleinput.getText().toString(),mDownloadImageUri.toString(), chip.getText().toString(),aa,0);
+                                    binding.subtitleinput.getText().toString(),mDownloadImageUri.toString(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
 
                         }
                         else if(binding.chipSad.isChecked()){
                             Chip chip=root.findViewById(binding.chipSad.getId());
                             chip.getText().toString();
                             writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
-                                    binding.subtitleinput.getText().toString(),mDownloadImageUri.toString(), chip.getText().toString(),aa,0);
+                                    binding.subtitleinput.getText().toString(),mDownloadImageUri.toString(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
 
                         }
                         else{
                             Chip chip=root.findViewById(binding.chipAngry.getId());
                             chip.getText().toString();
                             writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
-                                    binding.subtitleinput.getText().toString(),mDownloadImageUri.toString(), chip.getText().toString(),aa,0);
+                                    binding.subtitleinput.getText().toString(),mDownloadImageUri.toString(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
 
                         }
                         //storageRef.getDownloadUrl();
@@ -345,21 +345,21 @@ public class PostFragment extends Fragment {
                             Chip chip=root.findViewById(binding.chipHappy.getId());
                             chip.getText().toString();
                             writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
-                                    binding.subtitleinput.getText().toString(),downloadUrl.toString(), chip.getText().toString(),aa,0);
+                                    binding.subtitleinput.getText().toString(),downloadUrl.toString(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
 
                         }
                         else if(binding.chipSad.isChecked()){
                             Chip chip=root.findViewById(binding.chipSad.getId());
                             chip.getText().toString();
                             writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
-                                    binding.subtitleinput.getText().toString(),downloadUrl.toString(), chip.getText().toString(),aa,0);
+                                    binding.subtitleinput.getText().toString(),downloadUrl.toString(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
 
                         }
                         else{
                             Chip chip=root.findViewById(binding.chipAngry.getId());
                             chip.getText().toString();
                             writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
-                                    binding.subtitleinput.getText().toString(),downloadUrl.toString(), chip.getText().toString(),aa,0);
+                                    binding.subtitleinput.getText().toString(),downloadUrl.toString(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
 
                         }
                         //storageRef.getDownloadUrl();
@@ -385,32 +385,13 @@ public class PostFragment extends Fragment {
         }
     }
 
-    void writeemotion(String userId, String category, String title,String subtitle, String image, String emotion,ArrayList<String> favorite,int register) {
-        Log.d("cate", category);
-        Post post = new Post(category, title, subtitle, image, emotion, favorite, register);
-        mDBReference = FirebaseDatabase.getInstance().getReference();
-
-        mDBReference.child(emotion).setValue(post)
-                .addOnSuccessListener(aVoid -> {
-                    // Write was successful!
-                    Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Write failed
-                        Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
-    }
 
 
 
-    private void writeNewUser(String userId, String category, String title,String subtitle, String image, String emotion,ArrayList<String> favorite,int register) {
+
+    private void writeNewUser(String userId, String category, String title,String subtitle, String image, String emotion,ArrayList<String> favorite,int register,Double ratings) {
         Log.d("cate",category);
-        Post post = new Post(category,title,subtitle,image,emotion,favorite,register);
+        Post post = new Post(category,title,subtitle,image,emotion,favorite,register,ratings);
         mDBReference = FirebaseDatabase.getInstance().getReference();
         String key = mDBReference.child("post").push().getKey();
         mDBReference.child("post").child(userId).child(key).setValue(post)
@@ -428,6 +409,19 @@ public class PostFragment extends Fragment {
 
 
         mDBReference.child(emotion).child(key).setValue(post)
+                .addOnSuccessListener(aVoid -> {
+                    // Write was successful!
+                    // Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Write failed
+                        Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        //평점 데이터 만들기
+        mDBReference.child("score").child(category).child(userId).child(title).setValue(ratings)
                 .addOnSuccessListener(aVoid -> {
                     // Write was successful!
                     // Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();

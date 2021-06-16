@@ -72,8 +72,8 @@ public class SignupActivity extends AppCompatActivity {
 
 
         findViewById(R.id.signupActivity_button_signup).setOnClickListener(onClickListener);
-        findViewById(R.id.signupActivity_imageview_profile).setOnClickListener(onClickListener);
-        profile = (ImageView)findViewById(R.id.signupActivity_imageview_profile);
+        //findViewById(R.id.signupActivity_imageview_profile).setOnClickListener(onClickListener);
+        //profile = (ImageView)findViewById(R.id.signupActivity_imageview_profile);
         findViewById(R.id.gotoLoginBtn).setOnClickListener(onClickListener);
 
         etemail = (EditText) findViewById(R.id.signupActivity_edittext_email);
@@ -97,11 +97,12 @@ public class SignupActivity extends AppCompatActivity {
                     signUp();
                     break;
 
-                case R.id.signupActivity_imageview_profile:
+                /*case R.id.signupActivity_imageview_profile:
+>>>>>>> bce6c614d97fc55fc4726912e5b71f276d487658
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                     startActivityForResult(intent,PICK_FROM_ALBUM);
-                    break;
+                    break;*/
 
                 case R.id.gotoLoginBtn:
                     myStartActivity(LoginActivity.class);

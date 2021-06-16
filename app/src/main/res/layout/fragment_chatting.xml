@@ -1,52 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/healing_pink"
     tools:context=".ui.chatting.ChattingFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="360dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F8F2BC">
+
+            <TextView
+                android:id="@+id/postSubTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="28dp"
+                android:shadowColor="#B3000000"
+                android:shadowDy="2"
+                android:shadowRadius="2"
+                android:text="감정에 맞는 주제로 대화를 나누어보세요!"
+                android:textSize="19dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
     <EditText
         android:id="@+id/et_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:maxLength="10"
         android:layout_centerInParent="true"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/input_bg"
+        android:ems="10"
+        android:gravity="center"
         android:hint="Input nick name"
         android:inputType="text"
-        android:gravity="center"
+        android:maxLength="10"
         android:padding="8dp"
-        android:background="@drawable/back_et_name"
-        />
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_profile"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_centerInParent="true"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_above="@id/et_name"
-        android:layout_marginBottom="16dp"
-        android:src="@mipmap/ic_launcher"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="164dp"
         android:clickable="true"
-        android:onClick="clickImage" />
+        android:onClick="clickImage"
+        android:src="@drawable/user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/enterbtn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="입장" />
+        android:background="@drawable/enroll_btn_bg"
+        android:text="입장"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="채팅방 유저 닉네임을 입력해 주세요."
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_profile"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="@+id/iv_profile"
+        app:layout_constraintTop_toBottomOf="@+id/iv_profile" />
 
 
-
-
-
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

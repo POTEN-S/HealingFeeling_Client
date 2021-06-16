@@ -67,14 +67,19 @@ public class MypageActivity extends AppCompatActivity {
 
 
 
+
+
         findViewById(R.id.logoutButton).setOnClickListener(onClickListener);
         findViewById(R.id.userDeleteButton).setOnClickListener(onClickListener);
 
-        myname = (TextView) findViewById(R.id.myPageNickName);
-        imageView=findViewById(R.id.mypageActivity_imageview_profile);
+
         happy_text = (TextView) findViewById(R.id.hyview);
         sad_text = (TextView) findViewById(R.id.sadview);
         angry_text = (TextView) findViewById(R.id.angryview);
+
+        //myname = (TextView) findViewById(R.id.myPageNickName);
+        //imageView=findViewById(R.id.mypageActivity_imageview_profile);
+
 
         User userModel = new User();
 
@@ -97,8 +102,8 @@ public class MypageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 String profile_url = snapshot.child("image").getValue(String.class);
-                Glide.with(MypageActivity.this).load(profile_url).apply(new RequestOptions().circleCrop())
-                        .into(imageView);
+               // Glide.with(MypageActivity.this).load(profile_url).apply(new RequestOptions().circleCrop())
+                 //       .into(imageView);
             }
 
             @Override

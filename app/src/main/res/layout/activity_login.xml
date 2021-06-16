@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/healing_pink"
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
@@ -14,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="128dp"
         android:text="Healing Feeling!"
         android:textSize="25dp"
         android:textStyle="italic"
@@ -23,22 +24,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:srcCompat="@drawable/feelings" />
-
     <EditText
         android:id="@+id/loginActivity_edittext_password"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:background="@drawable/edit_stroke"
+        android:background="@drawable/input_bg"
         android:layout_marginTop="28dp"
         android:gravity="center"
         android:hint="패스워드"
@@ -52,7 +42,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-
+        android:background="@drawable/btn_bg"
         android:text="로그인"
         app:layout_constraintEnd_toEndOf="@+id/loginActivity_edittext_password"
         app:layout_constraintStart_toStartOf="@+id/loginActivity_edittext_password"
@@ -64,6 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="회원가입"
+        android:background="@drawable/btn_bg"
         app:layout_constraintEnd_toEndOf="@+id/loginActivity_button_login"
         app:layout_constraintStart_toStartOf="@+id/loginActivity_button_login"
         app:layout_constraintTop_toBottomOf="@+id/loginActivity_button_login" />
@@ -72,16 +63,16 @@
         android:id="@+id/loginActivity_edittext_id"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:background="@drawable/edit_stroke"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="112dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/input_bg"
         android:gravity="center"
         android:hint="아이디"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
