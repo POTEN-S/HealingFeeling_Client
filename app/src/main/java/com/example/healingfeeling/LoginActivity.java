@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
+import com.example.healingfeeling.common.MySharedPreference;
 import com.example.healingfeeling.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,7 +40,26 @@ public class LoginActivity extends AppCompatActivity  {
         mAuth = FirebaseAuth.getInstance();
         View view = binding.getRoot();
         setContentView(view);
+        setListener();
 
+
+
+        /*if (MySharedPreference.get_user_email(LoginActivity.this).length() != 0) {//로그인 고유데이터(현재는 이메일) 길이 0 아닐시
+            Intent intent = new Intent(LoginActivity.this, FaceRecoActivity.class);
+            startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);//액티비티 스택제거
+            Toast.makeText(getApplicationContext(), "자동 로그인 되었습니다", Toast.LENGTH_SHORT).show();
+            finish();
+        }else{
+
+
+        }*/
+
+
+
+    }
+
+    void setListener(){
         binding.loginActivityButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,9 +72,6 @@ public class LoginActivity extends AppCompatActivity  {
                 myStartActivity(SignupActivity.class);
             }
         });
-
-
-
     }
 
 
@@ -77,6 +94,7 @@ public class LoginActivity extends AppCompatActivity  {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 showToast("로그인에 성공하였습니다.");
                                 myStartActivity(FaceRecoActivity.class);
+                                MySharedPreference.set_user_email(LoginActivity.this,id);
 
 
                             } else {

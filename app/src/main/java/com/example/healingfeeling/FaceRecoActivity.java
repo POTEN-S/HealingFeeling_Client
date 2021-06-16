@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -31,7 +32,17 @@ import com.example.healingfeeling.emotion.Emotion;
 import com.example.healingfeeling.emotion.Face;
 import com.example.healingfeeling.emotion.FaceResult;
 import com.example.healingfeeling.emotion.NaverService;
+import com.example.healingfeeling.model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.makeramen.roundedimageview.RoundedImageView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -82,12 +93,30 @@ public class FaceRecoActivity extends AppCompatActivity {
     String result;
     ProgressDialog progressDialog;
 
+    static int happy_count, sad_count, angry_count = 0;
+
+    SharedPreferences pref;          // 프리퍼런스
+    SharedPreferences.Editor editor;
+    FirebaseUser user;
+    FirebaseAuth mAuth;
+    FirebaseDatabase database;
+
+
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_face_reco);
 
         binding= DataBindingUtil.setContentView(this,R.layout.activity_face_reco);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+
 
         binding.emotionNextBtn.setOnClickListener(
                 new View.OnClickListener() {
@@ -113,10 +142,14 @@ public class FaceRecoActivity extends AppCompatActivity {
         //다이얼로그
         progressDialog = new ProgressDialog(FaceRecoActivity.this);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage("서버통신중~~");
+        progressDialog.setMessage("얼굴인식중~~");
 
         guide_line = findViewById(R.id.guide_line);
         photo_image = findViewById(R.id.photo_image);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+
 
 
         binding.photoAddBtn.setOnClickListener(new View.OnClickListener() {
@@ -337,13 +370,94 @@ public class FaceRecoActivity extends AppCompatActivity {
                                     double confidence = celebrity.getConfidence() * 100;
                                     double percent = Double.parseDouble(String.format("%.2f", confidence));*/
 
-                                    result = "당신의 감정은 " + angry + "이고 " + percent + "% 입니다.!!";
-                                    binding.faceResult.setText(result);
-                                   // face_result.setText(result);
 
+                                    result = "당신의 감정은 " + angry + "이고 " + percent + "% 입니다.!!";   // angry , neural, smile, sad
+binding.faceResult.setText(result);
+
+
+                                    String faceemotion="";
+                                    if(angry.equals("smile")){
+                                        faceemotion="행복";
+                                    }else if(angry.equals("angry")){
+                                        faceemotion="분노";
+                                    }else if(angry.equals("sad")){
+                                        faceemotion="슬픔";
+                                    }
+
+
+
+                                    String uid = user!= null? user.getUid() : null;
+                                    // face_result.setText(result);
+                                    database = FirebaseDatabase.getInstance();
+                                    DatabaseReference mDatabase = database.getReference("users");
+
+
+
+                                    if(angry.equals("angry")){
+                                        mDatabase.child(uid).child("angry_emotion").addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                                int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                                                value +=1;//숫자를 1 증가시켜서
+                                                mDatabase.child(uid).child("angry_emotion").setValue(String.valueOf(value));//저장
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                                                //Log.e("MainActivity", String.valueOf(databaseError.toException()));
+                                            }
+                                        });
+
+                                    }
+                                    else if(angry.equals("smile")){
+                                        mDatabase.child(uid).child("happy_emotion").addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                                int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                                                value +=1;//숫자를 1 증가시켜서
+                                                mDatabase.child(uid).child("happy_emotion").setValue(String.valueOf(value));//저장
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                                                //Log.e("MainActivity", String.valueOf(databaseError.toException()));
+                                            }
+                                        });
+
+                                    }else if (angry.equals("sad")) {
+                                        mDatabase.child(uid).child("sad_emotion").addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                                int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                                                value +=1;//숫자를 1 증가시켜서
+                                                mDatabase.child(uid).child("sad_emotion").setValue(String.valueOf(value));//저장
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                                                //Log.e("MainActivity", String.valueOf(databaseError.toException()));
+                                            }
+                                        });
+
+                                    }
+
+                                    /*User userModel = new User();
+                                    userModel.happy_emotion = String.valueOf(happy_count);
+                                    userModel.angry_emotion = String.valueOf(sad_count);
+                                    userModel.sad_emotion = String.valueOf(angry_count);
+
+                                    String uid = user!= null? user.getUid() : null;
+
+
+                                    fDatabase.getReference().child("users").child(uid)
+                                            .setValue(userModel);
+*/
                                     SharedPreferences sharedPreferences= getSharedPreferences("test", MODE_PRIVATE);    // test 이름의 기본모드 설정
                                     SharedPreferences.Editor editor= sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
-                                    editor.putString("emotion","슬픔"); // key,value 형식으로 저장
+                                    editor.putString("emotion",faceemotion); // key,value 형식으로 저장
                                     editor.commit();    //최종 커밋. 커밋을 해야 저장이 된다.
 
                                     Intent intent = new Intent(FaceRecoActivity.this,MainActivity.class);
@@ -483,3 +597,4 @@ public class FaceRecoActivity extends AppCompatActivity {
         return currentPosterPath;
     }
 }
+
