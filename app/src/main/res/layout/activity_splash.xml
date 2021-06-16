@@ -9,22 +9,24 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="400dp"
+        android:layout_height="550dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/feelings" />
+        android:layout_marginTop="70dp"
+        app:srcCompat="@drawable/feeling" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="133dp"
-        android:text="HealingFeeling"
-        android:textSize="32sp"
         android:fontFamily="@font/dancingscript"
+        android:text="HealingFeeling"
+        android:textSize="50sp"
+        android:textFontWeight="@integer/material_motion_duration_long_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

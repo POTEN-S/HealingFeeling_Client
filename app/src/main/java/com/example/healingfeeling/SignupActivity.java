@@ -98,7 +98,6 @@ public class SignupActivity extends AppCompatActivity {
                     break;
 
                 /*case R.id.signupActivity_imageview_profile:
->>>>>>> bce6c614d97fc55fc4726912e5b71f276d487658
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                     startActivityForResult(intent,PICK_FROM_ALBUM);
