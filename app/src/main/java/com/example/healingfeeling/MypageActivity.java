@@ -87,8 +87,10 @@ public class MypageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 String profile_url = snapshot.child("image").getValue(String.class);
+
                /* Glide.with(MypageActivity.this).load(profile_url).apply(new RequestOptions().circleCrop())
                         .into(imageView);*/
+
             }
 
             @Override
