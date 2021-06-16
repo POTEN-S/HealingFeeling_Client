@@ -58,16 +58,16 @@ public class MypageActivity extends AppCompatActivity {
 
         binding= DataBindingUtil.setContentView(this,R.layout.activity_mypage);
 
-        binding.progressHappy.setProgress(50);
-        binding.progressSad.setProgress(10);
-        binding.progressAngry.setProgress(80);
+        //binding.progressHappy.setProgress(50);
+        //binding.progressSad.setProgress(10);
+        //binding.progressAngry.setProgress(80);
 
 
         findViewById(R.id.logoutButton).setOnClickListener(onClickListener);
         findViewById(R.id.userDeleteButton).setOnClickListener(onClickListener);
 
-        myname = (TextView) findViewById(R.id.myPageNickName);
-        imageView=findViewById(R.id.mypageActivity_imageview_profile);
+        //myname = (TextView) findViewById(R.id.myPageNickName);
+        //imageView=findViewById(R.id.mypageActivity_imageview_profile);
 
         User userModel = new User();
 

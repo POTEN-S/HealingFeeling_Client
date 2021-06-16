@@ -33,6 +33,7 @@ public class RecommendFragment extends Fragment {
             }
         });*/
         setHasOptionsMenu(true);
+        new Recommender();
 
         return root;
     }

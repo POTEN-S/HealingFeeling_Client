@@ -7,16 +7,15 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/feelings"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.EmotionMatching">
-
+        android:theme="@style/Theme.EmotionMatching"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ServerTestActivity" />
         <activity android:name=".MypageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -25,17 +24,15 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="http"
-                    android:host="google.com" />
+                    android:host="google.com"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"/>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".FaceRecoActivity" />
         <activity android:name=".IslandActivity" />
-        <activity
-            android:name=".ui.chatting.ChatActivity">
-        </activity>
+        <activity android:name=".ui.chatting.ChatActivity"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -55,7 +52,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".MainActivity" />
     </application>

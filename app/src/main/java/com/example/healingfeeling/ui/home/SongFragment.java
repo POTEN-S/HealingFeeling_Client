@@ -62,6 +62,8 @@ public class SongFragment extends Fragment {
         SharedPreferences sharedPreferences= this.getActivity().getSharedPreferences("test", Context.MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
         emotion = sharedPreferences.getString("emotion","");
 
+        Log.d("asdf",emotion);
+
         getData();
 
 
