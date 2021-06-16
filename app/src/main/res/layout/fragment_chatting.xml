@@ -29,7 +29,7 @@
         android:layout_marginBottom="16dp"
         android:src="@mipmap/ic_launcher"
         android:clickable="true"
-        android:onClick="clickImage"/>
+        android:onClick="clickImage" />
 
     <Button
 

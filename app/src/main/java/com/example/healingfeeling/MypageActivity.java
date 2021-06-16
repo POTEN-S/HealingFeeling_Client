@@ -33,6 +33,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Map;
 
 public class MypageActivity extends AppCompatActivity {
@@ -45,6 +47,11 @@ public class MypageActivity extends AppCompatActivity {
     FirebaseUser user;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
+    TextView angry_text;
+    TextView sad_text;
+    TextView happy_text;
+
+
 
 
 
@@ -58,9 +65,6 @@ public class MypageActivity extends AppCompatActivity {
 
         binding= DataBindingUtil.setContentView(this,R.layout.activity_mypage);
 
-        binding.progressHappy.setProgress(50);
-        binding.progressSad.setProgress(10);
-        binding.progressAngry.setProgress(80);
 
 
         findViewById(R.id.logoutButton).setOnClickListener(onClickListener);
@@ -68,6 +72,9 @@ public class MypageActivity extends AppCompatActivity {
 
         myname = (TextView) findViewById(R.id.myPageNickName);
         imageView=findViewById(R.id.mypageActivity_imageview_profile);
+        happy_text = (TextView) findViewById(R.id.hyview);
+        sad_text = (TextView) findViewById(R.id.sadview);
+        angry_text = (TextView) findViewById(R.id.angryview);
 
         User userModel = new User();
 
@@ -80,6 +87,9 @@ public class MypageActivity extends AppCompatActivity {
         myRef = database.getReference("users");
         DatabaseReference username = myRef.child(uid).child("userName");
         DatabaseReference profile_image = myRef.child(uid).child("profileImageUrl");
+        DatabaseReference mCondition_h = myRef.child(uid).child("happy_emotion");
+        DatabaseReference mCondition_s = myRef.child(uid).child("sad_emotion");
+        DatabaseReference mCondition_a = myRef.child(uid).child("angry_emotion");
 
 
         profile_image.addValueEventListener(new ValueEventListener() {
@@ -117,6 +127,45 @@ public class MypageActivity extends AppCompatActivity {
 
 
 
+        mCondition_h.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                String count = snapshot.getValue(String.class);
+                happy_text.setText(count+ "번");
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+        mCondition_s.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                String count = snapshot.getValue(String.class);
+                sad_text.setText(count + "번");
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+        mCondition_a.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                String count = snapshot.getValue(String.class);
+                angry_text.setText(count+ "번" );
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -126,9 +175,6 @@ public class MypageActivity extends AppCompatActivity {
                 Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                 //데이터를 화면에 출력해 준다.
                 Log.d(TAG, "Value is: " + map);
-
-
-
 
 
             }

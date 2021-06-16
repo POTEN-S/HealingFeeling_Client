@@ -120,7 +120,7 @@
             app:style="solid_line" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/hyview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -130,7 +130,7 @@
             app:layout_constraintTop_toBottomOf="@+id/progressHappy" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/sadview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -140,7 +140,7 @@
             app:layout_constraintTop_toBottomOf="@+id/progressSad" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/angryview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"

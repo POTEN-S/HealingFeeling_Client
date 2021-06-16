@@ -34,6 +34,10 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 
+import static com.example.healingfeeling.FaceRecoActivity.angry_count;
+import static com.example.healingfeeling.FaceRecoActivity.happy_count;
+import static com.example.healingfeeling.FaceRecoActivity.sad_count;
+
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -56,8 +60,6 @@ public class SignupActivity extends AppCompatActivity {
     SharedPreferences pref;          // 프리퍼런스
     SharedPreferences.Editor editor;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,10 +77,6 @@ public class SignupActivity extends AppCompatActivity {
         findViewById(R.id.gotoLoginBtn).setOnClickListener(onClickListener);
 
         etemail = (EditText) findViewById(R.id.signupActivity_edittext_email);
-
-
-
-
 
     }
 
@@ -98,6 +96,7 @@ public class SignupActivity extends AppCompatActivity {
                 case R.id.signupActivity_button_signup:
                     signUp();
                     break;
+
                 case R.id.signupActivity_imageview_profile:
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
@@ -119,23 +118,28 @@ public class SignupActivity extends AppCompatActivity {
         String name = ((EditText)findViewById(R.id.signupActivity_edittext_name)).getText().toString();
 
         if(email.length()>0 && password.length() >0 && name.length() >0 ) {
-
-
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
                         String uid = task.getResult().getUser().getUid();
                         FirebaseStorage.getInstance().getReference().child("userImages").child(uid).putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+
                                 String imageUrl = task.getResult().getUploadSessionUri().toString();
 
                                 User userModel = new User();
                                 userModel.userName = name;
                                 userModel.profileImageUrl = imageUrl;
+                                userModel.happy_emotion = String.valueOf(happy_count);
+                                userModel.angry_emotion = String.valueOf(sad_count);
+                                userModel.sad_emotion = String.valueOf(angry_count);
+
                                 pref = getSharedPreferences("pref", MODE_PRIVATE);
                                 editor = pref.edit();
                                 editor.putString("uid",uid);
                                 editor.apply();
+                                editor.commit();
+
 
                             }
                         });
@@ -156,21 +160,22 @@ public class SignupActivity extends AppCompatActivity {
                                     userModel.userName = name;
                                     userModel.uid = uid;
                                     userModel.profileImageUrl = imageUrl.getResult().toString();
+                                    userModel.happy_emotion = String.valueOf(happy_count);
+                                    userModel.angry_emotion = String.valueOf(sad_count);
+                                    userModel.sad_emotion = String.valueOf(angry_count);
 
                                     pref = getSharedPreferences("pref", MODE_PRIVATE);
                                     editor = pref.edit();
                                     editor.putString("uid",uid);
                                     editor.apply();
-
-
+                                    editor.commit();
 
                                     // database에 저장
+
                                     mDatabase.getReference().child("users").child(uid)
                                             .setValue(userModel);
-
                                 }
                             });
-
 
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
@@ -180,10 +185,8 @@ public class SignupActivity extends AppCompatActivity {
                             //UI
                         } else {
                             if(task.getException()!=null) {
-
                                 startToast(task.getException().toString());
                             }
-
                             //UI
                         }
 
