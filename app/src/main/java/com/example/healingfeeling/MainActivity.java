@@ -3,6 +3,7 @@ package com.example.healingfeeling;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Toolbar tb = (Toolbar) findViewById(R.id.toolbar) ;
+        tb.setBackgroundColor(Color.parseColor("#E5C1C5"));
         setSupportActionBar(tb) ;
 
         /*BottomNavigationView navView = findViewById(R.id.nav_view);

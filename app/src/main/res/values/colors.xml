@@ -9,4 +9,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="clouds">#ecf0f1</color>
     <color name="white_green">#D2FFD2</color>
+
+    //healing-feeling-brand-color
+
+    <color name="healing_pink">#E5C1C5</color>
+    <color name="healing_green">#C3E2DD</color>
+    <color name="healing_yellow">#F2EEE5</color>
+
+
 </resources>

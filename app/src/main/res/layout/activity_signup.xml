@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,70 +9,78 @@
     android:orientation="vertical"
     tools:context=".SignupActivity">
 
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="370dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="21dp"
         android:fontFamily="@font/dancingscript"
+        android:gravity="center"
         android:text="New Account"
         android:textColor="#000000"
-        android:textSize="30dp" />
-
-    <ImageView
-        android:src="@drawable/add_to_photos"
-        android:id="@+id/signupActivity_imageview_profile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_margin="50dp"/>
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
+        android:id="@+id/signupActivity_edittext_email"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/signupActivity_edittext_email"
-            android:hint="이메일"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:hint="이메일"
+        android:background="@drawable/input_bg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
+        android:id="@+id/signupActivity_edittext_password"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/signupActivity_edittext_password"
-            android:hint="패스워드"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/input_bg"
+        android:hint="패스워드"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signupActivity_edittext_name" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
+        android:id="@+id/signupActivity_edittext_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/signupActivity_edittext_name"
-            android:hint="이름"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/input_bg"
+        android:hint="이름"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signupActivity_edittext_email" />
 
     <Button
         android:id="@+id/signupActivity_button_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="완료"/>
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/btn_bg"
+        android:text="완료"
+        app:layout_constraintBottom_toTopOf="@+id/gotoLoginBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/gotoLoginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="로그인하러 가기" />
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/btn_bg"
+        android:text="로그인하러 가기"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
