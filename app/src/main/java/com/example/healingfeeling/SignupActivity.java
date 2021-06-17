@@ -72,8 +72,8 @@ public class SignupActivity extends AppCompatActivity {
 
 
         findViewById(R.id.signupActivity_button_signup).setOnClickListener(onClickListener);
-        //findViewById(R.id.signupActivity_imageview_profile).setOnClickListener(onClickListener);
-        //profile = (ImageView)findViewById(R.id.signupActivity_imageview_profile);
+        findViewById(R.id.signupActivity_imageview_profile).setOnClickListener(onClickListener);
+        profile = (ImageView)findViewById(R.id.signupActivity_imageview_profile);
         findViewById(R.id.gotoLoginBtn).setOnClickListener(onClickListener);
 
         etemail = (EditText) findViewById(R.id.signupActivity_edittext_email);
@@ -97,11 +97,11 @@ public class SignupActivity extends AppCompatActivity {
                     signUp();
                     break;
 
-                /*case R.id.signupActivity_imageview_profile:
+                case R.id.signupActivity_imageview_profile:
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                     startActivityForResult(intent,PICK_FROM_ALBUM);
-                    break;*/
+                    break;
 
                 case R.id.gotoLoginBtn:
                     myStartActivity(LoginActivity.class);
@@ -130,9 +130,11 @@ public class SignupActivity extends AppCompatActivity {
                                 User userModel = new User();
                                 userModel.userName = name;
                                 userModel.profileImageUrl = imageUrl;
-                                userModel.happy_emotion = String.valueOf(happy_count);
-                                userModel.angry_emotion = String.valueOf(sad_count);
-                                userModel.sad_emotion = String.valueOf(angry_count);
+                                userModel.uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                userModel.happy_emotion = happy_count;
+                                userModel.angry_emotion = sad_count;
+                                userModel.sad_emotion = angry_count;
+
 
                                 pref = getSharedPreferences("pref", MODE_PRIVATE);
                                 editor = pref.edit();
@@ -160,9 +162,9 @@ public class SignupActivity extends AppCompatActivity {
                                     userModel.userName = name;
                                     userModel.uid = uid;
                                     userModel.profileImageUrl = imageUrl.getResult().toString();
-                                    userModel.happy_emotion = String.valueOf(happy_count);
-                                    userModel.angry_emotion = String.valueOf(sad_count);
-                                    userModel.sad_emotion = String.valueOf(angry_count);
+                                    userModel.happy_emotion = happy_count;
+                                    userModel.angry_emotion = sad_count;
+                                    userModel.sad_emotion = angry_count;
 
                                     pref = getSharedPreferences("pref", MODE_PRIVATE);
                                     editor = pref.edit();

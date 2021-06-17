@@ -8,9 +8,9 @@ public class User {
     public String profileImageUrl;
     public  String uid;
 
-    public String happy_emotion;
-    public String sad_emotion;
-    public String angry_emotion;
+    public int happy_emotion;
+    public int sad_emotion;
+    public int angry_emotion;
 
 
 

@@ -132,8 +132,8 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_h.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                String count = snapshot.getValue(String.class);
-                happy_text.setText(count+ "번");
+                int count = snapshot.getValue(Integer.class);
+                happy_text.setText(count + "번");
             }
 
             @Override
@@ -145,7 +145,7 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_s.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                String count = snapshot.getValue(String.class);
+                int count = snapshot.getValue(Integer.class);
                 sad_text.setText(count + "번");
             }
 
@@ -158,7 +158,7 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_a.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                String count = snapshot.getValue(String.class);
+                int count = snapshot.getValue(Integer.class);
                 angry_text.setText(count+ "번" );
             }
 
