@@ -104,9 +104,6 @@ public class FaceRecoActivity extends AppCompatActivity {
 
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -372,7 +369,7 @@ public class FaceRecoActivity extends AppCompatActivity {
 
 
                                     result = "당신의 감정은 " + angry + "이고 " + percent + "% 입니다.!!";   // angry , neural, smile, sad
-binding.faceResult.setText(result);
+                                    binding.faceResult.setText(result);
 
 
                                     String faceemotion="";
@@ -390,16 +387,19 @@ binding.faceResult.setText(result);
                                     // face_result.setText(result);
                                     database = FirebaseDatabase.getInstance();
                                     DatabaseReference mDatabase = database.getReference("users");
+                                    DatabaseReference mCondition_h = mDatabase.child(uid).child("happy_emotion");
+                                    DatabaseReference mCondition_s = mDatabase.child(uid).child("sad_emotion");
+                                    DatabaseReference mCondition_a = mDatabase.child(uid).child("angry_emotion");
 
 
 
-                                    if(angry.equals("angry")){
-                                        mDatabase.child(uid).child("angry_emotion").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    if(angry.equals("angry") || angry.equals("disgust")){
+                                       mCondition_a.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                                                 int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
                                                 value +=1;//숫자를 1 증가시켜서
-                                                mDatabase.child(uid).child("angry_emotion").setValue(String.valueOf(value));//저장
+                                                mCondition_a.setValue(value);//저장
 
                                             }
 
@@ -410,13 +410,13 @@ binding.faceResult.setText(result);
                                         });
 
                                     }
-                                    else if(angry.equals("smile")){
-                                        mDatabase.child(uid).child("happy_emotion").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    else if(angry.equals("smile")||angry.equals("laugh")){
+                                        mCondition_h.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                                                 int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
                                                 value +=1;//숫자를 1 증가시켜서
-                                                mDatabase.child(uid).child("happy_emotion").setValue(String.valueOf(value));//저장
+                                                mCondition_h.setValue(value);//저장
 
                                             }
 
@@ -427,12 +427,12 @@ binding.faceResult.setText(result);
                                         });
 
                                     }else if (angry.equals("sad")) {
-                                        mDatabase.child(uid).child("sad_emotion").addListenerForSingleValueEvent(new ValueEventListener() {
+                                        mCondition_s.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                                                 int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
                                                 value +=1;//숫자를 1 증가시켜서
-                                                mDatabase.child(uid).child("sad_emotion").setValue(String.valueOf(value));//저장
+                                                mCondition_s.setValue(value);//저장
 
                                             }
 
@@ -444,17 +444,7 @@ binding.faceResult.setText(result);
 
                                     }
 
-                                    /*User userModel = new User();
-                                    userModel.happy_emotion = String.valueOf(happy_count);
-                                    userModel.angry_emotion = String.valueOf(sad_count);
-                                    userModel.sad_emotion = String.valueOf(angry_count);
 
-                                    String uid = user!= null? user.getUid() : null;
-
-
-                                    fDatabase.getReference().child("users").child(uid)
-                                            .setValue(userModel);
-*/
                                     SharedPreferences sharedPreferences= getSharedPreferences("test", MODE_PRIVATE);    // test 이름의 기본모드 설정
                                     SharedPreferences.Editor editor= sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
                                     editor.putString("emotion",faceemotion); // key,value 형식으로 저장

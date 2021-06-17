@@ -50,14 +50,12 @@ public class MypageActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseDatabase database;
 
-    TextView angry_text;
-    TextView sad_text;
-    TextView happy_text;
 
     private SharedPreferences pref;
 
-
-
+    TextView angry_text;
+    TextView sad_text;
+    TextView happy_text;
 
 
     @Override
@@ -67,9 +65,6 @@ public class MypageActivity extends AppCompatActivity {
 
 
         binding= DataBindingUtil.setContentView(this,R.layout.activity_mypage);
-
-
-
 
 
         findViewById(R.id.logoutButton).setOnClickListener(onClickListener);
@@ -93,14 +88,15 @@ public class MypageActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("users");
-        DatabaseReference username = myRef.child(uid).child("userName");
-        DatabaseReference profile_image = myRef.child(uid).child("profileImageUrl");
+
+        //DatabaseReference username = myRef.child(uid).child("userName");
+        //DatabaseReference profile_image = myRef.child(uid).child("profileImageUrl");
         DatabaseReference mCondition_h = myRef.child(uid).child("happy_emotion");
         DatabaseReference mCondition_s = myRef.child(uid).child("sad_emotion");
         DatabaseReference mCondition_a = myRef.child(uid).child("angry_emotion");
 
 
-        profile_image.addValueEventListener(new ValueEventListener() {
+        /*profile_image.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -119,10 +115,8 @@ public class MypageActivity extends AppCompatActivity {
         username.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 String name = snapshot.getValue(String.class);
-                myname.setText(name);
-
+                //myname.setText(name);
 
             }
 
@@ -133,13 +127,13 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
-
+*/
 
         mCondition_h.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                String count = snapshot.getValue(String.class);
-                happy_text.setText(count+ "번");
+                int count = snapshot.getValue(Integer.class);
+                happy_text.setText(count + "번");
             }
 
             @Override
@@ -151,7 +145,7 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_s.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                String count = snapshot.getValue(String.class);
+                int count = snapshot.getValue(Integer.class);
                 sad_text.setText(count + "번");
             }
 
@@ -164,7 +158,7 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_a.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                String count = snapshot.getValue(String.class);
+                int count = snapshot.getValue(Integer.class);
                 angry_text.setText(count+ "번" );
             }
 
