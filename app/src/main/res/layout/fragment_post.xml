@@ -10,10 +10,12 @@
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,16 +23,19 @@
             android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="도서" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="장소" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="노래" />
 
     </RadioGroup>
@@ -40,54 +45,63 @@
         android:id="@+id/titleinput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_weight="0"
+        android:background="@drawable/input_bg"
         android:ems="10"
         android:hint="제목"
         android:inputType="textPersonName"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/radioGroup"
         app:layout_constraintStart_toStartOf="@+id/radioGroup"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <EditText
         android:id="@+id/subtitleinput"
         android:layout_width="0dp"
-        android:hint="서브타이"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="내용"
+        android:padding="10dp"
+        android:background="@drawable/input_bg"
         app:layout_constraintEnd_toEndOf="@+id/titleinput"
         app:layout_constraintStart_toStartOf="@+id/titleinput"
         app:layout_constraintTop_toBottomOf="@+id/titleinput" />
 
 
-
-    <ImageButton
-        android:id="@+id/gallery_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:backgroundTint="@color/clouds"
-        android:scaleType="fitCenter"
-        android:src="@drawable/gallery"
-        app:layout_constraintStart_toEndOf="@+id/camera_btn"
-        app:layout_constraintTop_toTopOf="@+id/camera_btn" />
-
     <ImageButton
         android:id="@+id/camera_btn"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_toEndOf="@id/gallery_btn"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/clouds"
         android:scaleType="fitCenter"
         android:src="@drawable/camera"
+        app:layout_constraintEnd_toEndOf="@+id/subtitleinput"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/subtitleinput"
-        app:layout_constraintTop_toBottomOf="@+id/subtitleinput" />
+        app:layout_constraintTop_toBottomOf="@+id/inputRatings" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="@+id/camera_btn"
+        app:layout_constraintStart_toStartOf="@+id/camera_btn"
+        app:layout_constraintTop_toBottomOf="@+id/camera_btn"
+        app:srcCompat="@drawable/feelings" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipGroup"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="76dp"
-        app:singleSelection="true"
-        app:layout_constraintStart_toStartOf="@+id/camera_btn"
-        app:layout_constraintTop_toBottomOf="@id/camera_btn">
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipHappy"
@@ -117,39 +131,36 @@
             android:text="분노"
             app:layout_constraintStart_toEndOf="@+id/chipSad"
             app:layout_constraintTop_toTopOf="@+id/chipSad" />
+
+
     </com.google.android.material.chip.ChipGroup>
 
     <Button
         android:id="@+id/check_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/gallery_btn"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="32dp"
-        android:text="등록"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/enroll_btn_bg"
+        android:text="등록"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintStart_toEndOf="@+id/gallery_btn"
-        app:layout_constraintTop_toTopOf="@+id/gallery_btn"
-        app:srcCompat="@drawable/feelings" />
 
     <EditText
         android:id="@+id/inputRatings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="평점을 소수점단위로 남겨주세요"
+        android:background="@drawable/input_bg"
+        android:padding="10dp"
+        android:hint="평점(0~5.0) "
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/chipGroup"
-        app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+        app:layout_constraintEnd_toEndOf="@+id/subtitleinput"
+        app:layout_constraintStart_toStartOf="@+id/subtitleinput"
+        app:layout_constraintTop_toBottomOf="@+id/subtitleinput" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

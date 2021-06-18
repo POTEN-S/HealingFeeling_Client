@@ -8,32 +8,35 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/healing_green"
+        android:background="@color/healing_pink"
         tools:context=".MypageActivity">
 
-        <ImageView
+        <TextView
             android:id="@+id/imageView6"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Page"
+            android:fontFamily="@font/dancingscript"
+            android:textSize="32sp"
             android:layout_marginTop="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/mypagelogo" />
-
-
-
+             />
 
 
         <Button
             android:id="@+id/logoutButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/btn_bg"
             android:text="로그아웃"
-            app:layout_constraintEnd_toEndOf="@+id/imageView6"
-            app:layout_constraintStart_toStartOf="@+id/imageView6"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+            app:layout_constraintBottom_toTopOf="@+id/userDeleteButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
 
@@ -56,11 +59,11 @@
             android:id="@+id/progressSad"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginTop="240dp"
+            android:layout_marginTop="96dp"
             app:layout_constraintEnd_toStartOf="@+id/progressAngry"
             app:layout_constraintHorizontal_bias="0.486"
             app:layout_constraintStart_toEndOf="@+id/progressHappy"
-            app:layout_constraintTop_toBottomOf="@+id/logoutButton"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6"
             app:progress_background_color="#F4F1F1"
             app:progress_end_color="#03A9F4"
             app:progress_start_color="#03A9F4"
@@ -117,12 +120,13 @@
 
         <Button
             android:id="@+id/userDeleteButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/btn_bg"
+            android:text="회원탈퇴"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/logoutButton"
-            app:layout_constraintStart_toStartOf="@+id/logoutButton"
-            app:layout_constraintTop_toBottomOf="@+id/logoutButton"
-            tools:text="회원탈퇴" />
+            app:layout_constraintStart_toStartOf="@+id/logoutButton" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

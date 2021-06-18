@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/healing_pink"
     tools:context=".ui.chatting.ChatActivity">
 
     <ListView
@@ -20,7 +21,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="4dp"
-        android:background="@color/white"
+        android:background="@color/healing_pink"
         android:gravity="center_vertical">
         <EditText
             android:id="@+id/et"

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +25,7 @@ import com.example.healingfeeling.databinding.FragmentRecommendBinding;
 import com.example.healingfeeling.model.Post;
 import com.example.healingfeeling.ui.home.PlaceFragment;
 import com.example.healingfeeling.ui.home.PostRecyclerAdapter;
+import com.example.healingfeeling.ui.home.RecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,7 +49,7 @@ public class RecommendFragment extends Fragment {
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
     ArrayList<Post> arraypost=new ArrayList<>();
-
+    ArrayList<String> arraypost2=new ArrayList<>();
     FragmentRecommendBinding binding;
     private final String BASE_URL = "http://4220f4acce86.ngrok.io/";
     private MyApi mMyAPI;
@@ -68,6 +70,44 @@ public class RecommendFragment extends Fragment {
 
         initMyAPI(BASE_URL);
 
+        recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(layoutManager);
+
+        Call<List<com.example.healingfeeling.api.Post>> getCall = mMyAPI.get_posts();
+        getCall.enqueue(new Callback<List<com.example.healingfeeling.api.Post>>() {
+            @Override
+            public void onResponse(Call<List<com.example.healingfeeling.api.Post>> call, Response<List<com.example.healingfeeling.api.Post>> response) {
+                if( response.isSuccessful()){
+                    List<com.example.healingfeeling.api.Post> mList = response.body();
+                    String result ="";
+                    Boolean check = false;
+                    for( com.example.healingfeeling.api.Post item : mList){
+                        result =item.getTitle() ;
+                    }
+                    Log.d(TAG,"겟 성공");
+                    Post post =new Post("Asd",result,"asdf","asdf","asdf",arraypost2,3,5.0);
+                    Post post2 =new Post("Asd",result,"asdf","asdf","asdf",arraypost2,3,5.0);
+                    Post post3 =new Post("Asd",result,"asdf","asdf","asdf",arraypost2,3,5.0);
+                    arraypost.add(post);
+                    arraypost.add(post2);
+                    arraypost.add(post3);
+                    adapter = new PostRecyclerAdapter(arraypost);
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }else {
+                    Log.d(TAG,"Status Code : " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<com.example.healingfeeling.api.Post>> call, Throwable t) {
+                Log.d(TAG,"Fail msg : " + t.getMessage());
+            }
+        });
+
+
 
 
         //번들 받기. getArguments() 메소드로 받음.
@@ -77,7 +117,7 @@ public class RecommendFragment extends Fragment {
             Log.d("Recommend",emotion); //확인
 
         }
-        binding.btnPost.setOnClickListener(new View.OnClickListener() {
+        /*binding.btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 com.example.healingfeeling.api.Post item = new com.example.healingfeeling.api.Post();
@@ -102,10 +142,10 @@ public class RecommendFragment extends Fragment {
                     }
                 });
             }
-        });
+        });*/
 
         //getData();
-        Call<List<com.example.healingfeeling.api.Post>> getCall = mMyAPI.get_posts();
+        /*Call<List<com.example.healingfeeling.api.Post>> getCall = mMyAPI.get_posts();
         getCall.enqueue(new Callback<List<com.example.healingfeeling.api.Post>>() {
             @Override
             public void onResponse(Call<List<com.example.healingfeeling.api.Post>> call, Response<List<com.example.healingfeeling.api.Post>> response) {
@@ -127,7 +167,7 @@ public class RecommendFragment extends Fragment {
             public void onFailure(Call<List<com.example.healingfeeling.api.Post>> call, Throwable t) {
                 Log.d(TAG,"Fail msg : " + t.getMessage());
             }
-        });
+        });*/
 
 
         return root;
