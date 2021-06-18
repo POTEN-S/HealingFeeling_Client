@@ -74,7 +74,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginEnd="50dp"
-            app:srcCompat="@drawable/angry"
+            app:srcCompat="@drawable/angry_emo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/progressSad"
             app:progress_start_color="#F44336"
