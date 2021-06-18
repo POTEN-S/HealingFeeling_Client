@@ -105,7 +105,7 @@ public class MypageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 String name = snapshot.getValue(String.class);
-                myname.setText(name);
+//                myname.setText(name);
 
 
             }
