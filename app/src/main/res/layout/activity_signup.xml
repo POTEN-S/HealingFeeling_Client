@@ -11,6 +11,17 @@
     tools:context=".SignupActivity">
 
 
+
+    <ImageView
+        android:src="@drawable/add_to_photos"
+        android:id="@+id/signupActivity_imageview_profile"
+        android:layout_width="60dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="@id/signupActivity_edittext_email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView3"/>
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="370dp"
@@ -32,7 +43,8 @@
         android:id="@+id/signupActivity_edittext_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="120dp"
+        android:padding="10dp"
         android:hint="이메일"
         android:background="@drawable/input_bg"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,6 +58,7 @@
         android:layout_marginTop="48dp"
         android:background="@drawable/input_bg"
         android:hint="패스워드"
+        android:padding="10dp"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +71,7 @@
         android:layout_marginTop="48dp"
         android:background="@drawable/input_bg"
         android:hint="이름"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signupActivity_edittext_email" />

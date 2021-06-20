@@ -10,19 +10,30 @@
     tools:context=".LoginActivity">
 
 
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="130dp"
         android:text="Healing Feeling!"
         android:textSize="25dp"
-        android:textStyle="italic"
+        android:textStyle="italic|bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="300dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="170dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/standemo" />
 
     <EditText
         android:id="@+id/loginActivity_edittext_password"
@@ -37,11 +48,21 @@
         app:layout_constraintStart_toStartOf="@+id/loginActivity_edittext_id"
         app:layout_constraintTop_toBottomOf="@+id/loginActivity_edittext_id" />
 
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="자동로그인"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/loginActivity_edittext_password"
+        app:layout_constraintStart_toStartOf="@+id/loginActivity_edittext_password"
+        app:layout_constraintTop_toBottomOf="@+id/loginActivity_edittext_password"/>
+
     <Button
         android:id="@+id/loginActivity_button_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/btn_bg"
         android:text="로그인"
         app:layout_constraintEnd_toEndOf="@+id/loginActivity_edittext_password"

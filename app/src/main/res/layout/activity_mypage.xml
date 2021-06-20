@@ -22,7 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-             />
+            />
 
 
         <Button
@@ -83,13 +83,12 @@
             app:progress_start_color="#F44336"
             app:progress_end_color="#F44336"
             app:progress_background_color="#F4F1F1"
-
             app:progress_stroke_cap="round"
             app:progress_stroke_width="10dp"
             app:style="solid_line" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/hyview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -99,7 +98,7 @@
             app:layout_constraintTop_toBottomOf="@+id/progressHappy" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/sadview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -109,7 +108,7 @@
             app:layout_constraintTop_toBottomOf="@+id/progressSad" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/angryview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -117,6 +116,7 @@
             app:layout_constraintEnd_toEndOf="@+id/progressAngry"
             app:layout_constraintStart_toStartOf="@+id/progressAngry"
             app:layout_constraintTop_toBottomOf="@+id/progressAngry" />
+
 
         <Button
             android:id="@+id/userDeleteButton"

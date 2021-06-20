@@ -40,19 +40,20 @@ public class LoginActivity extends AppCompatActivity  {
         mAuth = FirebaseAuth.getInstance();
         View view = binding.getRoot();
         setContentView(view);
+        setListener();
 
 
 
-        if (MySharedPreference.get_user_email(LoginActivity.this).length() != 0) {//로그인 고유데이터(현재는 이메일) 길이 0 아닐시
+        /*if (MySharedPreference.get_user_email(LoginActivity.this).length() != 0) {//로그인 고유데이터(현재는 이메일) 길이 0 아닐시
             Intent intent = new Intent(LoginActivity.this, FaceRecoActivity.class);
             startActivity(intent);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);//액티비티 스택제거
             Toast.makeText(getApplicationContext(), "자동 로그인 되었습니다", Toast.LENGTH_SHORT).show();
             finish();
         }else{
-            setListener();
 
-        }
+
+        }*/
 
 
 

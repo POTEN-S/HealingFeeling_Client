@@ -1,6 +1,7 @@
 package com.example.healingfeeling.ui.chatting;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -70,15 +71,22 @@ public class ChattingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (!isChanged && !isFirst) {
+                    final ProgressDialog progressDialog = new ProgressDialog(getContext());
+                    progressDialog.setTitle("접속중...");
+                    progressDialog.show();
                     //ChatActivity로 전환
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
 
                     startActivity(intent);
-
+                    progressDialog.dismiss();
 
                 } else {
                     //save 작업
+                    final ProgressDialog progressDialog = new ProgressDialog(getContext());
+                    progressDialog.setTitle("접속중...");
+                    progressDialog.show();
                     saveData();
+                    progressDialog.dismiss();
                     //ChatActivity로 전환
 
 

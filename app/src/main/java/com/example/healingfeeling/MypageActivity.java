@@ -7,8 +7,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +35,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Map;
 
 public class MypageActivity extends AppCompatActivity {
@@ -47,7 +51,11 @@ public class MypageActivity extends AppCompatActivity {
     FirebaseDatabase database;
 
 
+    private SharedPreferences pref;
 
+    TextView angry_text;
+    TextView sad_text;
+    TextView happy_text;
 
 
     @Override
@@ -58,16 +66,18 @@ public class MypageActivity extends AppCompatActivity {
 
         binding= DataBindingUtil.setContentView(this,R.layout.activity_mypage);
 
-        //binding.progressHappy.setProgress(50);
-        //binding.progressSad.setProgress(10);
-        //binding.progressAngry.setProgress(80);
-
 
         findViewById(R.id.logoutButton).setOnClickListener(onClickListener);
         findViewById(R.id.userDeleteButton).setOnClickListener(onClickListener);
 
+
+        happy_text = (TextView) findViewById(R.id.hyview);
+        sad_text = (TextView) findViewById(R.id.sadview);
+        angry_text = (TextView) findViewById(R.id.angryview);
+
         //myname = (TextView) findViewById(R.id.myPageNickName);
         //imageView=findViewById(R.id.mypageActivity_imageview_profile);
+
 
         User userModel = new User();
 
@@ -78,46 +88,76 @@ public class MypageActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("users");
-        DatabaseReference username = myRef.child(uid).child("userName");
-        DatabaseReference profile_image = myRef.child(uid).child("profileImageUrl");
+
+        //DatabaseReference username = myRef.child(uid).child("userName");
+        //DatabaseReference profile_image = myRef.child(uid).child("profileImageUrl");
+        DatabaseReference mCondition_h = myRef.child(uid).child("happy_emotion");
+        DatabaseReference mCondition_s = myRef.child(uid).child("sad_emotion");
+        DatabaseReference mCondition_a = myRef.child(uid).child("angry_emotion");
 
 
-        profile_image.addValueEventListener(new ValueEventListener() {
+        /*profile_image.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 String profile_url = snapshot.child("image").getValue(String.class);
-
-               /* Glide.with(MypageActivity.this).load(profile_url).apply(new RequestOptions().circleCrop())
-                        .into(imageView);*/
-
+               // Glide.with(MypageActivity.this).load(profile_url).apply(new RequestOptions().circleCrop())
+                 //       .into(imageView);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
-
         username.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 String name = snapshot.getValue(String.class);
-//                myname.setText(name);
-
-
+                //myname.setText(name);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+*/
+
+        mCondition_h.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                int count = snapshot.getValue(Integer.class);
+                happy_text.setText(count + "번");
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
             }
         });
 
+        mCondition_s.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                int count = snapshot.getValue(Integer.class);
+                sad_text.setText(count + "번");
+            }
 
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+        mCondition_a.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                int count = snapshot.getValue(Integer.class);
+                angry_text.setText(count+ "번" );
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
 
 
         myRef.addValueEventListener(new ValueEventListener() {
@@ -128,9 +168,6 @@ public class MypageActivity extends AppCompatActivity {
                 Map<String, Object> map = (Map<String, Object>) dataSnapshot.getValue();
                 //데이터를 화면에 출력해 준다.
                 Log.d(TAG, "Value is: " + map);
-
-
-
 
 
             }
@@ -153,6 +190,10 @@ public class MypageActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.logoutButton:
+                    pref = getSharedPreferences("settings", Activity.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.remove("id");
+                    editor.remove("pw");
                     FirebaseAuth.getInstance().signOut();
                     myStartActivity(LoginActivity.class);
                     break;

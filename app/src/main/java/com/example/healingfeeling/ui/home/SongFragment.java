@@ -71,7 +71,6 @@ public class SongFragment extends Fragment {
     }
 
 
-
     private void getData() {
         // 임의의 데이터입니다.
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동

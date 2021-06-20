@@ -45,7 +45,11 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
 
         context = holder.itemView.getContext();
         String url = mData.get(position).getImageUrl();
-        Glide.with(context)
+
+        //String image=mData.get(position).getImageUrl();
+
+
+       Glide.with(context)
                 .load(url)
                 .placeholder(R.drawable.feelings)
                 .into(holder.imageView);

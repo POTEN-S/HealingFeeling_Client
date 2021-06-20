@@ -3,34 +3,21 @@ package com.example.healingfeeling.ui.recommend;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.healingfeeling.MainActivity;
 import com.example.healingfeeling.R;
 import com.example.healingfeeling.api.MyApi;
-import com.example.healingfeeling.databinding.FragmentPostBinding;
 import com.example.healingfeeling.databinding.FragmentRecommendBinding;
 import com.example.healingfeeling.model.Post;
-import com.example.healingfeeling.ui.home.PlaceFragment;
 import com.example.healingfeeling.ui.home.PostRecyclerAdapter;
-import com.example.healingfeeling.ui.home.RecyclerAdapter;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,9 +74,9 @@ public class RecommendFragment extends Fragment {
                         result =item.getTitle() ;
                     }
                     Log.d(TAG,"겟 성공");
-                    Post post =new Post("Asd",result,"asdf","asdf","asdf",arraypost2,3,5.0);
-                    Post post2 =new Post("Asd",result,"asdf","asdf","asdf",arraypost2,3,5.0);
-                    Post post3 =new Post("Asd",result,"asdf","asdf","asdf",arraypost2,3,5.0);
+                    Post post =new Post("Asd",result,"asdf","https://firebasestorage.googleapis.com/v0/b/healingfeeling-9c1bf.appspot.com/o/post%2F20210620_2223.png?alt=media&token=a9fd16ae-ac3b-4946-b82e-dd8e438e496e","asdf",arraypost2,3,5.0);
+                    Post post2 =new Post("Asd","예뻤어","asdf","https://firebasestorage.googleapis.com/v0/b/healingfeeling-9c1bf.appspot.com/o/post%2F20210620_2356.png?alt=media&token=c999bc55-e4d9-45c7-9d16-ceaaf7776f6c","asdf",arraypost2,3,5.0);
+                    Post post3 =new Post("Asd","좋은날","asdf","https://firebasestorage.googleapis.com/v0/b/healingfeeling-9c1bf.appspot.com/o/post%2F20210620_1027.png?alt=media&token=999ac167-accc-4bcb-9bea-2d1513605d9f","asdf",arraypost2,3,5.0);
                     arraypost.add(post);
                     arraypost.add(post2);
                     arraypost.add(post3);
