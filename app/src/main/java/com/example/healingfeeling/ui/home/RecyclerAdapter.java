@@ -103,7 +103,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             String url = data.getImageUrl();
             Glide.with(context)
                     .load(url)
-                    .placeholder(R.drawable.loading)
+                    .placeholder(R.drawable.feelings)
                     .into(imageView);
 
             titletext.setText(data.getTitle());

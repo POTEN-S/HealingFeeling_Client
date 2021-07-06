@@ -99,25 +99,34 @@ public class MypageActivity extends AppCompatActivity {
         /*profile_image.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 String profile_url = snapshot.child("image").getValue(String.class);
                // Glide.with(MypageActivity.this).load(profile_url).apply(new RequestOptions().circleCrop())
                  //       .into(imageView);
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+
+
         username.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name = snapshot.getValue(String.class);
                 //myname.setText(name);
+
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.w(TAG, "Failed to read value.", error.toException());
+
             }
         });
+
 */
 
         mCondition_h.addValueEventListener(new ValueEventListener() {
