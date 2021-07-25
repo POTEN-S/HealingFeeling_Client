@@ -1,6 +1,7 @@
 package com.example.healingfeeling.ui.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
     // adapter에 들어갈 list 입니다.
     private ArrayList<Post> listData = new ArrayList<>();
-    private Context context;
+    Context context;
 
     public RecyclerAdapter(ArrayList<Post> data) {
         listData = data;
@@ -94,6 +95,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             imageView = itemView.findViewById(R.id.imageView);
             registerCount = itemView.findViewById(R.id.registercount);
             button = itemView.findViewById(R.id.favoritebutton);
+
 
         }
 
