@@ -16,6 +16,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -49,6 +51,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -95,11 +98,13 @@ public class FaceRecoActivity extends AppCompatActivity {
 
     static int happy_count, sad_count, angry_count = 0;
 
+
     SharedPreferences pref;          // 프리퍼런스
     SharedPreferences.Editor editor;
     FirebaseUser user;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
+
 
 
 
@@ -112,6 +117,7 @@ public class FaceRecoActivity extends AppCompatActivity {
         binding= DataBindingUtil.setContentView(this,R.layout.activity_face_reco);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+
 
 
 
@@ -393,6 +399,11 @@ public class FaceRecoActivity extends AppCompatActivity {
 
 
 
+
+
+
+
+
                                     if(angry.equals("angry") || angry.equals("disgust")){
                                        mCondition_a.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
@@ -401,6 +412,11 @@ public class FaceRecoActivity extends AppCompatActivity {
                                                 value +=1;//숫자를 1 증가시켜서
                                                 mCondition_a.setValue(value);//저장
 
+
+
+
+
+
                                             }
 
                                             @Override
@@ -408,6 +424,11 @@ public class FaceRecoActivity extends AppCompatActivity {
                                                 //Log.e("MainActivity", String.valueOf(databaseError.toException()));
                                             }
                                         });
+
+
+
+
+
 
                                     }
                                     else if(angry.equals("smile")||angry.equals("laugh")){
@@ -426,6 +447,7 @@ public class FaceRecoActivity extends AppCompatActivity {
                                             }
                                         });
 
+
                                     }else if (angry.equals("sad")) {
                                         mCondition_s.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
@@ -441,6 +463,8 @@ public class FaceRecoActivity extends AppCompatActivity {
                                                 //Log.e("MainActivity", String.valueOf(databaseError.toException()));
                                             }
                                         });
+
+
 
                                     }
 
