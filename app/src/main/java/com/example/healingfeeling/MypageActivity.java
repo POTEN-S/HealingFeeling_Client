@@ -71,6 +71,8 @@ public class MypageActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +80,7 @@ public class MypageActivity extends AppCompatActivity {
 
 
         binding= DataBindingUtil.setContentView(this,R.layout.activity_mypage);
+
 
 
         findViewById(R.id.logoutButton).setOnClickListener(onClickListener);
@@ -88,6 +91,8 @@ public class MypageActivity extends AppCompatActivity {
         cha_Btn=findViewById(R.id.cha_Btn);
         textView2=findViewById(R.id.textView11);
         contextEditText=findViewById(R.id.contextEditText);
+
+
 
 
         happy_text = (TextView) findViewById(R.id.hyview);
@@ -141,7 +146,10 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
-        materialCalendarView.addDecorators(new SundayDecorator(), new SaturdayDecorator(), new EventDecorator(Color.GRAY, Collections.singleton(CalendarDay.today())));
+
+
+
+        materialCalendarView.addDecorators(new SundayDecorator(), new SaturdayDecorator());
 
         //myname = (TextView) findViewById(R.id.myPageNickName);
         //imageView=findViewById(R.id.mypageActivity_imageview_profile);
@@ -160,6 +168,9 @@ public class MypageActivity extends AppCompatActivity {
         DatabaseReference mCondition_h = myRef.child(uid).child("happy_emotion");
         DatabaseReference mCondition_s = myRef.child(uid).child("sad_emotion");
         DatabaseReference mCondition_a = myRef.child(uid).child("angry_emotion");
+        DatabaseReference mCondition = myRef.child(uid);
+
+
 
 
         /*profile_image.addValueEventListener(new ValueEventListener() {
@@ -188,21 +199,29 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_h.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                int count = snapshot.getValue(Integer.class);
-                happy_text.setText(count + "번");
+                int happy = snapshot.getValue(Integer.class);
+                happy_text.setText(happy + "번");
+
+
+
             }
+
 
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
+
             }
         });
+
+
 
         mCondition_s.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                int count = snapshot.getValue(Integer.class);
-                sad_text.setText(count + "번");
+                int sad = snapshot.getValue(Integer.class);
+                sad_text.setText(sad + "번");
+
             }
 
             @Override
@@ -214,15 +233,23 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_a.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                int count = snapshot.getValue(Integer.class);
-                angry_text.setText(count+ "번" );
+                int angry = snapshot.getValue(Integer.class);
+                angry_text.setText(angry+ "번" );
+
+
             }
 
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
+
             }
+
+
+
         });
+
+
 
 
         myRef.addValueEventListener(new ValueEventListener() {
@@ -243,6 +270,46 @@ public class MypageActivity extends AppCompatActivity {
                 Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
+
+        mCondition.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                int happy = snapshot.child("happy_emotion").getValue(Integer.class);
+                int sad = snapshot.child("sad_emotion").getValue(Integer.class);
+                int angry = snapshot.child("angry_emotion").getValue(Integer.class);
+
+                Log.w(TAG, "   happy :   "+happy +"    sad :  "+ sad+ "   angry:   "+ angry);
+
+                if(happy > sad && happy > angry){
+                    materialCalendarView.addDecorator(new EventDecorator(Color.GREEN, Collections.singleton(CalendarDay.today())));
+
+
+                }else if(sad > happy && sad > angry){
+                    materialCalendarView.addDecorator(new EventDecorator(Color.BLUE, Collections.singleton(CalendarDay.today())));
+
+
+                }else if(angry > happy && angry > sad){
+                    materialCalendarView.addDecorator(new EventDecorator(Color.RED, Collections.singleton(CalendarDay.today())));
+
+                }else
+                    materialCalendarView.addDecorator(new EventDecorator(Color.GRAY, Collections.singleton(CalendarDay.today())));
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+        materialCalendarView.state().edit().commit();
+
+
+
+
+
 
 
 
