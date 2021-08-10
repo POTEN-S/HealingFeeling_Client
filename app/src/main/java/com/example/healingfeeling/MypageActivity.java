@@ -7,24 +7,26 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.healingfeeling.databinding.ActivityMypageBinding;
 import com.example.healingfeeling.model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.healingfeeling.ui.Calendar.EventDecorator;
+import com.example.healingfeeling.ui.Calendar.SaturdayDecorator;
+import com.example.healingfeeling.ui.Calendar.SundayDecorator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,11 +34,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.Collections;
 import java.util.Map;
 
 public class MypageActivity extends AppCompatActivity {
@@ -49,6 +55,8 @@ public class MypageActivity extends AppCompatActivity {
     FirebaseUser user;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
+    public String fname=null;
+    public String str=null;
 
 
     private SharedPreferences pref;
@@ -56,6 +64,13 @@ public class MypageActivity extends AppCompatActivity {
     TextView angry_text;
     TextView sad_text;
     TextView happy_text;
+    public Button cha_Btn,del_Btn,save_Btn;
+    public TextView diaryTextView,textView2,textView3;
+    public EditText contextEditText;
+
+
+
+
 
 
     @Override
@@ -67,19 +82,78 @@ public class MypageActivity extends AppCompatActivity {
         binding= DataBindingUtil.setContentView(this,R.layout.activity_mypage);
 
 
+
         findViewById(R.id.logoutButton).setOnClickListener(onClickListener);
         findViewById(R.id.userDeleteButton).setOnClickListener(onClickListener);
+        final TextView textView = findViewById(R.id.textView10);
+        save_Btn=findViewById(R.id.save_Btn);
+        del_Btn=findViewById(R.id.del_Btn);
+        cha_Btn=findViewById(R.id.cha_Btn);
+        textView2=findViewById(R.id.textView11);
+        contextEditText=findViewById(R.id.contextEditText);
+
+
 
 
         happy_text = (TextView) findViewById(R.id.hyview);
         sad_text = (TextView) findViewById(R.id.sadview);
         angry_text = (TextView) findViewById(R.id.angryview);
 
+
+
+
+
+        MaterialCalendarView materialCalendarView = findViewById(R.id.calendarView);
+        materialCalendarView.setSelectedDate(CalendarDay.today());
+
+
+        materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull @NotNull MaterialCalendarView materialCalendarView, @NonNull @NotNull CalendarDay calendarDay, boolean b) {
+
+
+
+
+                    save_Btn.setVisibility(View.VISIBLE);
+                    contextEditText.setVisibility(View.VISIBLE);
+                    textView2.setVisibility(View.INVISIBLE);
+                    cha_Btn.setVisibility(View.INVISIBLE);
+                    del_Btn.setVisibility(View.INVISIBLE);
+
+                int year = calendarDay.getYear();
+                int month = calendarDay.getMonth() +1;
+                int day = calendarDay.getDay();
+
+                contextEditText.setText("");
+                checkDay(year,month,day);
+
+                textView.setText(String.format("%d년 %d월 %d일", year,month,day));
+            }
+        });
+
+        save_Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveDiary(fname);
+                str=contextEditText.getText().toString();
+                textView2.setText(str);
+                save_Btn.setVisibility(View.INVISIBLE);
+                cha_Btn.setVisibility(View.VISIBLE);
+                del_Btn.setVisibility(View.VISIBLE);
+                contextEditText.setVisibility(View.INVISIBLE);
+                textView2.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+
+
+
+        materialCalendarView.addDecorators(new SundayDecorator(), new SaturdayDecorator());
+
         //myname = (TextView) findViewById(R.id.myPageNickName);
         //imageView=findViewById(R.id.mypageActivity_imageview_profile);
 
-
-        User userModel = new User();
 
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -94,6 +168,9 @@ public class MypageActivity extends AppCompatActivity {
         DatabaseReference mCondition_h = myRef.child(uid).child("happy_emotion");
         DatabaseReference mCondition_s = myRef.child(uid).child("sad_emotion");
         DatabaseReference mCondition_a = myRef.child(uid).child("angry_emotion");
+        DatabaseReference mCondition = myRef.child(uid);
+
+
 
 
         /*profile_image.addValueEventListener(new ValueEventListener() {
@@ -119,25 +196,32 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 */
-
         mCondition_h.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                int count = snapshot.getValue(Integer.class);
-                happy_text.setText(count + "번");
+                int happy = snapshot.getValue(Integer.class);
+                happy_text.setText(happy + "번");
+
+
+
             }
+
 
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
+
             }
         });
+
+
 
         mCondition_s.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                int count = snapshot.getValue(Integer.class);
-                sad_text.setText(count + "번");
+                int sad = snapshot.getValue(Integer.class);
+                sad_text.setText(sad + "번");
+
             }
 
             @Override
@@ -149,15 +233,23 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_a.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                int count = snapshot.getValue(Integer.class);
-                angry_text.setText(count+ "번" );
+                int angry = snapshot.getValue(Integer.class);
+                angry_text.setText(angry+ "번" );
+
+
             }
 
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
+
             }
+
+
+
         });
+
+
 
 
         myRef.addValueEventListener(new ValueEventListener() {
@@ -179,9 +271,55 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
+        mCondition.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                int happy = snapshot.child("happy_emotion").getValue(Integer.class);
+                int sad = snapshot.child("sad_emotion").getValue(Integer.class);
+                int angry = snapshot.child("angry_emotion").getValue(Integer.class);
+
+                Log.w(TAG, "   happy :   "+happy +"    sad :  "+ sad+ "   angry:   "+ angry);
+
+                if(happy > sad && happy > angry){
+                    materialCalendarView.addDecorator(new EventDecorator(Color.GREEN, Collections.singleton(CalendarDay.today())));
+
+
+                }else if(sad > happy && sad > angry){
+                    materialCalendarView.addDecorator(new EventDecorator(Color.BLUE, Collections.singleton(CalendarDay.today())));
+
+
+                }else if(angry > happy && angry > sad){
+                    materialCalendarView.addDecorator(new EventDecorator(Color.RED, Collections.singleton(CalendarDay.today())));
+
+                }else
+                    materialCalendarView.addDecorator(new EventDecorator(Color.GRAY, Collections.singleton(CalendarDay.today())));
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+        materialCalendarView.state().edit().commit();
+
+
+
+
+
+
+
+
+
+
 
 
     }
+
+
 
 
 
@@ -263,6 +401,94 @@ public class MypageActivity extends AppCompatActivity {
         Intent intent = new Intent(this, c);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+    }
+
+
+    public void  checkDay(int cYear,int cMonth,int cDay){
+        fname=""+cYear+"-"+(cMonth+1)+""+"-"+cDay+".txt";//저장할 파일 이름설정
+        FileInputStream fis=null;//FileStream fis 변수
+
+        try{
+            fis=openFileInput(fname);
+
+            byte[] fileData=new byte[fis.available()];
+            fis.read(fileData);
+            fis.close();
+
+            str=new String(fileData);
+
+            contextEditText.setVisibility(View.INVISIBLE);
+            textView2.setVisibility(View.VISIBLE);
+            textView2.setText(str);
+
+            save_Btn.setVisibility(View.INVISIBLE);
+            cha_Btn.setVisibility(View.VISIBLE);
+            del_Btn.setVisibility(View.VISIBLE);
+
+            cha_Btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    contextEditText.setVisibility(View.VISIBLE);
+                    textView2.setVisibility(View.INVISIBLE);
+                    contextEditText.setText(str);
+
+                    save_Btn.setVisibility(View.VISIBLE);
+                    cha_Btn.setVisibility(View.INVISIBLE);
+                    del_Btn.setVisibility(View.INVISIBLE);
+                    textView2.setText(contextEditText.getText());
+                }
+
+            });
+            del_Btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    textView2.setVisibility(View.INVISIBLE);
+                    contextEditText.setText("");
+                    contextEditText.setVisibility(View.VISIBLE);
+                    save_Btn.setVisibility(View.VISIBLE);
+                    cha_Btn.setVisibility(View.INVISIBLE);
+                    del_Btn.setVisibility(View.INVISIBLE);
+                    removeDiary(fname);
+                }
+            });
+            if(textView2.getText()==null){
+                textView2.setVisibility(View.INVISIBLE);
+                save_Btn.setVisibility(View.VISIBLE);
+                cha_Btn.setVisibility(View.INVISIBLE);
+                del_Btn.setVisibility(View.INVISIBLE);
+                contextEditText.setVisibility(View.VISIBLE);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    @SuppressLint("WrongConstant")
+    public void removeDiary(String readDay){
+        FileOutputStream fos=null;
+
+        try{
+            fos=openFileOutput(readDay,MODE_NO_LOCALIZED_COLLATORS);
+            String content="";
+            fos.write((content).getBytes());
+            fos.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    @SuppressLint("WrongConstant")
+    public void saveDiary(String readDay){
+        FileOutputStream fos=null;
+
+        try{
+            fos=openFileOutput(readDay,MODE_NO_LOCALIZED_COLLATORS);
+            String content=contextEditText.getText().toString();
+            fos.write((content).getBytes());
+            fos.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
