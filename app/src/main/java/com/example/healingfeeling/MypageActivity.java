@@ -39,10 +39,17 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class MypageActivity extends AppCompatActivity {
@@ -67,6 +74,11 @@ public class MypageActivity extends AppCompatActivity {
     public Button cha_Btn,del_Btn,save_Btn;
     public TextView diaryTextView,textView2,textView3;
     public EditText contextEditText;
+
+    int year,month,day;
+
+    String emotion;
+    private List<CalendarDay> events = new ArrayList<>();
 
 
 
@@ -111,18 +123,17 @@ public class MypageActivity extends AppCompatActivity {
             @Override
             public void onDateSelected(@NonNull @NotNull MaterialCalendarView materialCalendarView, @NonNull @NotNull CalendarDay calendarDay, boolean b) {
 
-
-
-
                     save_Btn.setVisibility(View.VISIBLE);
                     contextEditText.setVisibility(View.VISIBLE);
                     textView2.setVisibility(View.INVISIBLE);
                     cha_Btn.setVisibility(View.INVISIBLE);
                     del_Btn.setVisibility(View.INVISIBLE);
 
-                int year = calendarDay.getYear();
-                int month = calendarDay.getMonth() +1;
-                int day = calendarDay.getDay();
+                year = calendarDay.getYear();
+                month = calendarDay.getMonth() +1;
+                day = calendarDay.getDay();
+
+
 
                 contextEditText.setText("");
                 checkDay(year,month,day);
@@ -201,9 +212,6 @@ public class MypageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 int happy = snapshot.getValue(Integer.class);
                 happy_text.setText(happy + "번");
-
-
-
             }
 
 
@@ -221,7 +229,6 @@ public class MypageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 int sad = snapshot.getValue(Integer.class);
                 sad_text.setText(sad + "번");
-
             }
 
             @Override
@@ -235,7 +242,6 @@ public class MypageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 int angry = snapshot.getValue(Integer.class);
                 angry_text.setText(angry+ "번" );
-
 
             }
 
@@ -283,13 +289,19 @@ public class MypageActivity extends AppCompatActivity {
                 if(happy > sad && happy > angry){
                     materialCalendarView.addDecorator(new EventDecorator(Color.GREEN, Collections.singleton(CalendarDay.today())));
 
+                    //textView.setText(String.format("%d년 %d월 %d일 행복함 비중 높음", year,month,day));
+
 
                 }else if(sad > happy && sad > angry){
                     materialCalendarView.addDecorator(new EventDecorator(Color.BLUE, Collections.singleton(CalendarDay.today())));
 
+                    //textView.setText(String.format("%d년 %d월 %d일 우울함 비중 높음", year,month,day));
+
 
                 }else if(angry > happy && angry > sad){
                     materialCalendarView.addDecorator(new EventDecorator(Color.RED, Collections.singleton(CalendarDay.today())));
+                    //textView.setText(String.format("%d년 %d월 %d일 화남 비중 높음", year,month,day));
+
 
                 }else
                     materialCalendarView.addDecorator(new EventDecorator(Color.GRAY, Collections.singleton(CalendarDay.today())));
@@ -300,6 +312,7 @@ public class MypageActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
 
             }
         });
@@ -490,6 +503,9 @@ public class MypageActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+
+
 
 
 
