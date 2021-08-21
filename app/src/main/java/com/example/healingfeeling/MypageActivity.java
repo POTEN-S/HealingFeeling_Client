@@ -48,6 +48,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -85,6 +86,7 @@ public class MypageActivity extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +112,14 @@ public class MypageActivity extends AppCompatActivity {
         happy_text = (TextView) findViewById(R.id.hyview);
         sad_text = (TextView) findViewById(R.id.sadview);
         angry_text = (TextView) findViewById(R.id.angryview);
+
+
+
+
+
+
+
+
 
 
 
@@ -180,6 +190,9 @@ public class MypageActivity extends AppCompatActivity {
         DatabaseReference mCondition_s = myRef.child(uid).child("sad_emotion");
         DatabaseReference mCondition_a = myRef.child(uid).child("angry_emotion");
         DatabaseReference mCondition = myRef.child(uid);
+
+
+
 
 
 

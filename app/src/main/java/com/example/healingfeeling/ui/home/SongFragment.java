@@ -85,7 +85,8 @@ public class SongFragment extends Fragment {
                     Post data = snapshot.getValue(Post.class); // 만들어뒀던 Data 객체에 데이터를 담는다.
 
                     if (data.category.equals("노래")){
-                        arraypost.add(data); }
+                        arraypost.add(data);
+                    }
 
                 }
                 adapter = new RecyclerAdapter(arraypost);

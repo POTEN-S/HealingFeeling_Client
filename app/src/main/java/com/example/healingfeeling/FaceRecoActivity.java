@@ -57,7 +57,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
@@ -110,6 +112,8 @@ public class FaceRecoActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseDatabase database;
 
+    String date;
+
 
 
 
@@ -124,9 +128,8 @@ public class FaceRecoActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
 
 
-
-
-
+        date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        Log.w(TAG, "   Today is  :   "+ date);
 
 
 
@@ -405,17 +408,17 @@ public class FaceRecoActivity extends AppCompatActivity {
                                     DatabaseReference mCondition_h = mDatabase.child(uid).child("happy_emotion");
                                     DatabaseReference mCondition_s = mDatabase.child(uid).child("sad_emotion");
                                     DatabaseReference mCondition_a = mDatabase.child(uid).child("angry_emotion");
-                                    MaterialCalendarView m_calendarview = findViewById(R.id.calendarView);
 
+                                    //today Date 넣을 Calendar key 형성
+                                    DatabaseReference mCalendar = mDatabase.child(uid).child("Calendar");
 
-
-
-
+                                    HashMap<String,String> hashMap = new HashMap<>();
 
 
 
 
                                     if(angry.equals("angry") || angry.equals("disgust")){
+
 
                                        mCondition_a.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
@@ -437,6 +440,10 @@ public class FaceRecoActivity extends AppCompatActivity {
                                         });
 
 
+                                        hashMap.put(date,"angry");
+                                        mCalendar.push().setValue(hashMap);
+
+
 
 
 
@@ -447,6 +454,9 @@ public class FaceRecoActivity extends AppCompatActivity {
 
                                     }
                                     else if(angry.equals("smile")||angry.equals("laugh")){
+
+                                        hashMap.put(date,"happy");
+                                        mCalendar.push().setValue(hashMap);
 
                                         mCondition_h.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
@@ -469,6 +479,9 @@ public class FaceRecoActivity extends AppCompatActivity {
 
 
                                     }else if (angry.equals("sad")) {
+
+                                        hashMap.put(date,"sad");
+                                        mCalendar.push().setValue(hashMap);
 
                                         mCondition_s.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
