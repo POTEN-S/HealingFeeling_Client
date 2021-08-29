@@ -164,16 +164,19 @@
             android:textSize="20dp"/>
 
         <EditText
+            android:id="@+id/contextEditText"
             android:layout_width="0dp"
             android:layout_height="116dp"
-            android:inputType="textMultiLine"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
-            android:id="@+id/contextEditText"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" android:layout_marginTop="16dp"
-            android:hint="오늘의 감정일기." android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="8dp" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:visibility="invisible"/>
+            android:hint="오늘의 감정일기."
+            android:inputType="textMultiLine"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <TextView
             android:layout_width="0dp"
@@ -215,6 +218,17 @@
             android:id="@+id/del_Btn"
             app:layout_constraintBaseline_toBaselineOf="@+id/cha_Btn" app:layout_constraintEnd_toEndOf="@+id/save_Btn"
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:visibility="invisible"></Button>
+
+        <ListView
+            android:id="@+id/date_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/del_Btn"
+            android:layout_marginTop="15dp"/>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
