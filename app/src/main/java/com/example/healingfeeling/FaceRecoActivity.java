@@ -357,31 +357,21 @@ public class FaceRecoActivity extends AppCompatActivity {
                                 List<Face> faceList = response.body().getFaces();
                                 if (faceList != null && faceList.size() != 0) {
                                     Emotion emotion =faceList.get(0).getEmotion();
-                                    String angry=emotion.getValue();
+                                    String userEmotion=emotion.getValue();
                                     double confidence = emotion.getConfidence() * 100;
                                     double percent = Double.parseDouble(String.format("%.2f", confidence));
 
-                                    //첫번쨰로 닮은 연예인 정보를 가져오는 코드
-                                  /*  Celebrity celebrity = faceList.get(0).getCelebrity();
-                                    String name = celebrity.getValue(); //감정가져오기
-                                    double confidence = celebrity.getConfidence() * 100;
-                                    double percent = Double.parseDouble(String.format("%.2f", confidence));*/
-
-
-                                    result = "당신의 감정은 " + angry + "이고 " + percent + "% 입니다.!!";   // angry , neural, smile, sad
+                                    result = "당신의 감정은 " + userEmotion + "이고 " + percent + "% 입니다.!!";   // angry , neural, smile, sad
                                     binding.faceResult.setText(result);
 
-
                                     String faceemotion="";
-                                    if(angry.equals("smile")){
+                                    if(userEmotion.equals("smile")){
                                         faceemotion="행복";
-                                    }else if(angry.equals("angry")){
+                                    }else if(userEmotion.equals("angry")){
                                         faceemotion="분노";
-                                    }else if(angry.equals("sad")){
+                                    }else if(userEmotion.equals("sad")){
                                         faceemotion="슬픔";
                                     }
-
-
 
                                     String uid = user!= null? user.getUid() : null;
                                     // face_result.setText(result);
@@ -393,7 +383,7 @@ public class FaceRecoActivity extends AppCompatActivity {
 
 
 
-                                    if(angry.equals("angry") || angry.equals("disgust")){
+                                    if(userEmotion.equals("angry") || userEmotion.equals("disgust")){
                                        mCondition_a.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -410,7 +400,7 @@ public class FaceRecoActivity extends AppCompatActivity {
                                         });
 
                                     }
-                                    else if(angry.equals("smile")||angry.equals("laugh")){
+                                    else if(userEmotion.equals("smile")||userEmotion.equals("laugh")){
                                         mCondition_h.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -426,7 +416,7 @@ public class FaceRecoActivity extends AppCompatActivity {
                                             }
                                         });
 
-                                    }else if (angry.equals("sad")) {
+                                    }else if (userEmotion.equals("sad")) {
                                         mCondition_s.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -451,7 +441,7 @@ public class FaceRecoActivity extends AppCompatActivity {
                                     editor.commit();    //최종 커밋. 커밋을 해야 저장이 된다.
 
                                     Intent intent = new Intent(FaceRecoActivity.this,MainActivity.class);
-                                    intent.putExtra("emotion",angry);
+                                    intent.putExtra("emotion",userEmotion);
                                     startActivity(intent);
 
                                     progressDialog.dismiss();

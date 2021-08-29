@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -29,6 +30,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.healingfeeling.databinding.FragmentPostBinding;
 import com.example.healingfeeling.model.Post;
 import com.example.healingfeeling.model.UserInfo;
+import com.example.healingfeeling.ui.home.RecyclerAdapter;
 import com.example.healingfeeling.ui.recommend.RecommendViewModel;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCanceledListener;
@@ -38,8 +40,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -66,6 +71,9 @@ public class PostFragment extends Fragment {
     Map<String, Object> userValue = null;
     UserInfo userInfo = null;
 
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    ArrayList<String> arrayTitle=new ArrayList<>();
 
     FragmentPostBinding binding;
 
@@ -90,22 +98,10 @@ public class PostFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_post, container, false);
         mAuth = FirebaseAuth.getInstance();
         binding=FragmentPostBinding.bind(root);
-        //final TextView textView = root.findViewById(R.id.text_post);
-      /*  postViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
 
-    /*    mDBReference = FirebaseDatabase.getInstance().getReference();
-        childUpdates = new HashMap<>();
-        if(flag){
-            userInfo = new UserInfo(ID, PW, name, birth, gender, height, weight, disease, purpose)
-            userValue = userInfo.toMap();
-        }
-        childUpdates.put("/User_info/" + ID, userValue);
-        mDBReference.updateChildren(childUpdates);*/
+
+
+        getData();
 
         binding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -407,6 +403,19 @@ public class PostFragment extends Fragment {
                     }
                 });
 
+        mDBReference.child("postList").child(key).setValue(post)
+                .addOnSuccessListener(aVoid -> {
+                    // Write was successful!
+                    Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Write failed
+                        Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
 
         mDBReference.child(emotion).child(key).setValue(post)
                 .addOnSuccessListener(aVoid -> {
@@ -433,6 +442,39 @@ public class PostFragment extends Fragment {
                         Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
+    }
+
+    private void getData() {
+        // 임의의 데이터입니다.
+        database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
+
+        databaseReference = database.getReference().child("postList"); // DB 테이블 연결
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
+                arrayTitle.clear(); // 기존 배열리스트가 존재하지않게 초기화
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
+                    Post data = snapshot.getValue(Post.class); // 만들어뒀던 Data 객체에 데이터를 담는다.
+
+
+                        arrayTitle.add(data.title);
+
+                }
+                Log.d("titlearray",arrayTitle.toString());
+                binding.titleinput.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, arrayTitle));
+                // 리스트 저장 및 새로고침
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // 디비를 가져오던중 에러 발생 시
+                Log.e("SongFragment", String.valueOf(databaseError.toException())); // 에러문 출력
+            }
+        });
+
 
 
     }

@@ -82,11 +82,8 @@ public class ChattingFragment extends Fragment {
 
                 } else {
                     //save 작업
-                    final ProgressDialog progressDialog = new ProgressDialog(getContext());
-                    progressDialog.setTitle("접속중...");
-                    progressDialog.show();
                     saveData();
-                    progressDialog.dismiss();
+
                     //ChatActivity로 전환
 
 
@@ -148,6 +145,10 @@ public class ChattingFragment extends Fragment {
 
 
     void saveData() {
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setTitle("접속중...");
+        progressDialog.show();
+        
         //EditText의 닉네임 가져오기
         G.nickName=etName.getText().toString();
 
@@ -201,6 +202,7 @@ public class ChattingFragment extends Fragment {
 
                         Intent intent=new Intent(getActivity(), ChatActivity.class);
                         startActivity(intent);
+                        progressDialog.dismiss();
                     }
                 });
             }
