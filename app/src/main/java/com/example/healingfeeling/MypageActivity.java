@@ -78,8 +78,10 @@ public class MypageActivity extends AppCompatActivity {
 
     int year,month,day;
 
-    String emotion;
+    String emotion_frequency;
     private List<CalendarDay> events = new ArrayList<>();
+
+    String uid;
 
 
 
@@ -143,12 +145,38 @@ public class MypageActivity extends AppCompatActivity {
                 month = calendarDay.getMonth() +1;
                 day = calendarDay.getDay();
 
+                readData(new MyCallback() {
+                    @Override
+                    public void onCallback(int happy, int sad, int angry) {
+                        if(happy > sad && happy > angry){
+
+
+                            emotion_frequency = "     |현재: 행복함 비중 높음";
+
+
+                        }else if(sad > happy && sad > angry){
+
+
+                            emotion_frequency = "     |현재: 우울함 비중 높음";
+
+
+                        }else if(angry > happy && angry > sad){
+
+                            emotion_frequency = "     |현재: 화남 비중 높음";
+
+                        }else
+                            emotion_frequency = "   |감정이 안정화 된 상태입니다.";
+
+
+                    }
+                });
+
 
 
                 contextEditText.setText("");
                 checkDay(year,month,day);
 
-                textView.setText(String.format("%d년 %d월 %d일", year,month,day));
+                textView.setText(String.format("%d년 %d월 %d일"+emotion_frequency, year,month,day));
             }
         });
 
@@ -179,7 +207,7 @@ public class MypageActivity extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        String uid = user!= null? user.getUid() : null;
+        uid = user!= null? user.getUid() : null;
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("users");
@@ -290,6 +318,7 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
+
         mCondition.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -302,18 +331,13 @@ public class MypageActivity extends AppCompatActivity {
                 if(happy > sad && happy > angry){
                     materialCalendarView.addDecorator(new EventDecorator(Color.GREEN, Collections.singleton(CalendarDay.today())));
 
-                    //textView.setText(String.format("%d년 %d월 %d일 행복함 비중 높음", year,month,day));
-
 
                 }else if(sad > happy && sad > angry){
                     materialCalendarView.addDecorator(new EventDecorator(Color.BLUE, Collections.singleton(CalendarDay.today())));
 
-                    //textView.setText(String.format("%d년 %d월 %d일 우울함 비중 높음", year,month,day));
-
 
                 }else if(angry > happy && angry > sad){
                     materialCalendarView.addDecorator(new EventDecorator(Color.RED, Collections.singleton(CalendarDay.today())));
-                    //textView.setText(String.format("%d년 %d월 %d일 화남 비중 높음", year,month,day));
 
 
                 }else
@@ -417,6 +441,34 @@ public class MypageActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    public interface MyCallback {
+        void onCallback(int happy, int sad, int angry);
+    }
+
+    public void readData(MyCallback myCallback) {
+        myRef.child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                int happy = snapshot.child("happy_emotion").getValue(Integer.class);
+                int sad = snapshot.child("sad_emotion").getValue(Integer.class);
+                int angry = snapshot.child("angry_emotion").getValue(Integer.class);
+                myCallback.onCallback(happy, sad, angry);
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+
+            }
+        });
+
+
     }
 
 

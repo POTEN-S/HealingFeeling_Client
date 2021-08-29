@@ -161,7 +161,7 @@
             android:layout_marginTop="20dp"
             android:padding="10dp"
             android:background="#F0E2F1"
-            android:textSize="20dp"/>
+            android:textSize="15dp"/>
 
         <EditText
             android:id="@+id/contextEditText"
