@@ -391,12 +391,14 @@ public class FaceRecoActivity extends AppCompatActivity {
 
 
                                     String faceemotion="";
-                                    if(angry.equals("smile")){
+                                    if(angry.equals("smile")||angry.equals("neutral")||angry.equals("laugh")){
                                         faceemotion="행복";
                                     }else if(angry.equals("angry")){
                                         faceemotion="분노";
                                     }else if(angry.equals("sad")){
                                         faceemotion="슬픔";
+                                    }else if (angry.equals("disgust")){
+                                        faceemotion="분노";
                                     }
 
 
@@ -423,10 +425,20 @@ public class FaceRecoActivity extends AppCompatActivity {
                                        mCondition_a.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                                int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
-                                                value +=1;//숫자를 1 증가시켜서
-                                                mCondition_a.setValue(value);//저장
+                                                int value;
 
+                                                if (snapshot.exists()) {
+                                                    value = (int) snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+
+                                                    value += 1;//숫자를 1 증가시켜서
+
+                                                }
+                                                else {
+                                                    value = 0;
+
+
+                                                }
+                                                mCondition_a.setValue(value);
 
 
 
@@ -446,12 +458,6 @@ public class FaceRecoActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
                                     }
                                     else if(angry.equals("smile")||angry.equals("laugh")){
 
@@ -461,9 +467,16 @@ public class FaceRecoActivity extends AppCompatActivity {
                                         mCondition_h.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                                int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
-                                                value +=1;//숫자를 1 증가시켜서
-                                                mCondition_h.setValue(value);//저장
+                                                if (snapshot.exists()) {
+                                                    int value = (int) snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+
+                                                    value += 1;//숫자를 1 증가시켜서
+                                                    mCondition_h.setValue(value);//저장
+                                                }
+                                                else {
+                                                    mCondition_h.setValue(0);
+
+                                                }
 
 
 
@@ -486,9 +499,16 @@ public class FaceRecoActivity extends AppCompatActivity {
                                         mCondition_s.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                                int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
-                                                value +=1;//숫자를 1 증가시켜서
-                                                mCondition_s.setValue(value);//저장
+                                                if (snapshot.exists()) {
+                                                    int value = (int) snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+
+                                                    value += 1;//숫자를 1 증가시켜서
+                                                    mCondition_s.setValue(value);//저장
+                                                }
+                                                else {
+                                                    mCondition_s.setValue(0);
+
+                                                }
 
 
                                             }

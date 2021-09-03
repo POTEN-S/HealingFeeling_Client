@@ -84,7 +84,8 @@ public class SongFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
                     Post data = snapshot.getValue(Post.class); // 만들어뒀던 Data 객체에 데이터를 담는다.
 
-                    if (data.category.equals("노래")){
+
+                   if (data.category.equals("노래")){
                         arraypost.add(data); }
 
                 }

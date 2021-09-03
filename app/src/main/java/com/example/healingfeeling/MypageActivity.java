@@ -86,9 +86,6 @@ public class MypageActivity extends AppCompatActivity {
 
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,18 +148,18 @@ public class MypageActivity extends AppCompatActivity {
                         if(happy > sad && happy > angry){
 
 
-                            emotion_frequency = "     |현재: 행복함 비중 높음";
+                            emotion_frequency = "     |현재: 행복함 높음";
 
 
                         }else if(sad > happy && sad > angry){
 
 
-                            emotion_frequency = "     |현재: 우울함 비중 높음";
+                            emotion_frequency = "     |현재: 우울함 높음";
 
 
                         }else if(angry > happy && angry > sad){
 
-                            emotion_frequency = "     |현재: 화남 비중 높음";
+                            emotion_frequency = "     |현재: 화남 높음";
 
                         }else
                             emotion_frequency = "   |감정이 안정화 된 상태입니다.";
@@ -251,8 +248,13 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_h.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                int happy = snapshot.getValue(Integer.class);
-                happy_text.setText(happy + "번");
+                if(snapshot.exists()) {
+                    int happy = snapshot.getValue(Integer.class);
+                    happy_text.setText(happy + "번");
+                }
+                else{
+                    happy_text.setText("행복");
+                }
             }
 
 
@@ -268,8 +270,14 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_s.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
                 int sad = snapshot.getValue(Integer.class);
                 sad_text.setText(sad + "번");
+                }
+                else{
+                    sad_text.setText("슬픔");
+                }
+
             }
 
             @Override
@@ -281,8 +289,14 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_a.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+
                 int angry = snapshot.getValue(Integer.class);
                 angry_text.setText(angry+ "번" );
+            }
+                else{
+                    angry_text.setText("분노");
+            }
 
             }
 
