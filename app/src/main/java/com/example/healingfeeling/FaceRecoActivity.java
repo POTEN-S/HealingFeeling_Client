@@ -452,8 +452,10 @@ public class FaceRecoActivity extends AppCompatActivity {
                                         });
 
 
-                                        hashMap.put(date,"angry");
+                                        hashMap.put("date",date);
+                                        hashMap.put("emotion_today", "angry");
                                         mCalendar.push().setValue(hashMap);
+
 
 
 
@@ -461,7 +463,8 @@ public class FaceRecoActivity extends AppCompatActivity {
                                     }
                                     else if(angry.equals("smile")||angry.equals("laugh")){
 
-                                        hashMap.put(date,"happy");
+                                        hashMap.put("date",date);
+                                        hashMap.put("emotion_today", "happy");
                                         mCalendar.push().setValue(hashMap);
 
                                         mCondition_h.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -493,7 +496,8 @@ public class FaceRecoActivity extends AppCompatActivity {
 
                                     }else if (angry.equals("sad")) {
 
-                                        hashMap.put(date,"sad");
+                                        hashMap.put("date",date);
+                                        hashMap.put("emotion_today", "angry");
                                         mCalendar.push().setValue(hashMap);
 
                                         mCondition_s.addListenerForSingleValueEvent(new ValueEventListener() {

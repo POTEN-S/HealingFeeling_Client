@@ -96,6 +96,8 @@ dependencies {
 
     implementation "com.prolificinteractive:material-calendarview:1.4.3"
 
+    implementation 'com.applandeo:material-calendar-view:1.7.0'
+
 
 
 
