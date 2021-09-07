@@ -140,7 +140,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:mcv_selectionColor="@color/clouds"
+            app:selectionLabelColor="#253E55"
             app:mcv_showOtherDates="all"
             android:background="#ffffff"
             android:layout_marginTop="12dp"

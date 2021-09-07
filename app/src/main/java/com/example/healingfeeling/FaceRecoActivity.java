@@ -46,6 +46,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.example.healingfeeling.ui.Calendar.DataEmo;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -452,8 +453,9 @@ public class FaceRecoActivity extends AppCompatActivity {
                                         });
 
 
+
                                         hashMap.put("date",date);
-                                        hashMap.put("emotion_today", "angry");
+                                        hashMap.put("emotion_today","angry");
                                         mCalendar.push().setValue(hashMap);
 
 
