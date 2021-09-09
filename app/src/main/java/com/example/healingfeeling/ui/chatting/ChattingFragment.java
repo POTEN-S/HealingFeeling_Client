@@ -1,6 +1,7 @@
 package com.example.healingfeeling.ui.chatting;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -39,7 +41,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class ChattingFragment extends Fragment {
 
     EditText etName;
-    CircleImageView ivProfile;
+    ImageView ivProfile;
     Button entbtn;
 
     Uri imgUri; //선택한 프로필 이미지 경로 uri
@@ -63,20 +65,28 @@ public class ChattingFragment extends Fragment {
 
         etName = v.findViewById(R.id.et_name);
         ivProfile = v.findViewById(R.id.iv_profile);
+        ivProfile.setImageResource(R.drawable.user);
         entbtn = v.findViewById(R.id.enterbtn);
         entbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!isChanged && !isFirst) {
+                    final ProgressDialog progressDialog = new ProgressDialog(getContext());
+                    progressDialog.setTitle("접속중...");
+                    progressDialog.show();
                     //ChatActivity로 전환
                     Intent intent = new Intent(getActivity(), ChatActivity.class);
 
                     startActivity(intent);
-
+                    progressDialog.dismiss();
 
                 } else {
                     //save 작업
+                    final ProgressDialog progressDialog = new ProgressDialog(getContext());
+                    progressDialog.setTitle("접속중...");
+                    progressDialog.show();
                     saveData();
+                    progressDialog.dismiss();
                     //ChatActivity로 전환
 
 
@@ -99,12 +109,14 @@ public class ChattingFragment extends Fragment {
         if (G.nickName != null) {
             etName.setText(G.nickName);
             Picasso.get().load(G.profileUri).into(ivProfile);
-
+            ivProfile.setImageResource(R.drawable.user_image);
             //처음이 아니다, 이미 접속한 적이 있다.
             isFirst = false;
 
 
             //폰에 저장되어있는 프로필 읽어오기
+        }else{
+            ivProfile.setImageResource(R.drawable.user_image);
         }
         return v;
     }
@@ -122,9 +134,11 @@ public class ChattingFragment extends Fragment {
                     //Glide는 이미지를 읽어와서 보여줄때 내 device의 외장메모리에 접근하는 퍼미션이 요구됨
                     //퍼미션이 없으면 이미지가 보이지 않음
                     Picasso.get().load(imgUri).into(ivProfile);
-
+                    //ivProfile.setImageResource(R.drawable.user);
                     //변경된 이미지가 있다.
                     isChanged=true;
+                }else{
+                    ivProfile.setImageResource(R.drawable.user_image);
                 }
                 break;
         }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +28,8 @@ public class ChatActivity extends AppCompatActivity {
     EditText et;
     ListView listView;
 
+   
+
     ArrayList<MessageItem> messageItems=new ArrayList<>();
     ChatAdapter adapter;
 
@@ -44,14 +47,19 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        TextView textView = (TextView)this.findViewById(R.id.textView);
+        textView.setSelected(true);
+
 
         //제목줄 제목글시를 닉네임으로(또는 채팅방)
 
 
         et=findViewById(R.id.et);
         listView=findViewById(R.id.listview);
+
         adapter=new ChatAdapter(messageItems,getLayoutInflater());
         listView.setAdapter(adapter);
+
 
 
 
