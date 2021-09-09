@@ -67,6 +67,8 @@ public class SongFragment extends Fragment {
         getData();
 
 
+
+
         return root;
     }
 
@@ -85,9 +87,14 @@ public class SongFragment extends Fragment {
                     Post data = snapshot.getValue(Post.class); // 만들어뒀던 Data 객체에 데이터를 담는다.
 
                     if (data.category.equals("노래")){
-                        arraypost.add(data); }
-
+                        arraypost.add(data);
+                         }
                 }
+
+                // 랭킹 정렬
+                Collections.sort(arraypost,new PostComparator());
+
+
                 adapter = new RecyclerAdapter(arraypost);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
@@ -105,4 +112,14 @@ public class SongFragment extends Fragment {
     }
 
 
+}
+
+// 랭킹 정렬을 위한 comparator
+class PostComparator implements Comparator<Post>{
+    @Override
+    public int compare(Post a,Post b){
+        if(a.getRegister()>b.getRegister()) return -1;
+        if(a.getRegister()<b.getRegister()) return 1;
+        return 0;
+    }
 }

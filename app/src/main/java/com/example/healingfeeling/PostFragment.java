@@ -1,5 +1,6 @@
 package com.example.healingfeeling;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,8 +83,14 @@ public class PostFragment extends Fragment {
     SharedPreferences.Editor editor;
 
 
+    //세림
+    String title;
+    String subtitle;
+    String imageUrl;
+    String category;
 
 
+    @SuppressLint("ResourceType")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         RecommendViewModel =
@@ -90,6 +98,54 @@ public class PostFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_post, container, false);
         mAuth = FirebaseAuth.getInstance();
         binding=FragmentPostBinding.bind(root);
+
+
+        RadioGroup radioGroup = root.findViewById(R.id.radioGroup);
+        radioGroup.clearCheck();
+
+        RadioButton radiobook=root.findViewById(R.id.radiobook);
+        radiobook.setId(1);
+        RadioButton radioplace=root.findViewById(R.id.radioplace);
+        radioplace.setId(2);
+        RadioButton radiosong=root.findViewById(R.id.radiosong);
+        radiosong.setId(3);
+
+
+        if (getArguments() != null)
+        {
+
+            // 이미지 넣는게 아직 안됨
+            title = getArguments().getString("titletext"); // RecyclerAdapter에서 받아온 값 넣기
+            subtitle = getArguments().getString("subtitletext");
+            category = getArguments().getString("category");
+            imageUrl = getArguments().getString("imageurl");
+
+            Log.d("asdfg",title);
+            Log.d("category",category);
+
+
+            binding.titleinput.setText(title);
+            binding.titleinput.setInputType(InputType.TYPE_NULL);
+            binding.subtitleinput.setText(subtitle);
+            binding.subtitleinput.setInputType(InputType.TYPE_NULL);
+
+
+            if(category.equals("도서"))
+                radioGroup.check(radiobook.getId());
+            else if(category.equals("노래"))
+                radioGroup.check(radiosong.getId());
+            else
+                radioGroup.check(radioplace.getId());
+
+            radiobook.setEnabled(false);
+            radiosong.setEnabled(false);
+            radioplace.setEnabled(false);
+
+        }
+
+
+
+
         //final TextView textView = root.findViewById(R.id.text_post);
       /*  postViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -118,8 +174,20 @@ public class PostFragment extends Fragment {
         binding.checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //uploadImg();
+
+
+                // 0810 수정 중
+//                if(!radiobook.isEnabled()&&!radioplace.isEnabled()&&!radiosong.isEnabled()){
+//                    Log.d("hi","hi");
+//                }
+//                else{
+//                    uploadFile();
+//                }
+                // writeDuplicate(mAuth.getCurrentUser().getUid(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
+
+                // 기존
                 uploadFile();
+
             }}
         );
 
@@ -306,6 +374,12 @@ public class PostFragment extends Fragment {
         }
     }
 
+
+
+
+
+
+    /* 0822 일단 안쓰여서 주석달아놓음
     private void uploadImg()
     {
         try {
@@ -386,7 +460,7 @@ public class PostFragment extends Fragment {
     }
 
 
-
+*/
 
 
     private void writeNewUser(String userId, String category, String title,String subtitle, String image, String emotion,ArrayList<String> favorite,int register,Double ratings) {
@@ -436,6 +510,26 @@ public class PostFragment extends Fragment {
 
 
     }
+
+
+    private void writeDuplicate(String userId, String category, Double ratings) {
+
+        //평점 데이터 만들기
+        mDBReference.child("score").child(category).child(userId).child(title).setValue(ratings)
+                .addOnSuccessListener(aVoid -> {
+                    // Write was successful!
+                    // Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Write failed
+                        Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
+
 
 
 }

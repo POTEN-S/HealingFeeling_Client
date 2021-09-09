@@ -88,6 +88,10 @@ public class PlaceFragment extends Fragment {
                         arraypost.add(data); }// 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
 
                 }
+
+                // 랭킹 정렬
+                Collections.sort(arraypost,new PostComparator());
+
                 adapter = new RecyclerAdapter(arraypost);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
@@ -106,3 +110,5 @@ public class PlaceFragment extends Fragment {
 
 
 }
+
+
