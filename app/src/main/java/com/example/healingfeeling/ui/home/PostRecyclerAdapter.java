@@ -45,13 +45,17 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
 
         context = holder.itemView.getContext();
         String url = mData.get(position).getImageUrl();
-        Glide.with(context)
+
+        //String image=mData.get(position).getImageUrl();
+
+
+       Glide.with(context)
                 .load(url)
                 .placeholder(R.drawable.feelings)
                 .into(holder.imageView);
 
-        holder.mainText.setText(item.getTitle());
-        holder.subText.setText(item.getSubTitle());
+         holder.mainText.setText(item.getTitle());
+  //      holder.subText.setText(item.getSubTitle());
     }
 
     // getItemCount : 전체 데이터의 개수를 리턴
@@ -71,8 +75,8 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
 
             // 뷰 객체에 대한 참조
             imageView = itemView.findViewById(R.id.postImage);
-            mainText = itemView.findViewById(R.id.postTitle);
-            subText = itemView.findViewById(R.id.postSubTitle);
+            mainText = itemView.findViewById(R.id.recommend_title);
+           // subText = itemView.findViewById(R.id.postSubTitle);
         }
     }
 }

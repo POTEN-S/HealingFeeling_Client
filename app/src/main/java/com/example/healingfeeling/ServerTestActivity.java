@@ -25,7 +25,7 @@ public class ServerTestActivity extends AppCompatActivity implements View.OnClic
     private final  String TAG = getClass().getSimpleName();
 
     // server의 url을 적어준다
-    private final String BASE_URL = "http://0.0.0.0:8080/";
+    private final String BASE_URL = "http://4220f4acce86.ngrok.io/";
     private MyApi mMyAPI;
 
     private TextView mListTv;
