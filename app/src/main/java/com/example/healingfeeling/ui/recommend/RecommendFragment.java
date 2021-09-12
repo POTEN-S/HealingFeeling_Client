@@ -71,6 +71,7 @@ public class RecommendFragment extends Fragment {
                     String result ="";
                     Boolean check = false;
                     for( com.example.healingfeeling.api.Post item : mList){
+
                         result =item.getTitle() ;
                     }
                     Log.d(TAG,"겟 성공");

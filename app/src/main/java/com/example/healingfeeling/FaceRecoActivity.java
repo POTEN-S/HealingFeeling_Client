@@ -405,7 +405,7 @@ public class FaceRecoActivity extends AppCompatActivity {
                                     DatabaseReference mCondition_h = mDatabase.child(uid).child("happy_emotion");
                                     DatabaseReference mCondition_s = mDatabase.child(uid).child("sad_emotion");
                                     DatabaseReference mCondition_a = mDatabase.child(uid).child("angry_emotion");
-                                    MaterialCalendarView m_calendarview = findViewById(R.id.calendarView);
+                                    //MaterialCalendarView m_calendarview = findViewById(R.id.calendarView);
 
 
 
