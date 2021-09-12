@@ -135,12 +135,12 @@
 
 
 
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        <com.applandeo.materialcalendarview.CalendarView
             android:id="@+id/calendarView"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:mcv_selectionColor="@color/clouds"
+            app:selectionLabelColor="#253E55"
             app:mcv_showOtherDates="all"
             android:background="#ffffff"
             android:layout_marginTop="12dp"
@@ -149,7 +149,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sadview" >
 
-        </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+        </com.applandeo.materialcalendarview.CalendarView>
+
+
 
         <TextView
             android:id="@+id/textView10"
@@ -158,22 +160,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/calendarView"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="45dp"
             android:padding="10dp"
             android:background="#F0E2F1"
-            android:textSize="20dp"/>
+            android:textSize="15dp"/>
 
         <EditText
+            android:id="@+id/contextEditText"
             android:layout_width="0dp"
             android:layout_height="116dp"
-            android:inputType="textMultiLine"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
-            android:id="@+id/contextEditText"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" android:layout_marginTop="16dp"
-            android:hint="오늘의 감정일기." android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="8dp" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:visibility="invisible"/>
+            android:hint="오늘의 감정일기."
+            android:inputType="textMultiLine"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <TextView
             android:layout_width="0dp"
@@ -216,20 +221,93 @@
             android:layout_width="176dp"
             android:layout_height="wrap_content"
             android:id="@+id/del_Btn"
-            app:layout_constraintBaseline_toBaselineOf="@+id/cha_Btn"
-            app:layout_constraintEnd_toEndOf="@+id/save_Btn"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:visibility="invisible" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/cha_Btn" app:layout_constraintEnd_toEndOf="@+id/save_Btn"
+            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:visibility="invisible"></Button>
 
-        <ImageButton
-            android:background="@android:color/transparent"
-            android:id="@+id/imgbtn_mypage_back"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_west_24" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/happy_cal"
+            tools:layout_editor_absoluteY="150dp"
+
+            app:layout_constraintStart_toStartOf="@id/calendarView"
+            app:layout_constraintTop_toBottomOf="@+id/calendarView"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/calendar_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text=" : 행복한날   "
+            android:textColor="#27D153"
+            app:flow_verticalAlign="center"
+            app:layout_constraintEnd_toEndOf="@id/progressHappy"
+            app:layout_constraintStart_toEndOf="@id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/calendarView"
+            android:layout_marginTop="10dp"
+            />
+
+        <ImageView
+            android:id="@+id/sad_image"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/sad_cal"
+            tools:layout_editor_absoluteY="150dp"
+
+            app:layout_constraintStart_toEndOf="@id/calendar_detail"
+            app:layout_constraintTop_toBottomOf="@+id/calendarView"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/sad_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text=" : 우울한날   "
+            android:textColor="#728399"
+            app:flow_verticalAlign="center"
+
+            app:layout_constraintStart_toEndOf="@id/sad_image"
+            app:layout_constraintTop_toBottomOf="@+id/calendarView"
+            android:layout_marginTop="10dp"
+            />
+
+
+        <ImageView
+            android:id="@+id/angry_image"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/angry_cal"
+            tools:layout_editor_absoluteY="150dp"
+
+            app:layout_constraintStart_toEndOf="@id/sad_detail"
+            app:layout_constraintTop_toBottomOf="@+id/calendarView"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/angry_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text=" : 화난날    "
+            android:textColor="#BB34C0"
+            app:flow_verticalAlign="center"
+            app:layout_constraintEnd_toEndOf="@id/calendarView"
+            app:layout_constraintStart_toEndOf="@id/angry_image"
+            app:layout_constraintTop_toBottomOf="@+id/calendarView"
+            android:layout_marginTop="10dp"
+            />
+
+
+
+
+
+
+
+
+
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
