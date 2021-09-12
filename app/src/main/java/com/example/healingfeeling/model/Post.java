@@ -3,7 +3,7 @@ package com.example.healingfeeling.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Post {
+public class Post{
     public String category;
     public String title;
     public String subTitle;
@@ -42,4 +42,8 @@ public class Post {
     public String getImageUrl() {
         return image;
     }
+
+    public Integer getRegister() { return register; }
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.healingfeeling;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,11 +9,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -30,7 +31,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.healingfeeling.databinding.FragmentPostBinding;
 import com.example.healingfeeling.model.Post;
 import com.example.healingfeeling.model.UserInfo;
-import com.example.healingfeeling.ui.home.RecyclerAdapter;
 import com.example.healingfeeling.ui.recommend.RecommendViewModel;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCanceledListener;
@@ -40,11 +40,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -71,9 +68,6 @@ public class PostFragment extends Fragment {
     Map<String, Object> userValue = null;
     UserInfo userInfo = null;
 
-    private FirebaseDatabase database;
-    private DatabaseReference databaseReference;
-    ArrayList<String> arrayTitle=new ArrayList<>();
 
     FragmentPostBinding binding;
 
@@ -89,8 +83,14 @@ public class PostFragment extends Fragment {
     SharedPreferences.Editor editor;
 
 
+    //세림
+    String title;
+    String subtitle;
+    String imageUrl;
+    String category;
 
 
+    @SuppressLint("ResourceType")
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         RecommendViewModel =
@@ -100,8 +100,68 @@ public class PostFragment extends Fragment {
         binding=FragmentPostBinding.bind(root);
 
 
+        RadioGroup radioGroup = root.findViewById(R.id.radioGroup);
+        radioGroup.clearCheck();
 
-        getData();
+        RadioButton radiobook=root.findViewById(R.id.radiobook);
+        radiobook.setId(1);
+        RadioButton radioplace=root.findViewById(R.id.radioplace);
+        radioplace.setId(2);
+        RadioButton radiosong=root.findViewById(R.id.radiosong);
+        radiosong.setId(3);
+
+
+        if (getArguments() != null)
+        {
+
+            // 이미지 넣는게 아직 안됨
+            title = getArguments().getString("titletext"); // RecyclerAdapter에서 받아온 값 넣기
+            subtitle = getArguments().getString("subtitletext");
+            category = getArguments().getString("category");
+            imageUrl = getArguments().getString("imageurl");
+
+            Log.d("asdfg",title);
+            Log.d("category",category);
+
+
+            binding.titleinput.setText(title);
+            binding.titleinput.setInputType(InputType.TYPE_NULL);
+            binding.subtitleinput.setText(subtitle);
+            binding.subtitleinput.setInputType(InputType.TYPE_NULL);
+
+
+            if(category.equals("도서"))
+                radioGroup.check(radiobook.getId());
+            else if(category.equals("노래"))
+                radioGroup.check(radiosong.getId());
+            else
+                radioGroup.check(radioplace.getId());
+
+            radiobook.setEnabled(false);
+            radiosong.setEnabled(false);
+            radioplace.setEnabled(false);
+
+        }
+
+
+
+
+        //final TextView textView = root.findViewById(R.id.text_post);
+      /*  postViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                textView.setText(s);
+            }
+        });*/
+
+    /*    mDBReference = FirebaseDatabase.getInstance().getReference();
+        childUpdates = new HashMap<>();
+        if(flag){
+            userInfo = new UserInfo(ID, PW, name, birth, gender, height, weight, disease, purpose)
+            userValue = userInfo.toMap();
+        }
+        childUpdates.put("/User_info/" + ID, userValue);
+        mDBReference.updateChildren(childUpdates);*/
 
         binding.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -112,11 +172,23 @@ public class PostFragment extends Fragment {
             }
         });
         binding.checkBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //uploadImg();
-                uploadFile();
-            }}
+                                                @Override
+                                                public void onClick(View v) {
+
+
+                                                    // 0810 수정 중
+//                if(!radiobook.isEnabled()&&!radioplace.isEnabled()&&!radiosong.isEnabled()){
+//                    Log.d("hi","hi");
+//                }
+//                else{
+//                    uploadFile();
+//                }
+                                                    // writeDuplicate(mAuth.getCurrentUser().getUid(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
+
+                                                    // 기존
+                                                    uploadFile();
+
+                                                }}
         );
 
         binding.cameraBtn.setOnClickListener(new View.OnClickListener() {
@@ -256,28 +328,23 @@ public class PostFragment extends Fragment {
                                 chip.getText().toString();
                                 writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
                                         binding.subtitleinput.getText().toString(),, chip.getText().toString(),aa,0);
-
                             }
                             else if(binding.chipSad.isChecked()){
                                 Chip chip=root.findViewById(binding.chipSad.getId());
                                 chip.getText().toString();
                                 writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
                                         binding.subtitleinput.getText().toString(),storageRef., chip.getText().toString(),aa,0);
-
                             }
                             else{
                                 Chip chip=root.findViewById(binding.chipAngry.getId());
                                 chip.getText().toString();
                                 writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
                                         binding.subtitleinput.getText().toString(),storageRef.getDownloadUrl().toString(), chip.getText().toString(),aa,0);
-
                             }
                             //storageRef.getDownloadUrl();
                             //mDownloadImageUri = taskSnapshot.getUploadSessionUri();
-
                             startActivity(new Intent(getContext(),MainActivity.class));
                         }
-
                     })
                     //실패시
                     .addOnFailureListener(new OnFailureListener() {
@@ -302,23 +369,26 @@ public class PostFragment extends Fragment {
         }
     }
 
+
+
+
+
+
+    /* 0822 일단 안쓰여서 주석달아놓음
     private void uploadImg()
     {
         try {
             // Create a storage reference from our app
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
-
             StorageReference riversRef = storageRef.child("ghj");
             UploadTask uploadTask = riversRef.putFile(filePath);
-
             Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                     if (!task.isSuccessful()) {
                         throw task.getException();
                     }
-
                     // Continue with the task to get the download URL
                     return storageRef.getDownloadUrl();
                 }
@@ -328,61 +398,48 @@ public class PostFragment extends Fragment {
                     if (task.isSuccessful())
                     {
                         Toast.makeText(getContext(), "업로드 성공", Toast.LENGTH_SHORT).show();
-
                         //파이어베이스에 데이터베이스 업로드
                         @SuppressWarnings("VisibleForTests")
                         Uri downloadUrl = task.getResult();
-
                         ArrayList<String> aa=new ArrayList<>();
                         aa.add("stupid");
                         //Task<Uri> uri=taskSnapshot.getStorage().getDownloadUrl();
-
                         if(binding.chipHappy.isChecked()){
                             Chip chip=root.findViewById(binding.chipHappy.getId());
                             chip.getText().toString();
                             writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
                                     binding.subtitleinput.getText().toString(),downloadUrl.toString(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
-
                         }
                         else if(binding.chipSad.isChecked()){
                             Chip chip=root.findViewById(binding.chipSad.getId());
                             chip.getText().toString();
                             writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
                                     binding.subtitleinput.getText().toString(),downloadUrl.toString(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
-
                         }
                         else{
                             Chip chip=root.findViewById(binding.chipAngry.getId());
                             chip.getText().toString();
                             writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
                                     binding.subtitleinput.getText().toString(),downloadUrl.toString(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
-
                         }
                         //storageRef.getDownloadUrl();
                         //mDownloadImageUri = taskSnapshot.getUploadSessionUri();
-
                         startActivity(new Intent(getContext(),MainActivity.class));
-
                         //image 라는 테이블에 json 형태로 담긴다.
                         //database.getReference().child("Profile").setValue(imageDTO);
                         //  .push()  :  데이터가 쌓인다.
-
-
                     } else {
                         // Handle failures
                         // ...
                     }
                 }
             });
-
         }catch (NullPointerException e)
         {
             Toast.makeText(getContext(), "이미지 선택 안함", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
+*/
 
 
     private void writeNewUser(String userId, String category, String title,String subtitle, String image, String emotion,ArrayList<String> favorite,int register,Double ratings) {
@@ -391,19 +448,6 @@ public class PostFragment extends Fragment {
         mDBReference = FirebaseDatabase.getInstance().getReference();
         String key = mDBReference.child("post").push().getKey();
         mDBReference.child("post").child(userId).child(key).setValue(post)
-                .addOnSuccessListener(aVoid -> {
-                    // Write was successful!
-                    Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Write failed
-                        Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        mDBReference.child("postList").child(key).setValue(post)
                 .addOnSuccessListener(aVoid -> {
                     // Write was successful!
                     Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
@@ -446,38 +490,25 @@ public class PostFragment extends Fragment {
 
     }
 
-    private void getData() {
-        // 임의의 데이터입니다.
-        database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
 
-        databaseReference = database.getReference().child("postList"); // DB 테이블 연결
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // 파이어베이스 데이터베이스의 데이터를 받아오는 곳
-                arrayTitle.clear(); // 기존 배열리스트가 존재하지않게 초기화
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
-                    Post data = snapshot.getValue(Post.class); // 만들어뒀던 Data 객체에 데이터를 담는다.
+    private void writeDuplicate(String userId, String category, Double ratings) {
 
-
-                        arrayTitle.add(data.title);
-
-                }
-                Log.d("titlearray",arrayTitle.toString());
-                binding.titleinput.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, arrayTitle));
-                // 리스트 저장 및 새로고침
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // 디비를 가져오던중 에러 발생 시
-                Log.e("SongFragment", String.valueOf(databaseError.toException())); // 에러문 출력
-            }
-        });
-
-
+        //평점 데이터 만들기
+        mDBReference.child("score").child(category).child(userId).child(title).setValue(ratings)
+                .addOnSuccessListener(aVoid -> {
+                    // Write was successful!
+                    // Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Write failed
+                        Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
+
 
 
 }

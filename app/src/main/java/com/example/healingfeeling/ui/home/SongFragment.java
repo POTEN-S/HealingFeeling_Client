@@ -9,8 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healingfeeling.R;
@@ -22,13 +26,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class SongFragment extends Fragment {
 
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
-    ArrayList<String> aa = new ArrayList<>();
-    ArrayList<Post> arraypost = new ArrayList<>();
+    ArrayList<String> aa=new ArrayList<>();
+    ArrayList<Post> arraypost=new ArrayList<>();
     RecyclerView recyclerView;
     String emotion;
 
@@ -51,12 +59,14 @@ public class SongFragment extends Fragment {
         GridLayoutManager GridLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(GridLayoutManager);
 
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("test", Context.MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
-        emotion = sharedPreferences.getString("emotion", "");
+        SharedPreferences sharedPreferences= this.getActivity().getSharedPreferences("test", Context.MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
+        emotion = sharedPreferences.getString("emotion","");
 
-        Log.d("asdf", emotion);
+        Log.d("asdf",emotion);
 
         getData();
+
+
 
 
         return root;
@@ -76,11 +86,15 @@ public class SongFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
                     Post data = snapshot.getValue(Post.class); // 만들어뒀던 Data 객체에 데이터를 담는다.
 
-                    if (data.category.equals("노래")) {
+                    if (data.category.equals("노래")){
                         arraypost.add(data);
                     }
-
                 }
+
+                // 랭킹 정렬
+                Collections.sort(arraypost,new PostComparator());
+
+
                 adapter = new RecyclerAdapter(arraypost);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
@@ -94,7 +108,18 @@ public class SongFragment extends Fragment {
         });
 
 
+
     }
 
 
+}
+
+// 랭킹 정렬을 위한 comparator
+class PostComparator implements Comparator<Post>{
+    @Override
+    public int compare(Post a,Post b){
+        if(a.getRegister()>b.getRegister()) return -1;
+        if(a.getRegister()<b.getRegister()) return 1;
+        return 0;
+    }
 }

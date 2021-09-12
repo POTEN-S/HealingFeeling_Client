@@ -87,6 +87,10 @@ public class BookFragment extends Fragment {
                         arraypost.add(data); }
 
                 }
+
+                // 랭킹 정렬
+                Collections.sort(arraypost,new PostComparator());
+
                 adapter = new RecyclerAdapter(arraypost);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침

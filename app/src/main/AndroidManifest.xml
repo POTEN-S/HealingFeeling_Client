@@ -32,6 +32,7 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".FaceRecoActivity" />
         <activity android:name=".IslandActivity" />
+
         <activity android:name=".ui.chatting.ChatActivity"></activity>
 
         <provider

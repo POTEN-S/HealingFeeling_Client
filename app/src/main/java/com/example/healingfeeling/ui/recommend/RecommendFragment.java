@@ -38,7 +38,9 @@ public class RecommendFragment extends Fragment {
     ArrayList<Post> arraypost=new ArrayList<>();
     ArrayList<String> arraypost2=new ArrayList<>();
     FragmentRecommendBinding binding;
-    private final String BASE_URL = "http://ec2-3-36-57-87.ap-northeast-2.compute.amazonaws.com:8000/";
+
+    private final String BASE_URL = "http://ec2-3-36-57-87.ap-northeast-2.compute.amazonaws.com:8000/posts/";
+
     private MyApi mMyAPI;
     private final  String TAG = getClass().getSimpleName();
 
@@ -122,7 +124,6 @@ public class RecommendFragment extends Fragment {
                             Log.d(TAG,call.request().body().toString());
                         }
                     }
-
                     @Override
                     public void onFailure(Call<com.example.healingfeeling.api.Post> call, Throwable t) {
                         Log.d(TAG,"Fail msg : " + t.getMessage());
@@ -149,7 +150,6 @@ public class RecommendFragment extends Fragment {
                     Log.d(TAG,"Status Code : " + response.code());
                 }
             }
-
             @Override
             public void onFailure(Call<List<com.example.healingfeeling.api.Post>> call, Throwable t) {
                 Log.d(TAG,"Fail msg : " + t.getMessage());
@@ -189,7 +189,6 @@ public class RecommendFragment extends Fragment {
                         Log.d(TAG,"Status Code : " + response.code());
                     }
                 }
-
                 @Override
                 public void onFailure(Call<List<com.example.healingfeeling.api.Post>> call, Throwable t) {
                     Log.d(TAG,"Fail msg : " + t.getMessage());
@@ -197,8 +196,6 @@ public class RecommendFragment extends Fragment {
             });
         }else if(v == mPostButton){
             Log.d(TAG,"POST");
-
-
             com.example.healingfeeling.api.Post item = new com.example.healingfeeling.api.Post();
             item.setTitle("Android title");
             item.setText("Android text");
@@ -214,7 +211,6 @@ public class RecommendFragment extends Fragment {
                         Log.d(TAG,call.request().body().toString());
                     }
                 }
-
                 @Override
                 public void onFailure(Call<com.example.healingfeeling.api.Post> call, Throwable t) {
                     Log.d(TAG,"Fail msg : " + t.getMessage());
@@ -236,14 +232,11 @@ public class RecommendFragment extends Fragment {
                         Log.d(TAG,"Status Code : " + response.code());
                     }
                 }
-
                 @Override
                 public void onFailure(Call<com.example.healingfeeling.api.Post> call, Throwable t) {
                     Log.d(TAG,"Fail msg : " + t.getMessage());
                 }
             });
-
-
         }else if( v == mDeleteButton){
             Log.d(TAG,"DELETE");
             // pk 값은 임의로 변경가능
@@ -257,7 +250,6 @@ public class RecommendFragment extends Fragment {
                         Log.d(TAG,"Status Code : " + response.code());
                     }
                 }
-
                 @Override
                 public void onFailure(Call<com.example.healingfeeling.api.Post> call, Throwable t) {
                     Log.d(TAG,"Fail msg : " + t.getMessage());
@@ -265,13 +257,8 @@ public class RecommendFragment extends Fragment {
             });
         }
     }
-
-
-
     private void getData() {
-
         database = FirebaseDatabase.getInstance(); // 파이어베이스 데이터베이스 연동
-
         databaseReference = database.getReference().child("post").child("97r9eGbBNIRiCUHZoEfbQIqioQ52"); // DB 테이블 연결
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -281,13 +268,11 @@ public class RecommendFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
                     Post data = snapshot.getValue(Post.class); // 만들어뒀던 Data 객체에 데이터를 담는다.
                     arraypost.add(data); // 담은 데이터들을 배열리스트에 넣고 리사이클러뷰로 보낼 준비
-
                 }
                 adapter = new PostRecyclerAdapter(arraypost);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // 디비를 가져오던중 에러 발생 시
