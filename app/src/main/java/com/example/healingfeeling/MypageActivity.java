@@ -1,11 +1,10 @@
 package com.example.healingfeeling;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -22,8 +21,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.applandeo.materialcalendarview.CalendarView;
+import com.applandeo.materialcalendarview.EventDay;
+import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.example.healingfeeling.databinding.ActivityMypageBinding;
-import com.example.healingfeeling.model.User;
+import com.example.healingfeeling.ui.Calendar.DataEmo;
 import com.example.healingfeeling.ui.Calendar.EventDecorator;
 import com.example.healingfeeling.ui.Calendar.SaturdayDecorator;
 import com.example.healingfeeling.ui.Calendar.SundayDecorator;
@@ -39,17 +41,14 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class MypageActivity extends AppCompatActivity {
@@ -77,9 +76,12 @@ public class MypageActivity extends AppCompatActivity {
 
     int year,month,day;
 
-    String emotion;
-    private List<CalendarDay> events = new ArrayList<>();
+    String emotion_frequency;
+    private List<EventDay> events = new ArrayList<EventDay>();
 
+    String uid;
+
+    int arraycount = 0;
 
 
 
@@ -111,11 +113,15 @@ public class MypageActivity extends AppCompatActivity {
         sad_text = (TextView) findViewById(R.id.sadview);
         angry_text = (TextView) findViewById(R.id.angryview);
 
+        CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 
 
 
 
-        MaterialCalendarView materialCalendarView = findViewById(R.id.calendarView);
+
+
+
+        /*MaterialCalendarView materialCalendarView = findViewById(R.id.calendarView);
         materialCalendarView.setSelectedDate(CalendarDay.today());
 
 
@@ -133,16 +139,71 @@ public class MypageActivity extends AppCompatActivity {
                 month = calendarDay.getMonth() +1;
                 day = calendarDay.getDay();
 
+                readData(new MyCallback() {
+                    @Override
+                    public void onCallback(int happy, int sad, int angry) {
+                        if(happy > sad && happy > angry){
+
+
+                            emotion_frequency = "     |현재: 행복함 높음";
+
+
+                        }else if(sad > happy && sad > angry){
+
+
+                            emotion_frequency = "     |현재: 우울함 높음";
+
+
+                        }else if(angry > happy && angry > sad){
+
+                            emotion_frequency = "     |현재: 화남 높음";
+
+                        }else
+                            emotion_frequency = "   |감정이 안정화 된 상태입니다.";
+
+
+                    }
+                });
+
 
 
                 contextEditText.setText("");
                 checkDay(year,month,day);
 
-                textView.setText(String.format("%d년 %d월 %d일", year,month,day));
+                textView.setText(String.format("%d년 %d월 %d일"+emotion_frequency, year,month,day));
             }
         });
+*/
 
+
+
+
+
+        calendarView.setOnDayClickListener(new OnDayClickListener() {
+            @Override
+            public void onDayClick(EventDay eventDay) {
+                Calendar clickedDayCalendar = eventDay.getCalendar();
+
+                int todayYear=clickedDayCalendar.get(Calendar.YEAR);
+                int todayMonth=clickedDayCalendar.get(Calendar.MONTH)+1;
+                int todayDay=clickedDayCalendar.get(Calendar.DAY_OF_MONTH);
+
+                save_Btn.setVisibility(View.VISIBLE);
+                contextEditText.setVisibility(View.VISIBLE);
+                textView2.setVisibility(View.INVISIBLE);
+                cha_Btn.setVisibility(View.INVISIBLE);
+                del_Btn.setVisibility(View.INVISIBLE);
+                contextEditText.setText("");
+                checkDay(todayYear,todayMonth,todayDay);
+
+
+
+                textView.setText(String.format("%d년 %d월 %d일", todayYear,todayMonth,todayDay));
+
+            }
+        });
         save_Btn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 saveDiary(fname);
@@ -160,7 +221,7 @@ public class MypageActivity extends AppCompatActivity {
 
 
 
-        materialCalendarView.addDecorators(new SundayDecorator(), new SaturdayDecorator());
+        //materialCalendarView.addDecorators(new SundayDecorator(), new SaturdayDecorator());
 
         //myname = (TextView) findViewById(R.id.myPageNickName);
         //imageView=findViewById(R.id.mypageActivity_imageview_profile);
@@ -169,18 +230,109 @@ public class MypageActivity extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        String uid = user!= null? user.getUid() : null;
+        uid = user!= null? user.getUid() : null;
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("users");
 
         //DatabaseReference username = myRef.child(uid).child("userName");
-        //DatabaseReference profile_image = myRef.child(uid).child("profileImageUrl");
+        DatabaseReference emotion_list = myRef.child(uid).child("Calendar");
         DatabaseReference mCondition_h = myRef.child(uid).child("happy_emotion");
         DatabaseReference mCondition_s = myRef.child(uid).child("sad_emotion");
         DatabaseReference mCondition_a = myRef.child(uid).child("angry_emotion");
         DatabaseReference mCondition = myRef.child(uid);
 
+
+
+
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               // 캘린더에 넣을 날짜배열
+                ArrayList<String> dates = new ArrayList<>();
+                ArrayList<String> emotions = new ArrayList<>();
+               HashMap<Integer, String> hashMap = new HashMap<>();
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+
+                    String date_count=ds.child("date").getValue(String.class);
+                    dates.add(date_count);
+
+
+                    String emotion_tday = ds.child("emotion_today").getValue(String.class);
+                    emotions.add(emotion_tday);
+
+                    for(int i = 0; i<emotions.size(); i++) {
+
+                        hashMap.put(i, emotions.get(i));
+                    }
+
+                }
+
+                Log.i("Hashmap:   ", String.valueOf(hashMap));
+
+
+                for(String date : dates){
+                    Log.i("Date:   ", date);
+                    Calendar calendar = Calendar.getInstance();
+                    String[] items1 = date.split("-");
+                    int year= Integer.parseInt(items1[0]);
+                    int month=Integer.parseInt(items1[1]);
+                    int day=Integer.parseInt(items1[2]);
+                    calendar.set(year,month-1,day);
+
+
+
+
+                    for (Map.Entry<Integer,String> entrySet : hashMap.entrySet()){
+
+                        if(entrySet.getKey()==arraycount) {
+
+                            Log.i("today_emotion:   ", entrySet.getValue());
+
+                            if (entrySet.getValue().equals("happy")) {
+                                events.add(new EventDay(calendar, R.drawable.happy_cal, Color.parseColor("#27D153")));
+
+                            } else if (entrySet.getValue().equals("angry")) {
+                                events.add(new EventDay(calendar, R.drawable.angry_cal, Color.parseColor("#BB34C0")));
+
+                            } else if (entrySet.getValue().equals("sad")) {
+                                events.add(new EventDay(calendar, R.drawable.sad_cal, Color.parseColor("#728399")));
+
+                            }
+                        }
+
+
+
+
+
+
+                    }
+
+                    arraycount +=1;
+
+
+                    //if 감정마다 drawble 다르게 설정
+
+                    //events.add(new EventDay(calendar, R.drawable.happy_cal,Color.parseColor("#228B22")));
+
+
+
+                }
+
+                calendarView.setEvents(events);
+                
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+
+        emotion_list.addListenerForSingleValueEvent(eventListener);
 
 
 
@@ -210,8 +362,13 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_h.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                int happy = snapshot.getValue(Integer.class);
-                happy_text.setText(happy + "번");
+                if(snapshot.exists()) {
+                    int happy = snapshot.getValue(Integer.class);
+                    happy_text.setText(happy + "번");
+                }
+                else{
+                    happy_text.setText("행복");
+                }
             }
 
 
@@ -227,8 +384,14 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_s.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
                 int sad = snapshot.getValue(Integer.class);
                 sad_text.setText(sad + "번");
+                }
+                else{
+                    sad_text.setText("슬픔");
+                }
+
             }
 
             @Override
@@ -240,8 +403,14 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_a.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                if(snapshot.exists()) {
+
                 int angry = snapshot.getValue(Integer.class);
                 angry_text.setText(angry+ "번" );
+            }
+                else{
+                    angry_text.setText("분노");
+            }
 
             }
 
@@ -277,6 +446,7 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 
+
         mCondition.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -287,25 +457,20 @@ public class MypageActivity extends AppCompatActivity {
                 Log.w(TAG, "   happy :   "+happy +"    sad :  "+ sad+ "   angry:   "+ angry);
 
                 if(happy > sad && happy > angry){
-                    materialCalendarView.addDecorator(new EventDecorator(Color.GREEN, Collections.singleton(CalendarDay.today())));
+                    //materialCalendarView.addDecorator(new EventDecorator(Color.GREEN, Collections.singleton(CalendarDay.today())));
 
-                    //textView.setText(String.format("%d년 %d월 %d일 행복함 비중 높음", year,month,day));
 
 
                 }else if(sad > happy && sad > angry){
-                    materialCalendarView.addDecorator(new EventDecorator(Color.BLUE, Collections.singleton(CalendarDay.today())));
+                    //materialCalendarView.addDecorator(new EventDecorator(Color.BLUE, Collections.singleton(CalendarDay.today())));
 
-                    //textView.setText(String.format("%d년 %d월 %d일 우울함 비중 높음", year,month,day));
 
 
                 }else if(angry > happy && angry > sad){
-                    materialCalendarView.addDecorator(new EventDecorator(Color.RED, Collections.singleton(CalendarDay.today())));
-                    //textView.setText(String.format("%d년 %d월 %d일 화남 비중 높음", year,month,day));
+                    //materialCalendarView.addDecorator(new EventDecorator(Color.RED, Collections.singleton(CalendarDay.today())));
 
 
-                }else
-                    materialCalendarView.addDecorator(new EventDecorator(Color.GRAY, Collections.singleton(CalendarDay.today())));
-
+                }
 
 
             }
@@ -316,17 +481,6 @@ public class MypageActivity extends AppCompatActivity {
 
             }
         });
-
-        materialCalendarView.state().edit().commit();
-
-
-
-
-
-
-
-
-
 
 
 
@@ -407,6 +561,34 @@ public class MypageActivity extends AppCompatActivity {
     }
 
 
+    public interface MyCallback {
+        void onCallback(int happy, int sad, int angry);
+    }
+
+    public void readData(MyCallback myCallback) {
+        myRef.child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                int happy = snapshot.child("happy_emotion").getValue(Integer.class);
+                int sad = snapshot.child("sad_emotion").getValue(Integer.class);
+                int angry = snapshot.child("angry_emotion").getValue(Integer.class);
+                myCallback.onCallback(happy, sad, angry);
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+
+            }
+        });
+
+
+    }
+
+
 
 
 
@@ -418,7 +600,7 @@ public class MypageActivity extends AppCompatActivity {
 
 
     public void  checkDay(int cYear,int cMonth,int cDay){
-        fname=""+cYear+"-"+(cMonth+1)+""+"-"+cDay+".txt";//저장할 파일 이름설정
+        fname=""+cYear+"-"+(cMonth)+""+"-"+cDay+".txt";//저장할 파일 이름설정
         FileInputStream fis=null;//FileStream fis 변수
 
         try{

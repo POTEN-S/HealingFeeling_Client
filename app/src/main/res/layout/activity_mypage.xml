@@ -135,12 +135,12 @@
 
 
 
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        <com.applandeo.materialcalendarview.CalendarView
             android:id="@+id/calendarView"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:mcv_selectionColor="@color/clouds"
+            app:selectionLabelColor="#253E55"
             app:mcv_showOtherDates="all"
             android:background="#ffffff"
             android:layout_marginTop="12dp"
@@ -149,7 +149,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sadview" >
 
-        </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+        </com.applandeo.materialcalendarview.CalendarView>
+
+
 
         <TextView
             android:id="@+id/textView10"
@@ -161,19 +163,22 @@
             android:layout_marginTop="20dp"
             android:padding="10dp"
             android:background="#F0E2F1"
-            android:textSize="20dp"/>
+            android:textSize="15dp"/>
 
         <EditText
+            android:id="@+id/contextEditText"
             android:layout_width="0dp"
             android:layout_height="116dp"
-            android:inputType="textMultiLine"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
-            android:id="@+id/contextEditText"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" android:layout_marginTop="16dp"
-            android:hint="오늘의 감정일기." android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginRight="8dp" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:visibility="invisible"/>
+            android:hint="오늘의 감정일기."
+            android:inputType="textMultiLine"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <TextView
             android:layout_width="0dp"
@@ -215,6 +220,29 @@
             android:id="@+id/del_Btn"
             app:layout_constraintBaseline_toBaselineOf="@+id/cha_Btn" app:layout_constraintEnd_toEndOf="@+id/save_Btn"
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:visibility="invisible"></Button>
+
+        <ListView
+            android:id="@+id/date_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/del_Btn"
+            android:layout_marginTop="15dp">
+
+        </ListView>
+
+        <TextView
+            android:id="@+id/date_emotion_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:layout_editor_absoluteY="192dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/progressHappy"
+            app:layout_constraintTop_toBottomOf="@+id/date_list"/>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

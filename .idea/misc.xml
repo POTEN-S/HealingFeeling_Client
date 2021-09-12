@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/layout/activity_mypage.xml" value="0.13425925925925927" />
+        <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/drawable/btn_bg.xml" value="0.18055555555555555" />
+        <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/drawable/text_bg.xml" value="0.18055555555555555" />
+        <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/layout/activity_mypage.xml" value="0.16620370370370371" />
+
       </map>
     </option>
   </component>
