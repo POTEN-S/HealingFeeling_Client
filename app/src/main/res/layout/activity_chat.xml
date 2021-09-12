@@ -8,6 +8,23 @@
     android:background="@drawable/gradient"
     tools:context=".ui.chatting.ChatActivity">
 
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:singleLine="true"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:textColor="@android:color/white"
+        android:text="[공지사항] 채팅방 예의를 지켜주세요.오늘의 기분은 어떠신가요? 자유롭게 이야기 하는 공간입니다."
+        android:background="#1D6ECC"/>
+
+
+
+
+
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"

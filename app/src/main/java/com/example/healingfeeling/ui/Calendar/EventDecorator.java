@@ -1,10 +1,13 @@
 package com.example.healingfeeling.ui.Calendar;
 
+import android.util.EventLog;
+
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -26,4 +29,5 @@ public class EventDecorator implements DayViewDecorator {
         view.addSpan(new DotSpan(10, color));
 
     }
+
 }
