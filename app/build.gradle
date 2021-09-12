@@ -98,6 +98,8 @@ dependencies {
 
     implementation 'com.applandeo:material-calendar-view:1.7.0'
 
+    implementation 'com.tomer:fadingtextview:2.6'
+
 
 
 

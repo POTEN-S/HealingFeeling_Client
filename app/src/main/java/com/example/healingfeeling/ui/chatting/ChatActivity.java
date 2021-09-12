@@ -3,6 +3,7 @@ package com.example.healingfeeling.ui.chatting;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.tomer.fadingtextview.FadingTextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +29,8 @@ public class ChatActivity extends AppCompatActivity {
 
     EditText et;
     ListView listView;
+
+    private FadingTextView fadingTextView;
 
    
 
@@ -60,6 +64,15 @@ public class ChatActivity extends AppCompatActivity {
         adapter=new ChatAdapter(messageItems,getLayoutInflater());
         listView.setAdapter(adapter);
 
+        fadingTextView = (FadingTextView) findViewById(R.id.fading_textview);
+
+        String[] happy_sentence = {"happy 1", "happy 2", "happy 3"};
+        String[] sad_sentence = {"sad 1","sad 2", "sad 3"};
+        String[] angry_sentence = {"angry 1","angry 2", "angry 3"};
+
+
+
+
 
 
 
@@ -71,6 +84,23 @@ public class ChatActivity extends AppCompatActivity {
         chat = sharedPreferences.getString("chat","");
 
         chatRef= firebaseDatabase.getReference().child(chat);
+
+        Log.e("this ref is :   ",chat);
+
+        if(chat.equals("sadchat")) {
+            fadingTextView.setTexts(sad_sentence);
+            fadingTextView.setTimeout(5, FadingTextView.SECONDS);
+        }else if(chat.equals("happychat")){
+            fadingTextView.setTexts(happy_sentence);
+            fadingTextView.setTimeout(5, FadingTextView.SECONDS);
+        }else if(chat.equals("angrychat")){
+            fadingTextView.setTexts(angry_sentence);
+            fadingTextView.setTimeout(5, FadingTextView.SECONDS);
+
+        }
+
+
+
 
 
         //firebaseDB에서 채팅 메세지들 실시간 읽어오기..
