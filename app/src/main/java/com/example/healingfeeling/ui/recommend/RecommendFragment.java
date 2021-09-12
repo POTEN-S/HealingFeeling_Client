@@ -38,7 +38,9 @@ public class RecommendFragment extends Fragment {
     ArrayList<Post> arraypost=new ArrayList<>();
     ArrayList<String> arraypost2=new ArrayList<>();
     FragmentRecommendBinding binding;
+
     private final String BASE_URL = "http://ec2-3-36-57-87.ap-northeast-2.compute.amazonaws.com:8000/posts/";
+
     private MyApi mMyAPI;
     private final  String TAG = getClass().getSimpleName();
 

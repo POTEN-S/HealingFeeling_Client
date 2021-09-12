@@ -48,7 +48,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         TextView textView = (TextView)this.findViewById(R.id.textView);
-        textView.setSelected(true);
+//        textView.setSelected(true);
 
 
         //제목줄 제목글시를 닉네임으로(또는 채팅방)

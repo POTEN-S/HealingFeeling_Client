@@ -99,7 +99,18 @@ public class MypageActivity extends AppCompatActivity {
         sad_text = (TextView) findViewById(R.id.sadview);
         angry_text = (TextView) findViewById(R.id.angryview);
 
+        save_Btn.setVisibility(View.VISIBLE);
+        contextEditText.setVisibility(View.VISIBLE);
+        textView2.setVisibility(View.INVISIBLE);
+        cha_Btn.setVisibility(View.INVISIBLE);
+        del_Btn.setVisibility(View.INVISIBLE);
 
+        binding.imgbtnMypageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MypageActivity.this,IslandActivity.class));
+            }
+        });
 
 
 
@@ -199,9 +210,10 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_h.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                int happy = snapshot.getValue(Integer.class);
-                happy_text.setText(happy + "번");
-
+                if(snapshot.getValue()!=null){
+                    int happy = (int) snapshot.getValue();
+                    happy_text.setText(happy + "번");
+                }
 
 
             }
@@ -219,9 +231,10 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_s.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                int sad = snapshot.getValue(Integer.class);
-                sad_text.setText(sad + "번");
-
+                if(snapshot.getValue()!=null){
+                    int sad = (int) snapshot.getValue();
+                    sad_text.setText(sad + "번");
+                }
             }
 
             @Override
@@ -233,9 +246,10 @@ public class MypageActivity extends AppCompatActivity {
         mCondition_a.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                int angry = snapshot.getValue(Integer.class);
-                angry_text.setText(angry+ "번" );
-
+                if(snapshot.getValue()!=null){
+                    int angry = (int) snapshot.getValue();
+                    angry_text.setText(angry + "번");
+                }
 
             }
 
@@ -274,26 +288,28 @@ public class MypageActivity extends AppCompatActivity {
         mCondition.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                int happy = snapshot.child("happy_emotion").getValue(Integer.class);
-                int sad = snapshot.child("sad_emotion").getValue(Integer.class);
-                int angry = snapshot.child("angry_emotion").getValue(Integer.class);
+                if(snapshot.child("happy_emotion").getValue()!=null && snapshot.child("sad_emotion").getValue()!=null && snapshot.child("angry_emotion").getValue()!=null ) {
 
-                Log.w(TAG, "   happy :   "+happy +"    sad :  "+ sad+ "   angry:   "+ angry);
+                    int happy = (int) snapshot.child("happy_emotion").getValue();
+                    int sad = (int) snapshot.child("sad_emotion").getValue();
+                    int angry = (int) snapshot.child("angry_emotion").getValue();
 
-                if(happy > sad && happy > angry){
-                    materialCalendarView.addDecorator(new EventDecorator(Color.GREEN, Collections.singleton(CalendarDay.today())));
+                    Log.w(TAG, "   happy :   " + happy + "    sad :  " + sad + "   angry:   " + angry);
 
-
-                }else if(sad > happy && sad > angry){
-                    materialCalendarView.addDecorator(new EventDecorator(Color.BLUE, Collections.singleton(CalendarDay.today())));
+                    if (happy > sad && happy > angry) {
+                        materialCalendarView.addDecorator(new EventDecorator(Color.GREEN, Collections.singleton(CalendarDay.today())));
 
 
-                }else if(angry > happy && angry > sad){
-                    materialCalendarView.addDecorator(new EventDecorator(Color.RED, Collections.singleton(CalendarDay.today())));
+                    } else if (sad > happy && sad > angry) {
+                        materialCalendarView.addDecorator(new EventDecorator(Color.BLUE, Collections.singleton(CalendarDay.today())));
 
-                }else
-                    materialCalendarView.addDecorator(new EventDecorator(Color.GRAY, Collections.singleton(CalendarDay.today())));
 
+                    } else if (angry > happy && angry > sad) {
+                        materialCalendarView.addDecorator(new EventDecorator(Color.RED, Collections.singleton(CalendarDay.today())));
+
+                    } else
+                        materialCalendarView.addDecorator(new EventDecorator(Color.GRAY, Collections.singleton(CalendarDay.today())));
+                }
 
 
             }

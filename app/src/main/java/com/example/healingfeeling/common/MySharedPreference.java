@@ -14,7 +14,7 @@ public class MySharedPreference {
     public static void set_user_email(Context ctx, String user_email) {//이메일 저장
         SharedPreferences.Editor editor = get_shared_preferences(ctx).edit();
         editor.putString(pref_user_email, user_email);
-        editor.commit();//커밋은 필수
+        editor.apply();//커밋은 필수
     }
 
     public static String get_user_email(Context ctx) {//저장된 이메일 가져오기
@@ -24,6 +24,16 @@ public class MySharedPreference {
     public static void clear_user(Context ctx) {//로그아웃 시 데이터 삭제
         SharedPreferences.Editor editor = get_shared_preferences(ctx).edit();
         editor.clear();
-        editor.commit();//커밋은 필수
+        editor.apply();//커밋은 필수
+    }
+
+    public static void set_auto_login(Context ctx, Boolean check){
+        SharedPreferences.Editor editor = get_shared_preferences(ctx).edit();
+        editor.putBoolean("check",check);
+        editor.apply();
+    }
+
+    public static Boolean get_auto_login(Context ctx){
+        return get_shared_preferences(ctx).getBoolean("check",true);
     }
 }

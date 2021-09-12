@@ -210,13 +210,26 @@
             android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toStartOf="@+id/del_Btn" android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp" android:visibility="invisible"/>
+
         <Button
             android:text="삭제"
             android:layout_width="176dp"
             android:layout_height="wrap_content"
             android:id="@+id/del_Btn"
-            app:layout_constraintBaseline_toBaselineOf="@+id/cha_Btn" app:layout_constraintEnd_toEndOf="@+id/save_Btn"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:visibility="invisible"></Button>
+            app:layout_constraintBaseline_toBaselineOf="@+id/cha_Btn"
+            app:layout_constraintEnd_toEndOf="@+id/save_Btn"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:visibility="invisible" />
+
+        <ImageButton
+            android:background="@android:color/transparent"
+            android:id="@+id/imgbtn_mypage_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_west_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
