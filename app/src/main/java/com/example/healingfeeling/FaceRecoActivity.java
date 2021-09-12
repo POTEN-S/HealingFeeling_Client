@@ -46,6 +46,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.example.healingfeeling.ui.Calendar.DataEmo;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -57,7 +58,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import id.zelory.compressor.Compressor;
 import okhttp3.MediaType;
@@ -110,6 +113,8 @@ public class FaceRecoActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseDatabase database;
 
+    String date;
+
 
 
 
@@ -124,9 +129,8 @@ public class FaceRecoActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
 
 
-
-
-
+        date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        Log.w(TAG, "   Today is  :   "+ date);
 
 
 
@@ -380,12 +384,14 @@ public class FaceRecoActivity extends AppCompatActivity {
                                     binding.faceResult.setText(result);
 
                                     String faceemotion="";
-                                    if(userEmotion.equals("smile")){
+                                    if(userEmotion.equals("smile")||userEmotion.equals("neutral")||userEmotion.equals("laugh")){
                                         faceemotion="행복";
                                     }else if(userEmotion.equals("angry")){
                                         faceemotion="분노";
                                     }else if(userEmotion.equals("sad")){
                                         faceemotion="슬픔";
+                                    }else if (userEmotion.equals("disgust")){
+                                        faceemotion="분노";
                                     }
 
                                     String uid = user!= null? user.getUid() : null;
@@ -395,6 +401,7 @@ public class FaceRecoActivity extends AppCompatActivity {
                                     DatabaseReference mCondition_h = mDatabase.child(uid).child("happy_emotion");
                                     DatabaseReference mCondition_s = mDatabase.child(uid).child("sad_emotion");
                                     DatabaseReference mCondition_a = mDatabase.child(uid).child("angry_emotion");
+
                                     MaterialCalendarView m_calendarview = findViewById(R.id.calendarView);
 
                                     if(userEmotion.equals("angry") || userEmotion.equals("disgust")){
@@ -421,21 +428,35 @@ public class FaceRecoActivity extends AppCompatActivity {
                                     }
 
 
+                                    //today Date 넣을 Calendar key 형성
+                                    DatabaseReference mCalendar = mDatabase.child(uid).child("Calendar");
 
-
+                                    HashMap<String,String> hashMap = new HashMap<>();
 
 
 
                                     if(userEmotion.equals("angry") || userEmotion.equals("disgust")){
 
+
                                        mCondition_a.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                                if(snapshot.getValue()!=null) {
-                                                    int value = (int) snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+
+                                                int value;
+
+                                                if (snapshot.exists()) {
+                                                    value = (int) snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+
                                                     value += 1;//숫자를 1 증가시켜서
-                                                    mCondition_a.setValue(value);//저장
+
                                                 }
+                                                else {
+                                                    value = 0;
+
+
+                                                }
+                                                mCondition_a.setValue(value);
+
 
                                             }
 
@@ -447,26 +468,34 @@ public class FaceRecoActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
+                                        hashMap.put("date",date);
+                                        hashMap.put("emotion_today","angry");
+                                        mCalendar.push().setValue(hashMap);
 
 
                                     }
                                     else if(userEmotion.equals("smile")||userEmotion.equals("laugh")){
 
+                                        hashMap.put("date",date);
+                                        hashMap.put("emotion_today", "happy");
+                                        mCalendar.push().setValue(hashMap);
+
                                         mCondition_h.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                                if(snapshot.getValue()!=null) {
+
+                                                if (snapshot.exists()) {
                                                     int value = (int) snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+
                                                     value += 1;//숫자를 1 증가시켜서
                                                     mCondition_h.setValue(value);//저장
-
+                                                }
+                                                else {
+                                                    mCondition_h.setValue(0);
 
                                                 }
+
+
                                             }
 
                                             @Override
@@ -477,18 +506,25 @@ public class FaceRecoActivity extends AppCompatActivity {
 
                                     }else if (userEmotion.equals("sad")) {
 
+                                        hashMap.put("date",date);
+                                        hashMap.put("emotion_today", "angry");
+                                        mCalendar.push().setValue(hashMap);
 
                                         mCondition_s.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                                if(snapshot.getValue()!=null) {
+                                                if (snapshot.exists()) {
                                                     int value = (int) snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+
                                                     value += 1;//숫자를 1 증가시켜서
                                                     mCondition_s.setValue(value);//저장
+                                                }
+                                                else {
+                                                    mCondition_s.setValue(0);
 
                                                 }
-                                            }
 
+                                                }
 
 
                                             @Override
