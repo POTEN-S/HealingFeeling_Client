@@ -172,23 +172,23 @@ public class PostFragment extends Fragment {
             }
         });
         binding.checkBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                                                @Override
+                                                public void onClick(View v) {
 
 
-                // 0810 수정 중
+                                                    // 0810 수정 중
 //                if(!radiobook.isEnabled()&&!radioplace.isEnabled()&&!radiosong.isEnabled()){
 //                    Log.d("hi","hi");
 //                }
 //                else{
 //                    uploadFile();
 //                }
-                // writeDuplicate(mAuth.getCurrentUser().getUid(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
+                                                    // writeDuplicate(mAuth.getCurrentUser().getUid(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
 
-                // 기존
-                uploadFile();
+                                                    // 기존
+                                                    uploadFile();
 
-            }}
+                                                }}
         );
 
         binding.cameraBtn.setOnClickListener(new View.OnClickListener() {
@@ -328,28 +328,23 @@ public class PostFragment extends Fragment {
                                 chip.getText().toString();
                                 writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
                                         binding.subtitleinput.getText().toString(),, chip.getText().toString(),aa,0);
-
                             }
                             else if(binding.chipSad.isChecked()){
                                 Chip chip=root.findViewById(binding.chipSad.getId());
                                 chip.getText().toString();
                                 writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
                                         binding.subtitleinput.getText().toString(),storageRef., chip.getText().toString(),aa,0);
-
                             }
                             else{
                                 Chip chip=root.findViewById(binding.chipAngry.getId());
                                 chip.getText().toString();
                                 writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
                                         binding.subtitleinput.getText().toString(),storageRef.getDownloadUrl().toString(), chip.getText().toString(),aa,0);
-
                             }
                             //storageRef.getDownloadUrl();
                             //mDownloadImageUri = taskSnapshot.getUploadSessionUri();
-
                             startActivity(new Intent(getContext(),MainActivity.class));
                         }
-
                     })
                     //실패시
                     .addOnFailureListener(new OnFailureListener() {
@@ -386,17 +381,14 @@ public class PostFragment extends Fragment {
             // Create a storage reference from our app
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
-
             StorageReference riversRef = storageRef.child("ghj");
             UploadTask uploadTask = riversRef.putFile(filePath);
-
             Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                     if (!task.isSuccessful()) {
                         throw task.getException();
                     }
-
                     // Continue with the task to get the download URL
                     return storageRef.getDownloadUrl();
                 }
@@ -406,60 +398,47 @@ public class PostFragment extends Fragment {
                     if (task.isSuccessful())
                     {
                         Toast.makeText(getContext(), "업로드 성공", Toast.LENGTH_SHORT).show();
-
                         //파이어베이스에 데이터베이스 업로드
                         @SuppressWarnings("VisibleForTests")
                         Uri downloadUrl = task.getResult();
-
                         ArrayList<String> aa=new ArrayList<>();
                         aa.add("stupid");
                         //Task<Uri> uri=taskSnapshot.getStorage().getDownloadUrl();
-
                         if(binding.chipHappy.isChecked()){
                             Chip chip=root.findViewById(binding.chipHappy.getId());
                             chip.getText().toString();
                             writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
                                     binding.subtitleinput.getText().toString(),downloadUrl.toString(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
-
                         }
                         else if(binding.chipSad.isChecked()){
                             Chip chip=root.findViewById(binding.chipSad.getId());
                             chip.getText().toString();
                             writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
                                     binding.subtitleinput.getText().toString(),downloadUrl.toString(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
-
                         }
                         else{
                             Chip chip=root.findViewById(binding.chipAngry.getId());
                             chip.getText().toString();
                             writeNewUser(mAuth.getCurrentUser().getUid(), radioValue, binding.titleinput.getText().toString(),
                                     binding.subtitleinput.getText().toString(),downloadUrl.toString(), chip.getText().toString(),aa,0,Double.valueOf(binding.inputRatings.getText().toString()));
-
                         }
                         //storageRef.getDownloadUrl();
                         //mDownloadImageUri = taskSnapshot.getUploadSessionUri();
-
                         startActivity(new Intent(getContext(),MainActivity.class));
-
                         //image 라는 테이블에 json 형태로 담긴다.
                         //database.getReference().child("Profile").setValue(imageDTO);
                         //  .push()  :  데이터가 쌓인다.
-
-
                     } else {
                         // Handle failures
                         // ...
                     }
                 }
             });
-
         }catch (NullPointerException e)
         {
             Toast.makeText(getContext(), "이미지 선택 안함", Toast.LENGTH_SHORT).show();
         }
     }
-
-
 */
 
 

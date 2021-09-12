@@ -88,7 +88,7 @@ public class SongFragment extends Fragment {
 
                     if (data.category.equals("노래")){
                         arraypost.add(data);
-                         }
+                    }
                 }
 
                 // 랭킹 정렬
