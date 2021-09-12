@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ import com.example.healingfeeling.emotion.Face;
 import com.example.healingfeeling.emotion.FaceResult;
 import com.example.healingfeeling.emotion.NaverService;
 import com.example.healingfeeling.model.User;
+import com.example.healingfeeling.ui.Calendar.EventDecorator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +44,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -49,6 +54,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -94,12 +101,15 @@ public class FaceRecoActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     static int happy_count, sad_count, angry_count = 0;
+    private static final String TAG = "FaceRecoActivity";
+
 
     SharedPreferences pref;          // 프리퍼런스
     SharedPreferences.Editor editor;
     FirebaseUser user;
     FirebaseAuth mAuth;
     FirebaseDatabase database;
+
 
 
 
@@ -112,6 +122,11 @@ public class FaceRecoActivity extends AppCompatActivity {
         binding= DataBindingUtil.setContentView(this,R.layout.activity_face_reco);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+
+
+
 
 
 
@@ -380,16 +395,47 @@ public class FaceRecoActivity extends AppCompatActivity {
                                     DatabaseReference mCondition_h = mDatabase.child(uid).child("happy_emotion");
                                     DatabaseReference mCondition_s = mDatabase.child(uid).child("sad_emotion");
                                     DatabaseReference mCondition_a = mDatabase.child(uid).child("angry_emotion");
+                                    MaterialCalendarView m_calendarview = findViewById(R.id.calendarView);
+
+                                    if(userEmotion.equals("angry") || userEmotion.equals("disgust")){
+                                        Intent intent = new Intent(FaceRecoActivity.this,MainActivity.class);
+                                        userEmotion="angry";
+                                        intent.putExtra("emotion",userEmotion);
+                                        startActivity(intent);
+                                    }else if(userEmotion.equals("smile") || userEmotion.equals("laugh")){
+                                        Intent intent = new Intent(FaceRecoActivity.this,MainActivity.class);
+                                        userEmotion="smile";
+                                        intent.putExtra("emotion",userEmotion);
+                                        startActivity(intent);
+                                    }else if(userEmotion.equals("sad")){
+                                        Intent intent = new Intent(FaceRecoActivity.this,MainActivity.class);
+                                        userEmotion="sad";
+                                        intent.putExtra("emotion",userEmotion);
+                                        startActivity(intent);
+                                    }else if(userEmotion.equals("fear") || userEmotion.equals("surprise")){
+                                        binding.faceResult.setText("감정을 다시 인식해 주세요.");
+                                        progressDialog.dismiss();
+                                    }else if(userEmotion.equals("talking") || userEmotion.equals("neutral")){
+                                        binding.faceResult.setText("감정을 다시 인식해 주세요.");
+                                        progressDialog.dismiss();
+                                    }
+
+
+
+
 
 
 
                                     if(userEmotion.equals("angry") || userEmotion.equals("disgust")){
+
                                        mCondition_a.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                                int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
-                                                value +=1;//숫자를 1 증가시켜서
-                                                mCondition_a.setValue(value);//저장
+                                                if(snapshot.getValue()!=null) {
+                                                    int value = (int) snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                                                    value += 1;//숫자를 1 증가시켜서
+                                                    mCondition_a.setValue(value);//저장
+                                                }
 
                                             }
 
@@ -399,15 +445,28 @@ public class FaceRecoActivity extends AppCompatActivity {
                                             }
                                         });
 
+
+
+
+
+
+
+
+
+
                                     }
                                     else if(userEmotion.equals("smile")||userEmotion.equals("laugh")){
+
                                         mCondition_h.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                                int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
-                                                value +=1;//숫자를 1 증가시켜서
-                                                mCondition_h.setValue(value);//저장
+                                                if(snapshot.getValue()!=null) {
+                                                    int value = (int) snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                                                    value += 1;//숫자를 1 증가시켜서
+                                                    mCondition_h.setValue(value);//저장
 
+
+                                                }
                                             }
 
                                             @Override
@@ -417,14 +476,20 @@ public class FaceRecoActivity extends AppCompatActivity {
                                         });
 
                                     }else if (userEmotion.equals("sad")) {
+
+
                                         mCondition_s.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                                int value = (int)snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
-                                                value +=1;//숫자를 1 증가시켜서
-                                                mCondition_s.setValue(value);//저장
+                                                if(snapshot.getValue()!=null) {
+                                                    int value = (int) snapshot.getValue(Integer.class);//저장된 값을 숫자로 받아오고
+                                                    value += 1;//숫자를 1 증가시켜서
+                                                    mCondition_s.setValue(value);//저장
 
+                                                }
                                             }
+
+
 
                                             @Override
                                             public void onCancelled(@NonNull @NotNull DatabaseError error) {
@@ -432,17 +497,18 @@ public class FaceRecoActivity extends AppCompatActivity {
                                             }
                                         });
 
+
+
+
+
                                     }
+
 
 
                                     SharedPreferences sharedPreferences= getSharedPreferences("test", MODE_PRIVATE);    // test 이름의 기본모드 설정
                                     SharedPreferences.Editor editor= sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
                                     editor.putString("emotion",faceemotion); // key,value 형식으로 저장
                                     editor.commit();    //최종 커밋. 커밋을 해야 저장이 된다.
-
-                                    Intent intent = new Intent(FaceRecoActivity.this,MainActivity.class);
-                                    intent.putExtra("emotion",userEmotion);
-                                    startActivity(intent);
 
                                     progressDialog.dismiss();
                                 } else {
@@ -453,6 +519,9 @@ public class FaceRecoActivity extends AppCompatActivity {
                                 binding.faceResult.setText("감정이 없습니다.");
                                 progressDialog.dismiss();
                             }
+
+
+
                         }
 
                         @Override
