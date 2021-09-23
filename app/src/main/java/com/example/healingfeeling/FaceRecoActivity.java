@@ -507,7 +507,7 @@ public class FaceRecoActivity extends AppCompatActivity {
                                     }else if (userEmotion.equals("sad")) {
 
                                         hashMap.put("date",date);
-                                        hashMap.put("emotion_today", "angry");
+                                        hashMap.put("emotion_today", "sad");
                                         mCalendar.push().setValue(hashMap);
 
                                         mCondition_s.addListenerForSingleValueEvent(new ValueEventListener() {
