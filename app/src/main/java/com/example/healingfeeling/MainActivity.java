@@ -2,12 +2,15 @@
 package com.example.healingfeeling;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.healingfeeling.ui.chatting.ChattingFragment;
 import com.example.healingfeeling.ui.home.HomeFragment;
@@ -30,7 +33,8 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity {
 
     NavController navController;
-
+    String emotion;
+    Menu menu;
 
     private HomeFragment menu1Fragment = new HomeFragment();
     private SongFragment songFragment = new SongFragment();
@@ -49,9 +53,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        String emotion = getIntent().getStringExtra("emotion");
+        SharedPreferences sharedPreferences= this.getSharedPreferences("test", Context.MODE_PRIVATE);
+        emotion = sharedPreferences.getString("emotion","");
 
-        //Log.d("asdf",emotion);
+
+        Log.v("Main2Activity","phone : " + emotion);
 
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -92,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
         tb.setBackgroundColor(Color.parseColor("#E5C1C5"));
         setSupportActionBar(tb) ;
 
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         /*BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -114,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu) ;
+        this.menu = menu;
+        updateMenuTitles();
 
         return true ;
     }
@@ -133,11 +143,28 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+
+
+
     }
 
     private void startLoginActivity() {
         Intent intent = new Intent(this,SignupActivity.class);
         startActivity(intent);
+    }
+
+    private void updateMenuTitles() {
+        MenuItem emotionMenuItem = menu.findItem(R.id.emotion_title);
+        if(emotion.equals("행복")){
+            emotionMenuItem.setTitle("『 Happy island 』");
+        }else if(emotion.equals("슬픔")){
+            emotionMenuItem.setTitle("『 Sad island 』");
+        }else{
+            emotionMenuItem.setTitle("『 Angry island 』");
+
+        }
+
+
     }
 
 }

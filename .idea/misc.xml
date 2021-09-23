@@ -6,8 +6,17 @@
         <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/drawable/btn_bg.xml" value="0.18055555555555555" />
         <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/drawable/text_bg.xml" value="0.18055555555555555" />
         <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/layout/activity_chat.xml" value="0.1852355072463768" />
+        <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/layout/activity_island.xml" value="0.2" />
+        <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/layout/activity_main.xml" value="0.136" />
         <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/layout/activity_mypage.xml" value="0.16620370370370371" />
+        <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/layout/fragment_book.xml" value="0.1308876811594203" />
         <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/layout/fragment_chatting.xml" value="0.1852355072463768" />
+        <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/layout/fragment_song.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/layout/item.xml" value="0.10320686540198735" />
+        <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1935185185185185" />
+        <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/menu/toolbar_menu.xml" value="0.1935185185185185" />
+        <entry key="..\:/Users/JungAe Eum/source/repos/FeelingHealing/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.20787037037037037" />
       </map>
     </option>
   </component>
