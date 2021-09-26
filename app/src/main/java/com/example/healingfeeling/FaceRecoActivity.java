@@ -29,6 +29,7 @@ import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
+import com.example.healingfeeling.common.MySharedPreference;
 import com.example.healingfeeling.databinding.ActivityFaceRecoBinding;
 import com.example.healingfeeling.emotion.Emotion;
 import com.example.healingfeeling.emotion.Face;
@@ -402,16 +403,19 @@ public class FaceRecoActivity extends AppCompatActivity {
                                         userEmotion="angry";
                                         intent.putExtra("emotion",userEmotion);
                                         startActivity(intent);
+                                        MySharedPreference.set_user_emotion(FaceRecoActivity.this,userEmotion);
                                     }else if(userEmotion.equals("smile") || userEmotion.equals("laugh")){
                                         Intent intent = new Intent(FaceRecoActivity.this,MainActivity.class);
                                         userEmotion="smile";
                                         intent.putExtra("emotion",userEmotion);
                                         startActivity(intent);
+                                        MySharedPreference.set_user_emotion(FaceRecoActivity.this,userEmotion);
                                     }else if(userEmotion.equals("sad")){
                                         Intent intent = new Intent(FaceRecoActivity.this,MainActivity.class);
                                         userEmotion="sad";
                                         intent.putExtra("emotion",userEmotion);
                                         startActivity(intent);
+                                        MySharedPreference.set_user_emotion(FaceRecoActivity.this,userEmotion);
                                     }else if(userEmotion.equals("fear") || userEmotion.equals("surprise")){
                                         binding.faceResult.setText("감정을 다시 인식해 주세요.");
                                         progressDialog.dismiss();

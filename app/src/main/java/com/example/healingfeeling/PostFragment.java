@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -40,8 +42,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -53,7 +58,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
@@ -81,6 +88,8 @@ public class PostFragment extends Fragment {
 
     SharedPreferences pref;          // 프리퍼런스
     SharedPreferences.Editor editor;
+    private FirebaseDatabase database;
+
 
 
     //세림
@@ -89,12 +98,14 @@ public class PostFragment extends Fragment {
     String imageUrl;
     String category;
 
+    private ArrayList<String> list;
+
 
     @SuppressLint("ResourceType")
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        RecommendViewModel =
-                new ViewModelProvider(this).get(RecommendViewModel.class);
+
         root = inflater.inflate(R.layout.fragment_post, container, false);
         mAuth = FirebaseAuth.getInstance();
         binding=FragmentPostBinding.bind(root);
@@ -109,6 +120,39 @@ public class PostFragment extends Fragment {
         radioplace.setId(2);
         RadioButton radiosong=root.findViewById(R.id.radiosong);
         radiosong.setId(3);
+
+        // 리스트를 생성한다.
+        list = new ArrayList<String>();
+
+        // 리스트에 검색될 데이터(단어)를 추가한다.
+
+
+
+
+        database = FirebaseDatabase.getInstance();
+        mDBReference = database.getReference("postList");
+        mDBReference.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 반복문으로 데이터 List를 추출해냄
+                    Post data = snapshot.getValue(Post.class); // 만들어뒀던 Data 객체에 데이터를 담는다.
+                    list.add(data.title);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        
+
+        AutoCompleteTextView edit = (AutoCompleteTextView) root.findViewById(R.id.titleinput);
+        // AutoCompleteTextView 에 아답터를 연결한다.
+        edit.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, list ));
 
 
         if (getArguments() != null)
@@ -205,6 +249,9 @@ public class PostFragment extends Fragment {
         return root;
 
     }
+
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -460,6 +507,19 @@ public class PostFragment extends Fragment {
                     }
                 });
 
+        mDBReference.child("postList").child(title).setValue(post)
+                .addOnSuccessListener(aVoid -> {
+                    // Write was successful!
+                    Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Write failed
+                        Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
 
         mDBReference.child(emotion).child(key).setValue(post)
                 .addOnSuccessListener(aVoid -> {
@@ -487,25 +547,6 @@ public class PostFragment extends Fragment {
                     }
                 });
 
-
-    }
-
-
-    private void writeDuplicate(String userId, String category, Double ratings) {
-
-        //평점 데이터 만들기
-        mDBReference.child("score").child(category).child(userId).child(title).setValue(ratings)
-                .addOnSuccessListener(aVoid -> {
-                    // Write was successful!
-                    // Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Write failed
-                        Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                });
 
     }
 

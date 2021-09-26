@@ -15,7 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EmotionMatching"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ServerTestActivity" />
         <activity android:name=".MypageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingEnd="30dp"
-    android:paddingStart="10dp"
+    android:paddingStart="30dp"
+    android:layout_gravity="center_horizontal"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="220dp"
         android:layout_height="220dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="50dp"
         app:cardCornerRadius="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/tv_recommend">
 
             <ImageView
                 android:id="@+id/postImage"
@@ -41,8 +41,37 @@
         android:layout_marginTop="16dp"
         android:text="Loading..."
         android:textColor="@color/black"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="@+id/cardView2"
         app:layout_constraintStart_toStartOf="@+id/cardView2"
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+
+    <TextView
+        android:id="@+id/recommend_title_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Loading..."
+        android:textColor="@color/black"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/recommend_title"
+        app:layout_constraintStart_toStartOf="@+id/recommend_title"
+        app:layout_constraintTop_toBottomOf="@+id/recommend_title" />
+
+    <TextView
+        android:id="@+id/tv_recommend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:text=""
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView2"
+        app:layout_constraintEnd_toEndOf="@+id/cardView2"
+        app:layout_constraintStart_toStartOf="@+id/cardView2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
