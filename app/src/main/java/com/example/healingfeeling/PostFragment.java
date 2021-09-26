@@ -520,7 +520,6 @@ public class PostFragment extends Fragment {
                     }
                 });
 
-
         mDBReference.child(emotion).child(key).setValue(post)
                 .addOnSuccessListener(aVoid -> {
                     // Write was successful!
@@ -533,19 +532,49 @@ public class PostFragment extends Fragment {
                         Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
+
         //평점 데이터 만들기
-        mDBReference.child("score").child(category).child(userId).child(title).setValue(ratings)
-                .addOnSuccessListener(aVoid -> {
-                    // Write was successful!
-                    // Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // Write failed
-                        Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        // happy score 속성명이 기본 값으로 "score"으로 설정되어 있음
+
+        if(emotion.equals("행복"))
+            mDBReference.child("score").child(category).child(userId).child(title).setValue(ratings)
+                    .addOnSuccessListener(aVoid -> {
+                        // Write was successful!
+                        // Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Write failed
+                            Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        else if(emotion.equals("슬픔"))
+            mDBReference.child("sadscore").child(category).child(userId).child(title).setValue(ratings)
+                    .addOnSuccessListener(aVoid -> {
+                        // Write was successful!
+                        // Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Write failed
+                            Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        else
+            mDBReference.child("angryscore").child(category).child(userId).child(title).setValue(ratings)
+                    .addOnSuccessListener(aVoid -> {
+                        // Write was successful!
+                        // Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Write failed
+                            Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
 
     }

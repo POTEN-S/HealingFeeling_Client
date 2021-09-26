@@ -2,6 +2,7 @@ package com.example.healingfeeling.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +26,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
     // adapter에 들어갈 list 입니다.
     private ArrayList<Post> listData = new ArrayList<>();
     Context context;
+
 
     public RecyclerAdapter(ArrayList<Post> data) {
         listData = data;
@@ -54,24 +57,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             @Override
             public void onClick(View view) {
                 mListener.onItemClick(view, position,listData.get(position).title,listData.get(position).category);
-               /* String title = holder.titletext.getText().toString(); //holder로 가져온 값을 변수에 넣기
 
-
-                Log.d("title",title);
-
-                Log.d("position",listData.get(position).title);
-                
-                
-                Bundle bundle = new Bundle();
-                bundle.putString("titletext", listData.get(position).title);
-                bundle.putString("category", listData.get(position).category);
-                bundle.putString("subtitletext", listData.get(position).subTitle);
-                bundle.putString("imageurl", listData.get(position).getImageUrl());
-
-                FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-                PostFragment postFragment = new PostFragment(); // PostFragment 선언
-                postFragment.setArguments(bundle); //번들을 postFragment로 보낼 준비
-                transaction.replace(R.id.nav_host_fragment, postFragment).commit();*/
 
             }
 
@@ -124,26 +110,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                 @Override
                 public void onClick(View v) {
 
-
-/*
-                    Bundle bundle = new Bundle();
-                    bundle.putString("titletext", String.valueOf(titletext));
-
-                    FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-                    PostFragment postFragment = new PostFragment();//PostFragment 선언
-                    postFragment.setArguments(bundle);//번들을 postFragment로 보낼 준비
-                    transaction.replace(R.id.nav_host_fragment, postFragment).commit();
-*/
-
-                    /*
-                    int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        Intent intent = new Intent(context, PostFragment.class);
-                        intent.putExtra("name","name");
-                        context.startActivity(intent);
-                    }
-
-                    */
                 }
             });
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -87,6 +88,7 @@ public class SongFragment extends Fragment {
                     if (data.category.equals("노래")){
                         arraypost.add(data);
                     }
+
                 }
 
                 // 랭킹 정렬
@@ -100,8 +102,18 @@ public class SongFragment extends Fragment {
                 Log.d("nayoungid",the_uid);
                 //String uid = mAuth.getCurrentUser().getUid();
                 adapter.setOnItemClickListener((v, pos, title, category) -> {
-                    CustomDialog dialog = new CustomDialog(getContext(),title,category,the_uid);
-                    dialog.show();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("titletext", title);
+                    bundle.putString("category", category);
+                    bundle.putString("user_uid",the_uid);
+                    BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(getContext()); // PostFragment 선언
+                    bottomSheetFragment.setArguments(bundle); //번들을 postFragment로 보낼 준비
+                    bottomSheetFragment.show(((AppCompatActivity) getContext()).getSupportFragmentManager(), bottomSheetFragment.getTag());
+
+
+                   /* CustomDialog dialog = new CustomDialog(getContext(),title,category,the_uid);
+                    dialog.show();*/
 
                 });
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침

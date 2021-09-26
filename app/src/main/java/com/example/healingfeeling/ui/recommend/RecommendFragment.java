@@ -46,6 +46,7 @@ public class RecommendFragment extends Fragment {
     ArrayList<String> arraypost2=new ArrayList<>();
     FragmentRecommendBinding binding;
 
+
     String songTitle;
     private final String BASE_URL = "http://ec2-3-36-57-87.ap-northeast-2.compute.amazonaws.com:8000";
 
@@ -94,33 +95,34 @@ public class RecommendFragment extends Fragment {
         getCall.enqueue(new Callback<List<com.example.healingfeeling.api.PostItem>>() {
             @Override
             public void onResponse(Call<List<com.example.healingfeeling.api.PostItem>> call, Response<List<com.example.healingfeeling.api.PostItem>> response) {
-                if( response.isSuccessful()){
+                if (response.isSuccessful()) {
                     List<com.example.healingfeeling.api.PostItem> mList = response.body();
-                    String result ="";
+                    String result = "";
                     Boolean check = false;
-                    for( com.example.healingfeeling.api.PostItem item : mList){
-                         happysongtitle =item.gethappysongtitle() ;
-                         happysongratings=item.getHappysongratings();
-                         happybooktitle=item.gethappybooktitle();
-                         happybookratings=item.getHappybookratings();
-                         happywheretitle=item.getHappywheretitle();
-                         happywhereratings=item.getHappywhereratings();
+
+                    for (com.example.healingfeeling.api.PostItem item : mList) {
+                        happysongtitle = item.gethappysongtitle();
+                        happysongratings = item.getHappysongratings();
+                        happybooktitle = item.gethappybooktitle();
+                        happybookratings = item.getHappybookratings();
+                        happywheretitle = item.getHappywheretitle();
+                        happywhereratings = item.getHappywhereratings();
 
                         //sad
-                         sadsongtitle =item.getsadsongtitle() ;
-                         sadsongratings=item.getsadsongratings();
-                         sadbooktitle=item.getsadbooktitle();
-                         sadbookratings=item.getsadbookratings();
-                         sadwheretitle=item.getsadwheretitle();
-                         sadwhereratings=item.getsadwhereratings();
+                        sadsongtitle = item.getsadsongtitle();
+                        sadsongratings = item.getsadsongratings();
+                        sadbooktitle = item.getsadbooktitle();
+                        sadbookratings = item.getsadbookratings();
+                        sadwheretitle = item.getsadwheretitle();
+                        sadwhereratings = item.getsadwhereratings();
 
                         //angry
-                         angrysongtitle =item.getangrysongtitle() ;
-                         angrysongratings=item.getangrysongratings();
-                         angrybooktitle=item.getangrybooktitle();
-                         angrybookratings=item.getangrybookratings();
-                         angrywheretitle=item.getangrywheretitle();
-                         angrywhereratings=item.getangrywhereratings();
+                        angrysongtitle = item.getangrysongtitle();
+                        angrysongratings = item.getangrysongratings();
+                        angrybooktitle = item.getangrybooktitle();
+                        angrybookratings = item.getangrybookratings();
+                        angrywheretitle = item.getangrywheretitle();
+                        angrywhereratings = item.getangrywhereratings();
 
                     }
 
@@ -131,10 +133,10 @@ public class RecommendFragment extends Fragment {
 
                     database = FirebaseDatabase.getInstance();
                     databaseReference = database.getReference("postList");
-                    Log.d("papapa",user_emotion);
+                    Log.d("papapa", user_emotion);
 
 
-                    if(user_emotion.equals("smile")) {
+                    if (user_emotion.equals("smile")) {
                         databaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -142,18 +144,18 @@ public class RecommendFragment extends Fragment {
                                 Post song = dataSnapshot.child(happysongtitle).getValue(Post.class);
                                 Log.d("papapa", song.title);
 
-                                if(song!=null) {
+                                if (song != null) {
                                     Post postsong = new Post(song.category, song.title, song.subTitle, song.image, song.emotion, song.favorite, song.register, song.ratings);
                                     arraypost.add(postsong);
                                 }
                                 Post book = dataSnapshot.child(happybooktitle).getValue(Post.class);
-                                if(book!=null) {
+                                if (book != null) {
                                     Post postbook = new Post(book.category, book.title, book.subTitle, book.image, book.emotion, book.favorite, book.register, book.ratings);
                                     arraypost.add(postbook);
                                 }
 
                                 Post where = dataSnapshot.child(happywheretitle).getValue(Post.class);
-                                if(where!=null) {
+                                if (where != null) {
                                     Post postwhere = new Post(where.category, where.title, where.subTitle, where.image, where.emotion, where.favorite, where.register, where.ratings);
                                     arraypost.add(postwhere);
                                 }
@@ -170,24 +172,24 @@ public class RecommendFragment extends Fragment {
                                 //Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
                             }
                         });
-                    }else if(user_emotion.equals("sad")){
+                    } else if (user_emotion.equals("sad")) {
                         databaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 
                                 Post song = dataSnapshot.child(sadsongtitle).getValue(Post.class);
-                                if(song!=null) {
+                                if (song != null) {
                                     Post postsong = new Post(song.category, song.title, song.subTitle, song.image, song.emotion, song.favorite, song.register, song.ratings);
                                     arraypost.add(postsong);
                                 }
                                 Post book = dataSnapshot.child(sadbooktitle).getValue(Post.class);
-                                if(book!=null) {
+                                if (book != null) {
                                     Post postbook = new Post(book.category, book.title, book.subTitle, book.image, book.emotion, book.favorite, book.register, book.ratings);
                                     arraypost.add(postbook);
                                 }
                                 Post where = dataSnapshot.child(sadwheretitle).getValue(Post.class);
-                                if(where!=null) {
+                                if (where != null) {
                                     Post postwhere = new Post(where.category, where.title, where.subTitle, where.image, where.emotion, where.favorite, where.register, where.ratings);
                                     arraypost.add(postwhere);
                                 }
@@ -203,7 +205,7 @@ public class RecommendFragment extends Fragment {
                             }
                         });
 
-                    }else if(user_emotion.equals("angry")){
+                    } else if (user_emotion.equals("angry")) {
 
                         databaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -212,17 +214,17 @@ public class RecommendFragment extends Fragment {
 
                                 Post song = dataSnapshot.child(angrysongtitle).getValue(Post.class);
                                 Log.d("papapa", song.title);
-                                if(song!=null) {
+                                if (song != null) {
                                     Post postsong = new Post(song.category, song.title, song.subTitle, song.image, song.emotion, song.favorite, song.register, song.ratings);
                                     arraypost.add(postsong);
                                 }
                                 Post book = dataSnapshot.child(angrybooktitle).getValue(Post.class);
-                                if(book!=null) {
+                                if (book != null) {
                                     Post postbook = new Post(book.category, book.title, book.subTitle, book.image, book.emotion, book.favorite, book.register, book.ratings);
                                     arraypost.add(postbook);
                                 }
                                 Post where = dataSnapshot.child(angrywheretitle).getValue(Post.class);
-                                if(where!=null) {
+                                if (where != null) {
                                     Post postwhere = new Post(where.category, where.title, where.subTitle, where.image, where.emotion, where.favorite, where.register, where.ratings);
                                     arraypost.add(postwhere);
                                 }
@@ -237,11 +239,10 @@ public class RecommendFragment extends Fragment {
                             }
                         });
 
+
+                    } else {
+                        Log.d("ssssss", "ssssss" + response.code());
                     }
-
-
-                }else {
-                    Log.d("ssssss","ssssss" + response.code());
                 }
             }
 
@@ -267,6 +268,7 @@ public class RecommendFragment extends Fragment {
 
         return root;
     }
+
     private void initMyAPI(String baseUrl){
 
         Log.d(TAG,"initMyAPI : " + baseUrl);
