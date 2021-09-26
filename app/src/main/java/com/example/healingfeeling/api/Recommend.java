@@ -17,9 +17,7 @@ public class Recommend {
         return category;
     }
 
-    public void setUserId(String s){
-        userId = s;
-    }
+    public void setUserId(String s){ userId = s; }
 
     public void setEmotion(String s){
         emotion = s;

@@ -404,6 +404,7 @@ public class FaceRecoActivity extends AppCompatActivity {
 
                                     MaterialCalendarView m_calendarview = findViewById(R.id.calendarView);
 
+
                                     if(userEmotion.equals("angry") || userEmotion.equals("disgust")){
                                         Intent intent = new Intent(FaceRecoActivity.this,MainActivity.class);
                                         userEmotion="angry";

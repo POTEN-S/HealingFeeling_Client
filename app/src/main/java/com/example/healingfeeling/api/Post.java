@@ -8,9 +8,7 @@ public class Post {
         return text;
     }
 
-    public String getTitle(){
-        return title;
-    }
+    public String getTitle(){ return title; }
 
     public void setTitle(String s){
         title = s;

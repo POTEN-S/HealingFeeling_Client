@@ -34,6 +34,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
     private ArrayList<Post> listData = new ArrayList<>();
     Context context;
 
+
     public RecyclerAdapter(ArrayList<Post> data) {
         listData = data;
     }
@@ -58,29 +59,51 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         holder.itemView.setTag(position); //커스텀 리스트 뷰의 각각의 리스트를 의미
         holder.titletext.setText(listData.get(position).title);//
 
+        BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(context.getApplicationContext());
+
         //리스트 클릭 이벤트
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String title = holder.titletext.getText().toString(); //holder로 가져온 값을 변수에 넣기
 
 
-                Log.d("title",title);
+//                String title = holder.titletext.getText().toString(); //holder로 가져온 값을 변수에 넣기
+//
+//
+//                Log.d("title",title);
+//
+//                Log.d("position",listData.get(position).title);
+//
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putString("titletext", listData.get(position).title);
+//                bundle.putString("category", listData.get(position).category);
+//                bundle.putString("subtitletext", listData.get(position).subTitle);
+//                bundle.putString("imageurl", listData.get(position).getImageUrl());
+//
+//                FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+//                PostFragment postFragment = new PostFragment(); // PostFragment 선언
+//                postFragment.setArguments(bundle); //번들을 postFragment로 보낼 준비
+//                transaction.replace(R.id.nav_host_fragment, postFragment).commit();
 
-                Log.d("position",listData.get(position).title);
-                
-                
+
+
+
                 Bundle bundle = new Bundle();
                 bundle.putString("titletext", listData.get(position).title);
                 bundle.putString("category", listData.get(position).category);
-                bundle.putString("subtitletext", listData.get(position).subTitle);
-                bundle.putString("imageurl", listData.get(position).getImageUrl());
+                //FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+                BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(context); // PostFragment 선언
+                bottomSheetFragment.setArguments(bundle); //번들을 postFragment로 보낼 준비
+                //transaction.replace(R.id.Recy, bottomSheetFragment).commit();
 
-                FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-                PostFragment postFragment = new PostFragment(); // PostFragment 선언
-                postFragment.setArguments(bundle); //번들을 postFragment로 보낼 준비
-                transaction.replace(R.id.nav_host_fragment, postFragment).commit();
+
+                bottomSheetFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), bottomSheetFragment.getTag());
+
+
+
+
 
             }
 
