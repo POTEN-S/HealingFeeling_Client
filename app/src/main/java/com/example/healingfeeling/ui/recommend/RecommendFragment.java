@@ -13,11 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healingfeeling.R;
 import com.example.healingfeeling.api.MyApi;
+import com.example.healingfeeling.common.MySharedPreference;
 import com.example.healingfeeling.databinding.FragmentRecommendBinding;
 import com.example.healingfeeling.model.Post;
 import com.example.healingfeeling.ui.home.PostRecyclerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,22 +38,44 @@ public class RecommendFragment extends Fragment {
     RecyclerView recyclerView;
 
     private FirebaseDatabase database;
+
     private DatabaseReference databaseReference;
+
+
     ArrayList<Post> arraypost=new ArrayList<>();
     ArrayList<String> arraypost2=new ArrayList<>();
     FragmentRecommendBinding binding;
 
 
-    private final String BASE_URL = "http://ec2-3-36-57-87.ap-northeast-2.compute.amazonaws.com:8000/posts/";
+    String songTitle;
+    private final String BASE_URL = "http://ec2-3-36-57-87.ap-northeast-2.compute.amazonaws.com:8000";
 
     private MyApi mMyAPI;
     private final  String TAG = getClass().getSimpleName();
 
-    public static RecommendFragment newInstance() {
-        RecommendFragment recommendFragment = new RecommendFragment();
 
-        return recommendFragment;
-    }
+    String happysongtitle ;
+    String happysongratings;
+    String happybooktitle;
+    String happybookratings;
+    String happywheretitle;
+    String happywhereratings;
+
+    //sad
+    String sadsongtitle ;
+    String sadsongratings;
+    String sadbooktitle;
+    String sadbookratings;
+    String sadwheretitle;
+    String sadwhereratings;
+
+    //angry
+    String angrysongtitle  ;
+    String angrysongratings;
+    String angrybooktitle;
+    String angrybookratings;
+    String angrywheretitle;
+    String angrywhereratings;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -65,35 +91,163 @@ public class RecommendFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        Call<List<com.example.healingfeeling.api.Post>> getCall = mMyAPI.get_posts();
-        getCall.enqueue(new Callback<List<com.example.healingfeeling.api.Post>>() {
+        Call<List<com.example.healingfeeling.api.PostItem>> getCall = mMyAPI.get_posts();
+        getCall.enqueue(new Callback<List<com.example.healingfeeling.api.PostItem>>() {
             @Override
-            public void onResponse(Call<List<com.example.healingfeeling.api.Post>> call, Response<List<com.example.healingfeeling.api.Post>> response) {
-                if( response.isSuccessful()){
-                    List<com.example.healingfeeling.api.Post> mList = response.body();
-                    String result ="";
+            public void onResponse(Call<List<com.example.healingfeeling.api.PostItem>> call, Response<List<com.example.healingfeeling.api.PostItem>> response) {
+                if (response.isSuccessful()) {
+                    List<com.example.healingfeeling.api.PostItem> mList = response.body();
+                    String result = "";
                     Boolean check = false;
-                    for( com.example.healingfeeling.api.Post item : mList){
 
-                        result =item.getTitle() ;
+                    for (com.example.healingfeeling.api.PostItem item : mList) {
+                        happysongtitle = item.gethappysongtitle();
+                        happysongratings = item.getHappysongratings();
+                        happybooktitle = item.gethappybooktitle();
+                        happybookratings = item.getHappybookratings();
+                        happywheretitle = item.getHappywheretitle();
+                        happywhereratings = item.getHappywhereratings();
+
+                        //sad
+                        sadsongtitle = item.getsadsongtitle();
+                        sadsongratings = item.getsadsongratings();
+                        sadbooktitle = item.getsadbooktitle();
+                        sadbookratings = item.getsadbookratings();
+                        sadwheretitle = item.getsadwheretitle();
+                        sadwhereratings = item.getsadwhereratings();
+
+                        //angry
+                        angrysongtitle = item.getangrysongtitle();
+                        angrysongratings = item.getangrysongratings();
+                        angrybooktitle = item.getangrybooktitle();
+                        angrybookratings = item.getangrybookratings();
+                        angrywheretitle = item.getangrywheretitle();
+                        angrywhereratings = item.getangrywhereratings();
+
                     }
-                    Log.d(TAG,"겟 성공");
-                    Post post =new Post("Asd",result,"asdf","https://firebasestorage.googleapis.com/v0/b/healingfeeling-9c1bf.appspot.com/o/post%2F20210620_2223.png?alt=media&token=a9fd16ae-ac3b-4946-b82e-dd8e438e496e","asdf",arraypost2,3,5.0);
-                    Post post2 =new Post("Asd","예뻤어","asdf","https://firebasestorage.googleapis.com/v0/b/healingfeeling-9c1bf.appspot.com/o/post%2F20210620_2356.png?alt=media&token=c999bc55-e4d9-45c7-9d16-ceaaf7776f6c","asdf",arraypost2,3,5.0);
-                    Post post3 =new Post("Asd","좋은날","asdf","https://firebasestorage.googleapis.com/v0/b/healingfeeling-9c1bf.appspot.com/o/post%2F20210620_1027.png?alt=media&token=999ac167-accc-4bcb-9bea-2d1513605d9f","asdf",arraypost2,3,5.0);
-                    arraypost.add(post);
-                    arraypost.add(post2);
-                    arraypost.add(post3);
-                    adapter = new PostRecyclerAdapter(arraypost);
-                    recyclerView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-                }else {
-                    Log.d(TAG,"Status Code : " + response.code());
+
+                    arraypost.clear();
+
+
+                    String user_emotion = MySharedPreference.get_user_emotion(getContext());
+
+                    database = FirebaseDatabase.getInstance();
+                    databaseReference = database.getReference("postList");
+                    Log.d("papapa", user_emotion);
+
+
+                    if (user_emotion.equals("smile")) {
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                Post song = dataSnapshot.child(happysongtitle).getValue(Post.class);
+                                Log.d("papapa", song.title);
+
+                                if (song != null) {
+                                    Post postsong = new Post(song.category, song.title, song.subTitle, song.image, song.emotion, song.favorite, song.register, song.ratings);
+                                    arraypost.add(postsong);
+                                }
+                                Post book = dataSnapshot.child(happybooktitle).getValue(Post.class);
+                                if (book != null) {
+                                    Post postbook = new Post(book.category, book.title, book.subTitle, book.image, book.emotion, book.favorite, book.register, book.ratings);
+                                    arraypost.add(postbook);
+                                }
+
+                                Post where = dataSnapshot.child(happywheretitle).getValue(Post.class);
+                                if (where != null) {
+                                    Post postwhere = new Post(where.category, where.title, where.subTitle, where.image, where.emotion, where.favorite, where.register, where.ratings);
+                                    arraypost.add(postwhere);
+                                }
+
+                                //Post group = dataSnapshot.child(songTitle).getValue();
+
+                                adapter = new PostRecyclerAdapter(arraypost);
+                                recyclerView.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                //Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+                            }
+                        });
+                    } else if (user_emotion.equals("sad")) {
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                                Post song = dataSnapshot.child(sadsongtitle).getValue(Post.class);
+                                if (song != null) {
+                                    Post postsong = new Post(song.category, song.title, song.subTitle, song.image, song.emotion, song.favorite, song.register, song.ratings);
+                                    arraypost.add(postsong);
+                                }
+                                Post book = dataSnapshot.child(sadbooktitle).getValue(Post.class);
+                                if (book != null) {
+                                    Post postbook = new Post(book.category, book.title, book.subTitle, book.image, book.emotion, book.favorite, book.register, book.ratings);
+                                    arraypost.add(postbook);
+                                }
+                                Post where = dataSnapshot.child(sadwheretitle).getValue(Post.class);
+                                if (where != null) {
+                                    Post postwhere = new Post(where.category, where.title, where.subTitle, where.image, where.emotion, where.favorite, where.register, where.ratings);
+                                    arraypost.add(postwhere);
+                                }
+
+                                adapter = new PostRecyclerAdapter(arraypost);
+                                recyclerView.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                //Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+                            }
+                        });
+
+                    } else if (user_emotion.equals("angry")) {
+
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+                                Post song = dataSnapshot.child(angrysongtitle).getValue(Post.class);
+                                Log.d("papapa", song.title);
+                                if (song != null) {
+                                    Post postsong = new Post(song.category, song.title, song.subTitle, song.image, song.emotion, song.favorite, song.register, song.ratings);
+                                    arraypost.add(postsong);
+                                }
+                                Post book = dataSnapshot.child(angrybooktitle).getValue(Post.class);
+                                if (book != null) {
+                                    Post postbook = new Post(book.category, book.title, book.subTitle, book.image, book.emotion, book.favorite, book.register, book.ratings);
+                                    arraypost.add(postbook);
+                                }
+                                Post where = dataSnapshot.child(angrywheretitle).getValue(Post.class);
+                                if (where != null) {
+                                    Post postwhere = new Post(where.category, where.title, where.subTitle, where.image, where.emotion, where.favorite, where.register, where.ratings);
+                                    arraypost.add(postwhere);
+                                }
+                                adapter = new PostRecyclerAdapter(arraypost);
+                                recyclerView.setAdapter(adapter);
+                                adapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                //Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+                            }
+                        });
+
+
+                    } else {
+                        Log.d("ssssss", "ssssss" + response.code());
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<List<com.example.healingfeeling.api.Post>> call, Throwable t) {
+            public void onFailure(Call<List<com.example.healingfeeling.api.PostItem>> call, Throwable t) {
                 Log.d(TAG,"Fail msg : " + t.getMessage());
             }
         });
@@ -108,59 +262,13 @@ public class RecommendFragment extends Fragment {
             Log.d("Recommend",emotion); //확인
 
         }
-        /*binding.btnPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                com.example.healingfeeling.api.Post item = new com.example.healingfeeling.api.Post();
-                item.setTitle("Android title");
-                item.setText("Android text");
-                Call<com.example.healingfeeling.api.Post> postCall = mMyAPI.post_posts(item);
-                postCall.enqueue(new Callback<com.example.healingfeeling.api.Post>() {
-                    @Override
-                    public void onResponse(Call<com.example.healingfeeling.api.Post> call, Response<com.example.healingfeeling.api.Post> response) {
-                        if(response.isSuccessful()){
-                            Log.d(TAG,"등록 완료");
-                        }else {
-                            Log.d(TAG,"Status Code : " + response.code());
-                            Log.d(TAG,response.errorBody().toString());
-                            Log.d(TAG,call.request().body().toString());
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<com.example.healingfeeling.api.Post> call, Throwable t) {
-                        Log.d(TAG,"Fail msg : " + t.getMessage());
-                    }
-                });
-            }
-        });*/
 
-        //getData();
-        /*Call<List<com.example.healingfeeling.api.Post>> getCall = mMyAPI.get_posts();
-        getCall.enqueue(new Callback<List<com.example.healingfeeling.api.Post>>() {
-            @Override
-            public void onResponse(Call<List<com.example.healingfeeling.api.Post>> call, Response<List<com.example.healingfeeling.api.Post>> response) {
-                if( response.isSuccessful()){
-                    List<com.example.healingfeeling.api.Post> mList = response.body();
-                    String result ="";
-                    Boolean check = false;
-                    for( com.example.healingfeeling.api.Post item : mList){
-                        result =item.getTitle() ;
-                    }
-                    Log.d(TAG,"겟 성공");
-                    binding.songRecommend.setText(result);
-                }else {
-                    Log.d(TAG,"Status Code : " + response.code());
-                }
-            }
-            @Override
-            public void onFailure(Call<List<com.example.healingfeeling.api.Post>> call, Throwable t) {
-                Log.d(TAG,"Fail msg : " + t.getMessage());
-            }
-        });*/
+
 
 
         return root;
     }
+
     private void initMyAPI(String baseUrl){
 
         Log.d(TAG,"initMyAPI : " + baseUrl);

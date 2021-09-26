@@ -8,6 +8,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,7 +24,7 @@
             android:text="My Page"
             android:fontFamily="@font/dancingscript"
             android:textSize="32sp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -32,67 +35,61 @@
             android:id="@+id/logoutButton"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
             android:layout_marginBottom="16dp"
-            android:layout_marginStart="10dp"
             android:background="@drawable/btn_bg"
             android:text="로그아웃"
-            app:layout_constraintBottom_toTopOf="@+id/progressHappy"
-            app:layout_constraintEnd_toStartOf="@id/userDeleteButton"
-            app:layout_constraintStart_toEndOf="@id/progressHappy"
-            app:layout_constraintTop_toBottomOf="@id/imageView6" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/calendarView" />
 
         <ImageView
             android:id="@+id/progressHappy"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="50dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toStartOf="@+id/progressSad"
             app:layout_constraintTop_toTopOf="@+id/progressSad"
-            app:srcCompat="@drawable/smile"
-            app:progress_start_color="#F1B7F3"
-            app:progress_end_color="#F1B7F3"
             app:progress_background_color="#F4F1F1"
+            app:progress_end_color="#F1B7F3"
+            app:progress_start_color="#F1B7F3"
             app:progress_stroke_cap="round"
             app:progress_stroke_width="10dp"
+            app:srcCompat="@drawable/smile"
             app:style="solid_line" />
 
         <ImageView
             android:id="@+id/progressSad"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="96dp"
-            app:layout_constraintEnd_toStartOf="@+id/progressAngry"
-            app:layout_constraintHorizontal_bias="0.486"
-            app:layout_constraintStart_toEndOf="@+id/progressHappy"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/sadview"
             app:progress_background_color="#F4F1F1"
             app:progress_end_color="#03A9F4"
             app:progress_start_color="#03A9F4"
             app:progress_stroke_cap="round"
             app:progress_stroke_width="10dp"
             app:srcCompat="@drawable/sad"
-            app:style="solid_line" />
+            app:style="solid_line"
+            tools:layout_editor_absoluteY="738dp" />
 
         <ImageView
             android:id="@+id/progressAngry"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginEnd="50dp"
-            app:srcCompat="@drawable/angry"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toEndOf="@+id/progressSad"
             app:layout_constraintTop_toTopOf="@+id/progressSad"
-            app:progress_start_color="#F44336"
-            app:progress_end_color="#F44336"
             app:progress_background_color="#F4F1F1"
+            app:progress_end_color="#F44336"
+            app:progress_start_color="#F44336"
             app:progress_stroke_cap="round"
             app:progress_stroke_width="10dp"
+            app:srcCompat="@drawable/angry"
             app:style="solid_line" />
 
         <TextView
             android:id="@+id/hyview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:text="행복"
             app:layout_constraintEnd_toEndOf="@+id/progressHappy"
             app:layout_constraintStart_toStartOf="@+id/progressHappy"
@@ -102,36 +99,32 @@
             android:id="@+id/sadview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
             android:text="슬픔"
+            app:layout_constraintBottom_toTopOf="@+id/logoutButton"
             app:layout_constraintEnd_toEndOf="@+id/progressSad"
-            app:layout_constraintStart_toStartOf="@+id/progressSad"
-            app:layout_constraintTop_toBottomOf="@+id/progressSad" />
+            app:layout_constraintStart_toStartOf="@+id/progressSad" />
 
         <TextView
             android:id="@+id/angryview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:text="분노"
             app:layout_constraintEnd_toEndOf="@+id/progressAngry"
             app:layout_constraintStart_toStartOf="@+id/progressAngry"
-            app:layout_constraintTop_toBottomOf="@+id/progressAngry" />
+            app:layout_constraintTop_toBottomOf="@+id/progressSad" />
 
 
         <Button
             android:id="@+id/userDeleteButton"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="34dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/btn_bg"
             android:text="회원탈퇴"
-            app:layout_constraintBottom_toTopOf="@+id/progressAngry"
-            app:layout_constraintEnd_toStartOf="@+id/progressAngry"
-            app:layout_constraintStart_toEndOf="@+id/logoutButton"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6"
-
-             />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/calendarView" />
 
 
 
@@ -139,26 +132,28 @@
             android:id="@+id/calendarView"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            app:pagesColor="@android:color/transparent"
+            app:headerColor="@color/healing_yellow"
+            app:headerLabelColor="@color/hot_pink"
+            app:todayLabelColor="@color/hot_pink"
             app:selectionLabelColor="#253E55"
             app:mcv_showOtherDates="all"
             android:background="#ffffff"
             android:layout_marginTop="12dp"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sadview" >
+            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
-        </com.applandeo.materialcalendarview.CalendarView>
+
 
 
 
         <TextView
             android:id="@+id/textView10"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/calendarView"
+            app:layout_constraintStart_toStartOf="@+id/calendarView"
             app:layout_constraintTop_toBottomOf="@+id/calendarView"
             android:layout_marginTop="45dp"
             android:padding="10dp"
@@ -168,61 +163,57 @@
         <EditText
             android:id="@+id/contextEditText"
             android:layout_width="0dp"
-            android:layout_height="116dp"
-            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
             android:ems="10"
             android:hint="오늘의 감정일기."
             android:inputType="textMultiLine"
             android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/calendarView"
+            app:layout_constraintStart_toStartOf="@+id/calendarView"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:id="@+id/textView11"
             app:layout_constraintTop_toTopOf="@+id/contextEditText"
-            app:layout_constraintBottom_toBottomOf="@+id/contextEditText" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-            app:layout_constraintStart_toStartOf="@+id/contextEditText" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" android:visibility="invisible"/>
+            app:layout_constraintBottom_toBottomOf="@+id/contextEditText"
+            app:layout_constraintEnd_toEndOf="@+id/calendarView"
+            app:layout_constraintStart_toStartOf="@+id/calendarView"
+            android:visibility="invisible"/>
 
         <Button
-            android:text="저장"
-            android:layout_width="0dp"
-            android:layout_marginBottom="20dp"
-            android:layout_height="wrap_content"
             android:id="@+id/save_Btn"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/contextEditText"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" android:visibility="invisible"/>
-
-
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="20dp"
+            android:text="저장"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/progressSad"
+            app:layout_constraintEnd_toEndOf="@+id/calendarView"
+            app:layout_constraintStart_toStartOf="@+id/calendarView"
+            app:layout_constraintTop_toBottomOf="@+id/contextEditText" />
 
 
         <Button
-            android:text="수정"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
             android:id="@+id/cha_Btn"
-            app:layout_constraintBaseline_toBaselineOf="@+id/save_Btn" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/del_Btn" android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp" android:visibility="invisible"/>
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="수정"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/calendarView"
+            app:layout_constraintTop_toBottomOf="@+id/contextEditText" />
 
         <Button
-            android:text="삭제"
-            android:layout_width="176dp"
-            android:layout_height="wrap_content"
             android:id="@+id/del_Btn"
-            app:layout_constraintBaseline_toBaselineOf="@+id/cha_Btn" app:layout_constraintEnd_toEndOf="@+id/save_Btn"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:visibility="invisible"></Button>
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="삭제"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/calendarView"
+            app:layout_constraintTop_toBottomOf="@+id/contextEditText" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -238,7 +229,7 @@
         <TextView
             android:id="@+id/calendar_detail"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:text=" : 행복한날   "
             android:textColor="#27D153"
             app:flow_verticalAlign="center"
@@ -262,7 +253,7 @@
         <TextView
             android:id="@+id/sad_detail"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:text=" : 우울한날   "
             android:textColor="#728399"
             app:flow_verticalAlign="center"
@@ -287,7 +278,7 @@
         <TextView
             android:id="@+id/angry_detail"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:text=" : 화난날    "
             android:textColor="#BB34C0"
             app:flow_verticalAlign="center"
@@ -296,15 +287,6 @@
             app:layout_constraintTop_toBottomOf="@+id/calendarView"
             android:layout_marginTop="10dp"
             />
-
-
-
-
-
-
-
-
-
 
 
 

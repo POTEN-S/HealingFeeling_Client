@@ -17,6 +17,16 @@ public class MySharedPreference {
         editor.apply();//커밋은 필수
     }
 
+    public static String get_user_emotion(Context ctx) {//저장된 이메일 가져오기
+        return get_shared_preferences(ctx).getString("emotion_user", "");
+    }
+
+    public static void set_user_emotion(Context ctx, String user_emotion) {//이메일 저장
+        SharedPreferences.Editor editor = get_shared_preferences(ctx).edit();
+        editor.putString("emotion_user", user_emotion);
+        editor.apply();//커밋은 필수
+    }
+
     public static String get_user_email(Context ctx) {//저장된 이메일 가져오기
         return get_shared_preferences(ctx).getString(pref_user_email, "");
     }

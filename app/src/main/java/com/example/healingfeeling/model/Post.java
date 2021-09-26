@@ -3,7 +3,7 @@ package com.example.healingfeeling.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Post{
+public class Post {
     public String category;
     public String title;
     public String subTitle;
@@ -18,7 +18,7 @@ public class Post{
         // Default constructor required for calls to DataSnapshot.getValue(FirebasePost.class)
     }
 
-    public Post( String category, String title,String subTitle, String image,String emotion,ArrayList<String> favorite,int register,Double ratings
+    public Post(String category, String title, String subTitle, String image, String emotion, ArrayList<String> favorite, int register, Double ratings
     ) {
         this.category = category;
         this.title = title;

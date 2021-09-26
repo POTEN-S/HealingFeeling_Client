@@ -2,6 +2,7 @@ package com.example.healingfeeling.ui.home;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,14 +48,16 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
         String url = mData.get(position).getImageUrl();
 
         //String image=mData.get(position).getImageUrl();
-
+        //Log.d("imgaeimgae",mData.get(position).image);
 
        Glide.with(context)
-                .load(url)
+                .load(mData.get(position).image)
                 .placeholder(R.drawable.feelings)
                 .into(holder.imageView);
 
          holder.mainText.setText(item.getTitle());
+         holder.recommend.setText(item.category);
+         holder.subText.setText(item.subTitle);
   //      holder.subText.setText(item.getSubTitle());
     }
 
@@ -68,6 +71,7 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView mainText;
+        TextView recommend;
         TextView subText;
 
         ViewHolder(View itemView) {
@@ -76,8 +80,11 @@ public class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapte
             // 뷰 객체에 대한 참조
             imageView = itemView.findViewById(R.id.postImage);
             mainText = itemView.findViewById(R.id.recommend_title);
-           // subText = itemView.findViewById(R.id.postSubTitle);
+            recommend = itemView.findViewById(R.id.tv_recommend);
+            subText = itemView.findViewById(R.id.recommend_title_sub);
         }
+
+
     }
 }
 

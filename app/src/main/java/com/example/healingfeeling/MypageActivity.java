@@ -45,11 +45,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class MypageActivity extends AppCompatActivity {
@@ -172,10 +175,27 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 */
+        long now = System.currentTimeMillis();
+        Date mDate = new Date(now);
 
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.getDefault());
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM", Locale.getDefault());
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
 
+        //SimpleDateFormat simpleyear = new SimpleDateFormat("yyyy");
+        String getTimeyear = yearFormat.format(mDate);
 
+        //SimpleDateFormat simplemonth = new SimpleDateFormat("mm");
+        String getTimemonth = monthFormat.format(mDate);
 
+        //SimpleDateFormat simpleDay = new SimpleDateFormat("dd");
+        String getTimeday = dayFormat.format(mDate);
+
+        contextEditText.setVisibility(View.VISIBLE);
+        save_Btn.setVisibility(View.VISIBLE);
+        textView.setText(String.format("%d년%d월%d일", Integer.parseInt(getTimeyear),Integer.parseInt(getTimemonth),Integer.parseInt(getTimeday)));
+
+        checkDay(Integer.parseInt(getTimeyear),Integer.parseInt(getTimemonth),Integer.parseInt(getTimeday));
 
         calendarView.setOnDayClickListener(new OnDayClickListener() {
             @Override
@@ -188,15 +208,18 @@ public class MypageActivity extends AppCompatActivity {
 
                 save_Btn.setVisibility(View.VISIBLE);
                 contextEditText.setVisibility(View.VISIBLE);
+
+
                 textView2.setVisibility(View.INVISIBLE);
                 cha_Btn.setVisibility(View.INVISIBLE);
                 del_Btn.setVisibility(View.INVISIBLE);
+
                 contextEditText.setText("");
+
+
                 checkDay(todayYear,todayMonth,todayDay);
 
-
-
-                textView.setText(String.format("%d년 %d월 %d일", todayYear,todayMonth,todayDay));
+                textView.setText(String.format("%d년%d월%d일", todayYear,todayMonth,todayDay));
 
             }
         });

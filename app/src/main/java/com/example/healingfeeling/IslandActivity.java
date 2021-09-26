@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.example.healingfeeling.common.MySharedPreference;
 import com.example.healingfeeling.databinding.ActivityIslandBinding;
 
 public class IslandActivity extends AppCompatActivity {
@@ -38,7 +39,7 @@ public class IslandActivity extends AppCompatActivity {
                 editor.commit();
                 editor2.commit();//최종 커밋. 커밋을 해야 저장이 된다.
 
-
+                MySharedPreference.set_user_emotion(IslandActivity.this,"smile");
 
                 startActivity(intent);
             }
@@ -57,7 +58,7 @@ public class IslandActivity extends AppCompatActivity {
 
                 editor.commit();
                 editor2.commit();//최종 커밋. 커밋을 해야 저장이 된다.
-
+                MySharedPreference.set_user_emotion(IslandActivity.this,"sad");
                 startActivity(intent);
             }
         });
@@ -73,7 +74,7 @@ public class IslandActivity extends AppCompatActivity {
                 editor2.putString("chat","angrychat");
                 editor.commit();    //최종 커밋. 커밋을 해야 저장이 된다.
                 editor2.commit();
-
+                MySharedPreference.set_user_emotion(IslandActivity.this,"angry");
                 startActivity(intent);
             }
         });

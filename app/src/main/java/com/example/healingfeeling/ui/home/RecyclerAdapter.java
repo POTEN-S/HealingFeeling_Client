@@ -2,9 +2,7 @@ package com.example.healingfeeling.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +12,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.healingfeeling.IslandActivity;
-import com.example.healingfeeling.PostFragment;
 import com.example.healingfeeling.R;
 import com.example.healingfeeling.model.Post;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder> {
 
@@ -59,50 +52,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         holder.itemView.setTag(position); //커스텀 리스트 뷰의 각각의 리스트를 의미
         holder.titletext.setText(listData.get(position).title);//
 
-        BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(context.getApplicationContext());
-
-        //리스트 클릭 이벤트
+        //리스트 클릭 이벤트  나영이가 잠시 테스트 해 봄.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-
-//                String title = holder.titletext.getText().toString(); //holder로 가져온 값을 변수에 넣기
-//
-//
-//                Log.d("title",title);
-//
-//                Log.d("position",listData.get(position).title);
-//
-//
-//                Bundle bundle = new Bundle();
-//                bundle.putString("titletext", listData.get(position).title);
-//                bundle.putString("category", listData.get(position).category);
-//                bundle.putString("subtitletext", listData.get(position).subTitle);
-//                bundle.putString("imageurl", listData.get(position).getImageUrl());
-//
-//                FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-//                PostFragment postFragment = new PostFragment(); // PostFragment 선언
-//                postFragment.setArguments(bundle); //번들을 postFragment로 보낼 준비
-//                transaction.replace(R.id.nav_host_fragment, postFragment).commit();
-
-
-
-
-                Bundle bundle = new Bundle();
-                bundle.putString("titletext", listData.get(position).title);
-                bundle.putString("category", listData.get(position).category);
-                //FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-                BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(context); // PostFragment 선언
-                bottomSheetFragment.setArguments(bundle); //번들을 postFragment로 보낼 준비
-                //transaction.replace(R.id.Recy, bottomSheetFragment).commit();
-
-
-                bottomSheetFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), bottomSheetFragment.getTag());
-
-
-
+                mListener.onItemClick(view, position,listData.get(position).title,listData.get(position).category);
 
 
             }
@@ -110,32 +64,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         });
 
     }
+    public interface OnItemClickListener
+    {
+        void onItemClick(View v, int pos, String s, String title);
+    }
+    // 리스너 객체 참조를 저장하는 변수
+    private OnItemClickListener mListener = null;
 
+    // OnItemClickListener 객체 참조를 어댑터에 전달하는 메서드
+    public void setOnItemClickListener(OnItemClickListener listener)
+    {
+        this.mListener = listener;
+    }
     @Override
     public int getItemCount() {
         // RecyclerView의 총 개수 입니다.
         return listData.size();
     }
 
-    void addItem(Post data) {
-        // 외부에서 item을 추가시킬 함수입니다.
-        listData.add(data);
-
-     /*   Comparator<Data> noAsc = new Comparator<Data>() {
-            @Override
-            public int compare(Data item1, Data item2) {
-                int ret ;
-                if (item1.getRegisterCount() < item2.getRegisterCount())
-                    ret = 1 ;
-                else if (item1.getRegisterCount() == item2.getRegisterCount())
-                    ret = 0 ;
-                else
-                    ret = -1 ;
-                return ret ;
-            }
-        };
-        Collections.sort(listData, noAsc) ;*/
-    }
 
     // RecyclerView의 핵심인 ViewHolder 입니다.
     // 여기서 subView를 setting 해줍니다.
@@ -164,26 +110,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                 @Override
                 public void onClick(View v) {
 
-
-/*
-                    Bundle bundle = new Bundle();
-                    bundle.putString("titletext", String.valueOf(titletext));
-
-                    FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-                    PostFragment postFragment = new PostFragment();//PostFragment 선언
-                    postFragment.setArguments(bundle);//번들을 postFragment로 보낼 준비
-                    transaction.replace(R.id.nav_host_fragment, postFragment).commit();
-*/
-
-                    /*
-                    int pos = getAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        Intent intent = new Intent(context, PostFragment.class);
-                        intent.putExtra("name","name");
-                        context.startActivity(intent);
-                    }
-
-                    */
                 }
             });
 

@@ -13,12 +13,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.healingfeeling.CustomDialog;
 import com.example.healingfeeling.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class BottomSheetFragment extends BottomSheetDialogFragment {
 
     Context context;
+
+    String titletext = "";
+    String category = "";
+    String user_uid="";
 
     public BottomSheetFragment(Context context){
         this.context = context;
@@ -41,6 +46,14 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v){
                 Toast.makeText(context, "평점 남기기", Toast.LENGTH_SHORT).show();
+                if(bundle != null){
+                    titletext = bundle.getString("titletext"); //Name 받기.
+                    category = bundle.getString("category");
+                    user_uid=bundle.getString("user_uid");
+                }
+
+                CustomDialog dialog = new CustomDialog(getContext(),titletext,category,user_uid);
+                dialog.show();
                 dismiss();
             }
         });
@@ -49,8 +62,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         btnClose.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                String titletext = "";
-                String category = "";
 
                 if(bundle != null){
                     titletext = bundle.getString("titletext"); //Name 받기.

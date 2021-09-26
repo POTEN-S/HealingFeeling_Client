@@ -9,16 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.healingfeeling.CustomDialog;
 import com.example.healingfeeling.R;
 import com.example.healingfeeling.model.Post;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,10 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
+import java.util.Objects;
 
 public class SongFragment extends Fragment {
 
@@ -39,7 +38,7 @@ public class SongFragment extends Fragment {
     ArrayList<Post> arraypost=new ArrayList<>();
     RecyclerView recyclerView;
     String emotion;
-
+    private FirebaseAuth mAuth;
     private RecyclerAdapter adapter;
 
     public static SongFragment newInstance() {
@@ -98,6 +97,25 @@ public class SongFragment extends Fragment {
 
                 adapter = new RecyclerAdapter(arraypost);
                 recyclerView.setAdapter(adapter);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String the_uid = user.getUid();
+                Log.d("nayoungid",the_uid);
+                //String uid = mAuth.getCurrentUser().getUid();
+                adapter.setOnItemClickListener((v, pos, title, category) -> {
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("titletext", title);
+                    bundle.putString("category", category);
+                    bundle.putString("user_uid",the_uid);
+                    BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(getContext()); // PostFragment 선언
+                    bottomSheetFragment.setArguments(bundle); //번들을 postFragment로 보낼 준비
+                    bottomSheetFragment.show(((AppCompatActivity) getContext()).getSupportFragmentManager(), bottomSheetFragment.getTag());
+
+
+                   /* CustomDialog dialog = new CustomDialog(getContext(),title,category,the_uid);
+                    dialog.show();*/
+
+                });
                 adapter.notifyDataSetChanged(); // 리스트 저장 및 새로고침
             }
 
