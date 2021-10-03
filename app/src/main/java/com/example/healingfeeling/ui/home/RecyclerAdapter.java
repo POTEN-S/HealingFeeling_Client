@@ -66,30 +66,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             @Override
             public void onClick(View view) {
 
-
-
-//                String title = holder.titletext.getText().toString(); //holder로 가져온 값을 변수에 넣기
-//
-//
-//                Log.d("title",title);
-//
-//                Log.d("position",listData.get(position).title);
-//
-//
-//                Bundle bundle = new Bundle();
-//                bundle.putString("titletext", listData.get(position).title);
-//                bundle.putString("category", listData.get(position).category);
-//                bundle.putString("subtitletext", listData.get(position).subTitle);
-//                bundle.putString("imageurl", listData.get(position).getImageUrl());
-//
-//                FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-//                PostFragment postFragment = new PostFragment(); // PostFragment 선언
-//                postFragment.setArguments(bundle); //번들을 postFragment로 보낼 준비
-//                transaction.replace(R.id.nav_host_fragment, postFragment).commit();
-
-
-
-
                 Bundle bundle = new Bundle();
                 bundle.putString("titletext", listData.get(position).title);
                 bundle.putString("category", listData.get(position).category);
@@ -100,9 +76,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
 
                 bottomSheetFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), bottomSheetFragment.getTag());
-
-
-
 
 
             }
