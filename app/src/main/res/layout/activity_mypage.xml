@@ -281,19 +281,21 @@
 
         <Button
             android:id="@+id/cha_Btn"
-            android:layout_width="100dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="수정"
+            android:layout_marginLeft="20dp"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="@+id/calendarView"
             app:layout_constraintTop_toBottomOf="@+id/contextEditText" />
 
         <Button
             android:id="@+id/del_Btn"
-            android:layout_width="100dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="삭제"
             android:visibility="invisible"
+            android:layout_marginRight="20dp"
             app:layout_constraintEnd_toEndOf="@+id/calendarView"
             app:layout_constraintTop_toBottomOf="@+id/contextEditText" />
 
