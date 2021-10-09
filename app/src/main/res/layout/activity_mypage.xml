@@ -14,7 +14,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/healing_pink"
         tools:context=".MypageActivity">
 
         <TextView
@@ -31,16 +30,24 @@
             />
 
 
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="90dp"
+            android:layout_marginEnd="30dp"
+            app:layout_constraintEnd_toStartOf="@+id/imageView6"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/heart_my" />
+
         <Button
             android:id="@+id/logoutButton"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="34dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/btn_bg"
             android:text="로그아웃"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/calendarView" />
+            app:layout_constraintStart_toStartOf="@+id/calendarView"
+            />
 
         <ImageView
             android:id="@+id/progressHappy"
@@ -54,12 +61,14 @@
             app:progress_stroke_cap="round"
             app:progress_stroke_width="10dp"
             app:srcCompat="@drawable/smile"
+            android:layout_marginRight="10dp"
             app:style="solid_line" />
 
         <ImageView
             android:id="@+id/progressSad"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginRight="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/sadview"
@@ -83,7 +92,8 @@
             app:progress_start_color="#F44336"
             app:progress_stroke_cap="round"
             app:progress_stroke_width="10dp"
-            app:srcCompat="@drawable/angry"
+            android:layout_marginLeft="10dp"
+            app:srcCompat="@drawable/angry_u"
             app:style="solid_line" />
 
         <TextView
@@ -121,7 +131,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="34dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/btn_bg"
             android:text="회원탈퇴"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/calendarView" />
@@ -134,7 +143,7 @@
             android:layout_height="wrap_content"
             app:pagesColor="@android:color/transparent"
             app:headerColor="@color/healing_yellow"
-            app:headerLabelColor="@color/hot_pink"
+            app:headerLabelColor="@color/dark_brown"
             app:todayLabelColor="@color/hot_pink"
             app:selectionLabelColor="#253E55"
             app:mcv_showOtherDates="all"
@@ -143,6 +152,52 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintStart_toStartOf="@id/calendarView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6"
+            android:rotation="-40"
+            android:layout_marginTop="130dp"
+            android:layout_marginLeft="280dp"
+            app:srcCompat="@drawable/rainbow_my"/>
+
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView6"
+
+            android:layout_marginTop="330dp"
+            android:rotation="-10"
+
+            app:srcCompat="@drawable/shine"/>
+
+        <ImageView
+            android:layout_width="95dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toStartOf="@id/imageView6"
+            app:layout_constraintTop_toTopOf="@+id/imageView6"
+            android:layout_marginLeft="140dp"
+            android:layout_marginTop="10dp"
+
+
+            android:rotation="30"
+
+            app:srcCompat="@drawable/tile"/>
+
+
+        <ImageView
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+
+            android:layout_marginTop="420dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/calendarView"
+
+            app:srcCompat="@drawable/tape" />
 
 
 
@@ -155,23 +210,50 @@
             app:layout_constraintEnd_toEndOf="@+id/calendarView"
             app:layout_constraintStart_toStartOf="@+id/calendarView"
             app:layout_constraintTop_toBottomOf="@+id/calendarView"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="80dp"
             android:padding="10dp"
             android:background="#F0E2F1"
             android:textSize="15dp"/>
 
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="160dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+            android:layout_marginTop="30dp"
+
+
+            app:srcCompat="@drawable/paper"/>
+
+
+
         <EditText
             android:id="@+id/contextEditText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_marginTop="16dp"
             android:ems="10"
+            android:padding="10dp"
             android:hint="오늘의 감정일기."
             android:inputType="textMultiLine"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/calendarView"
             app:layout_constraintStart_toStartOf="@+id/calendarView"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+
+
+           android:layout_marginTop="35dp"
+
+            app:srcCompat="@drawable/sun"/>
+
+
 
         <TextView
             android:layout_width="0dp"
@@ -216,6 +298,22 @@
             app:layout_constraintTop_toBottomOf="@+id/contextEditText" />
 
         <ImageView
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="@id/angry_detail"
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+
+
+            android:layout_marginTop="100dp"
+            android:rotation="10"
+            android:layout_marginLeft="30dp"
+
+            app:srcCompat="@drawable/myheart"/>
+
+
+
+
+        <ImageView
             android:id="@+id/imageView2"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -233,6 +331,7 @@
             android:text=" : 행복한날   "
             android:textColor="#27D153"
             app:flow_verticalAlign="center"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/progressHappy"
             app:layout_constraintStart_toEndOf="@id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/calendarView"
@@ -257,6 +356,7 @@
             android:text=" : 우울한날   "
             android:textColor="#728399"
             app:flow_verticalAlign="center"
+            android:textStyle="bold"
 
             app:layout_constraintStart_toEndOf="@id/sad_image"
             app:layout_constraintTop_toBottomOf="@+id/calendarView"
@@ -286,6 +386,7 @@
             app:layout_constraintStart_toEndOf="@id/angry_image"
             app:layout_constraintTop_toBottomOf="@+id/calendarView"
             android:layout_marginTop="10dp"
+            android:textStyle="bold"
             />
 
 
