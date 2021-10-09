@@ -8,12 +8,16 @@
 
     <EditText
         android:id="@+id/edit_rating"
-        android:layout_width="wrap_content"
+        android:padding="16dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="80dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/edit_stroke"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="평점"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,16 +33,20 @@
 
     <Button
         android:id="@+id/btn_confirm"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="확인"
+        android:background="@drawable/enroll_btn_bg"
         app:layout_constraintStart_toStartOf="@+id/edit_rating"
         app:layout_constraintTop_toBottomOf="@+id/edit_rating" />
 
     <Button
         android:id="@+id/btn_cancel"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/enroll_btn_bg"
         android:text="취소"
         app:layout_constraintEnd_toEndOf="@+id/edit_rating"
         app:layout_constraintTop_toBottomOf="@+id/edit_rating" />
