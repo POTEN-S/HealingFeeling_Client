@@ -6,7 +6,6 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
     <color name="clouds">#ecf0f1</color>
     <color name="white_green">#D2FFD2</color>
 
@@ -16,6 +15,15 @@
     <color name="healing_green">#C3E2DD</color>
     <color name="healing_yellow">#F2EEE5</color>
     <color name="hot_pink">#FF66D3</color>
+
+
+
+    <color name="white">#FFFFFFFF</color>
+    <color name="lignt_ivory">#E6DDD7</color>
+    <color name="dark_pink">#BD8782</color>
+    <color name="light_pink">#E7B3B3</color>
+    <color name="dark_brown">#6F645F</color>
+    <color name="light_brown">#CABDB1</color>
 
 
 </resources>

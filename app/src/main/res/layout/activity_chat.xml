@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/healing_pink"
+    android:background="@drawable/chat_background"
     tools:context=".ui.chatting.ChatActivity">
 
 
@@ -17,12 +17,9 @@
         android:ellipsize="marquee"
         android:singleLine="true"
         android:marqueeRepeatLimit="marquee_forever"
-        android:background="#1D6ECC"
+        android:background="#6F645F"
         android:textColor="@color/white">
     </com.tomer.fadingtextview.FadingTextView>
-
-
-
 
 
 
@@ -39,7 +36,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="4dp"
-        android:background="@color/healing_pink"
         android:gravity="center_vertical">
         <EditText
             android:id="@+id/et"
