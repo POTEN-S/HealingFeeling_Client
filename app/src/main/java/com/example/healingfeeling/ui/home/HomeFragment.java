@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
         ViewPager viewPager = root.findViewById(R.id.viewPager);
         tabLayout = root.findViewById(R.id.tab);
 
-
+        tabLayout.setSelectedTabIndicatorHeight(0);
         tabLayout.addTab(tabLayout.newTab().setText("노래"));
         tabLayout.addTab(tabLayout.newTab().setText("도서"));
         tabLayout.addTab(tabLayout.newTab().setText("장소"));

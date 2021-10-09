@@ -13,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/ocean">
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/imageView5"
@@ -21,18 +21,19 @@
             android:layout_height="550dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/mirage" />
+            app:srcCompat="@color/white" />
 
         <TextView
             android:id="@+id/happy_tv4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="108dp"
             android:fadingEdge="horizontal"
             android:text="Mypage"
             android:textStyle="bold|italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/myPage"
+            app:layout_constraintHorizontal_bias="0.571"
             app:layout_constraintStart_toStartOf="@+id/myPage" />
 
         <ImageView
@@ -41,7 +42,7 @@
             android:layout_height="108dp"
             android:layout_marginStart="84dp"
             android:layout_marginTop="68dp"
-            android:background="@drawable/happyislands"
+            android:background="@drawable/happy1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,21 +50,20 @@
             android:id="@+id/happy_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="76dp"
             android:fadingEdge="horizontal"
             android:text="Happy_island"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/happyBtn"
             app:layout_constraintStart_toStartOf="@id/happyBtn"
-            app:layout_constraintTop_toTopOf="@id/happyBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/happyBtn" />
 
         <ImageView
             android:id="@+id/angryBtn"
-            android:layout_width="71dp"
+            android:layout_width="80dp"
             android:layout_height="86dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="64dp"
-            android:background="@drawable/angryisland"
+            android:background="@drawable/angry1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/happyBtn" />
 
@@ -84,7 +84,7 @@
             android:layout_height="105dp"
             android:layout_marginStart="68dp"
             android:layout_marginTop="52dp"
-            android:background="@drawable/unhappyisland"
+            android:background="@drawable/sad1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/angryBtn" />
 
@@ -110,11 +110,30 @@
 
         <ImageView
             android:id="@+id/myPage"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="100dp"
-            android:layout_marginEnd="76dp"
-            android:src="@drawable/rainbow"
+            android:layout_marginEnd="40dp"
+            android:src="@drawable/mypage1"
             app:layout_constraintBottom_toTopOf="@+id/happy_tv4"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:src="@drawable/flower"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Emotion Category"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

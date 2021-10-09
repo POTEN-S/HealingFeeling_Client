@@ -51,7 +51,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        TextView textView = (TextView)this.findViewById(R.id.textView);
+     //   TextView textView = (TextView)this.findViewById(R.id.textView);
 //        textView.setSelected(true);
 
 

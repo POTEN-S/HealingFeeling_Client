@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,10 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.healingfeeling.R;
 import com.example.healingfeeling.api.MyApi;
+import com.example.healingfeeling.api.PostItem;
 import com.example.healingfeeling.common.MySharedPreference;
 import com.example.healingfeeling.databinding.FragmentRecommendBinding;
 import com.example.healingfeeling.model.Post;
 import com.example.healingfeeling.ui.home.PostRecyclerAdapter;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,7 +57,7 @@ public class RecommendFragment extends Fragment {
 
     private MyApi mMyAPI;
     private final  String TAG = getClass().getSimpleName();
-
+    DatabaseReference mDBReference = null;
 
     String happysongtitle ;
     String happysongratings;
@@ -91,7 +96,55 @@ public class RecommendFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        Call<List<com.example.healingfeeling.api.PostItem>> getCall = mMyAPI.get_posts();
+
+
+
+
+        // Post
+       /* Log.d(TAG,"POST");
+        com.example.healingfeeling.api.PostItem postitem = new com.example.healingfeeling.api.PostItem(the_uid.toString(),"0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0");
+        Call<com.example.healingfeeling.api.PostItem> postCall = mMyAPI.post_posts(postitem);
+        postCall.enqueue(new Callback<com.example.healingfeeling.api.PostItem>() {
+                             @Override
+                             public void onResponse(Call<com.example.healingfeeling.api.PostItem> call, Response<com.example.healingfeeling.api.PostItem> response) {
+                                 if (response.isSuccessful()) {
+                                     Log.d(TAG, "등록 완료");
+                                 } else {
+                                     Log.d(TAG, "Status Code : " + response.code());
+                                     Log.d(TAG, response.errorBody().toString());
+                                     Log.d(TAG, call.request().body().toString());
+                                 }
+                             }
+
+                             @Override
+                             public void onFailure(Call<PostItem> call, Throwable t) {
+
+                             }
+                         });*/
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String the_uid = user.getUid();
+
+        mDBReference = FirebaseDatabase.getInstance().getReference();
+        String key = mDBReference.child("post").push().getKey();
+
+        mDBReference.child("userid").setValue("CvOap2Q2t7MTe47zBxAvBpgFBTW2")
+                .addOnSuccessListener(aVoid -> {
+                    // Write was successful!
+                    Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Write failed
+                        Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+
+
+
+            Call<List<com.example.healingfeeling.api.PostItem>> getCall = mMyAPI.get_posts();
         getCall.enqueue(new Callback<List<com.example.healingfeeling.api.PostItem>>() {
             @Override
             public void onResponse(Call<List<com.example.healingfeeling.api.PostItem>> call, Response<List<com.example.healingfeeling.api.PostItem>> response) {

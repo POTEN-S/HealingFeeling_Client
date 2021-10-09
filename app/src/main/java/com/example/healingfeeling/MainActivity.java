@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private RecommendFragment menu2Fragment = new RecommendFragment();
     private ChattingFragment menu3Fragment = new ChattingFragment();
 
-
+    Toolbar tb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
         //getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,HomeFragment).commit();
 
 
-        Toolbar tb = (Toolbar) findViewById(R.id.toolbar) ;
-        tb.setBackgroundColor(Color.parseColor("#E5C1C5"));
+        tb = (Toolbar) findViewById(R.id.toolbar) ;
+        //tb.setBackgroundColor(Color.parseColor("#ffffff"));
         setSupportActionBar(tb) ;
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -154,13 +154,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateMenuTitles() {
-        MenuItem emotionMenuItem = menu.findItem(R.id.emotion_title);
+
         if(emotion.equals("행복")){
-            emotionMenuItem.setTitle("『 Happy island 』");
+            tb.setTitle("Happy island");
+
         }else if(emotion.equals("슬픔")){
-            emotionMenuItem.setTitle("『 Sad island 』");
+            tb.setTitle("Sad island");
         }else{
-            emotionMenuItem.setTitle("『 Angry island 』");
+            tb.setTitle("Angry island");
 
         }
 
