@@ -1,25 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<font-family
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <!--regular-->
-    <font
-        android:font="@font/ssurroundair"
-        android:fontStyle="normal"
-        android:fontWeight="400"
-        app:font="@font/ssurroundair"
-        app:fontStyle="normal"
-        app:fontWeight="500" />
-
-    <!--bold-->
-    <font
-        android:font="@font/ssurroundair"
-        android:fontStyle="normal"
-        android:fontWeight="700"
-        app:font="@font/ssurroundair"
-        app:fontStyle="normal"
-        app:fontWeight="1000" />
-
-
-</font-family>
+version https://git-lfs.github.com/spec/v1
+oid sha256:bf7f42f786656356543b099724342ca2dd49a15923fb9b77ccfda527831553e1
+size 692

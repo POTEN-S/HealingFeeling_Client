@@ -1,25 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <!-- Custom font 적용 -->
-    <style name="customTextViewFontStyle" parent="@android:style/Widget.DeviceDefault.TextView">
-        <item name="android:fontFamily">@font/custom_font_family</item>
-    </style>
-
-    <style name="customButtonFontStyle" parent="@android:style/Widget.DeviceDefault.Button.Borderless">
-        <item name="android:fontFamily">@font/custom_font_family</item>
-    </style>
-
-    <style name="customEditTextFontStyle" parent="@android:style/Widget.DeviceDefault.EditText">
-        <item name="android:fontFamily">@font/custom_font_family</item>
-    </style>
-
-    <style name="customRadioButtonFontStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton">
-        <item name="android:fontFamily">@font/custom_font_family</item>
-    </style>
-
-    <style name="customCheckboxFontStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox">
-        <item name="android:fontFamily">@font/custom_font_family</item>
-    </style>
-
-</resources>
+version https://git-lfs.github.com/spec/v1
+oid sha256:029951ca300f03e2cd8a31a6b203239c020d25f5e62206748b3c305cf7ee8dbe
+size 1078

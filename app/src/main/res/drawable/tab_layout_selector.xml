@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:drawable="@drawable/selected_tab"
-        android:state_selected="true"/>
-    <item
-        android:drawable="@drawable/tablayout"
-        android:state_selected="false"/>
-</selector>
+version https://git-lfs.github.com/spec/v1
+oid sha256:2e7368a4f9f63efc1acb4f75b14aa156b19a4c6cbeae6e5557cfcc20968b1a18
+size 326

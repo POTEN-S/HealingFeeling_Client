@@ -1,29 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="clouds">#ecf0f1</color>
-    <color name="white_green">#D2FFD2</color>
-
-    //healing-feeling-brand-color
-
-    <color name="healing_pink">#E5C1C5</color>
-    <color name="healing_green">#C3E2DD</color>
-    <color name="healing_yellow">#F2EEE5</color>
-    <color name="hot_pink">#FF66D3</color>
-
-
-
-
-    <color name="lignt_ivory">#E6DDD7</color>
-    <color name="dark_pink">#BD8782</color>
-    <color name="light_pink">#E7B3B3</color>
-    <color name="dark_brown">#6F645F</color>
-    <color name="light_brown">#CABDB1</color>
-
-</resources>
+version https://git-lfs.github.com/spec/v1
+oid sha256:7ab1a75d3c0fe65d26a3fa84f29ea3993b07534a4d0a0a706ca962a85bb9c144
+size 947
