@@ -103,7 +103,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             subtitletext = itemView.findViewById(R.id.subtitletext);
             imageView = itemView.findViewById(R.id.imageView);
             registerCount = itemView.findViewById(R.id.registercount);
-            button = itemView.findViewById(R.id.favoritebutton);
+
 
             itemView.setClickable(true);
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -127,24 +127,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             titletext.setText(data.getTitle());
             subtitletext.setText(data.getSubTitle());
 
-            button.setSelected(favorite);
-            button.setOnClickListener(new Button.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-
-                    view.setSelected(!view.isSelected()); // 선택여부 반전시키기
-
-                    if(view.isSelected()){
-                        favorite = Boolean.TRUE;
-
-                    }
-                    else{
-
-                        favorite = Boolean.FALSE;
-                    }
-                }
-            });
         }
     }
 }

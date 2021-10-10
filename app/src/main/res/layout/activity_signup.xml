@@ -7,17 +7,16 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/healing_pink"
+    android:background="@color/white"
     tools:context=".SignupActivity">
 
 
 
     <ImageView
-        android:src="@drawable/add_to_photos"
+        android:src="@drawable/signup"
         android:id="@+id/signupActivity_imageview_profile"
-        android:layout_width="60dp"
-        android:layout_height="100dp"
-        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@id/signupActivity_edittext_email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView3"/>
@@ -31,7 +30,7 @@
         android:layout_marginEnd="21dp"
         android:fontFamily="@font/dancingscript"
         android:gravity="center"
-        android:text="New Account"
+        android:text="회원가입"
         android:textColor="#000000"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,38 +42,39 @@
         android:id="@+id/signupActivity_edittext_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:padding="10dp"
-        android:hint="이메일"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/input_bg"
+        android:hint="이메일"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/signupActivity_edittext_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/signupActivity_edittext_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/input_bg"
         android:hint="패스워드"
-        android:padding="10dp"
         android:inputType="textPassword"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/signupActivity_button_signup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signupActivity_edittext_name" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/signupActivity_edittext_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/input_bg"
         android:hint="이름"
         android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/signupActivity_edittext_password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signupActivity_edittext_email" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/signupActivity_button_signup"
