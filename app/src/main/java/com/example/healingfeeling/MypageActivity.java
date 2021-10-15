@@ -41,6 +41,8 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import org.eazegraph.lib.charts.BarChart;
+import org.eazegraph.lib.models.BarModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileInputStream;
@@ -87,6 +89,8 @@ public class MypageActivity extends AppCompatActivity {
 
     int arraycount = 0;
 
+    BarChart chart;
+
 
 
     @Override
@@ -107,13 +111,12 @@ public class MypageActivity extends AppCompatActivity {
         cha_Btn=findViewById(R.id.cha_Btn);
         textView2=findViewById(R.id.textView11);
         contextEditText=findViewById(R.id.contextEditText);
+        chart = (BarChart)findViewById(R.id.tab1_chart_2);
 
 
 
 
-        happy_text = (TextView) findViewById(R.id.hyview);
-        sad_text = (TextView) findViewById(R.id.sadview);
-        angry_text = (TextView) findViewById(R.id.angryview);
+
 
 
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
@@ -382,15 +385,25 @@ public class MypageActivity extends AppCompatActivity {
             }
         });
 */
+
+
+
+
+
+
+
+
         mCondition_h.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
                     int happy = snapshot.getValue(Integer.class);
-                    happy_text.setText(happy + "번");
+                    chart.addBar(new BarModel("행복",happy,0xFFFFDC00));
+
                 }
                 else{
-                    happy_text.setText("행복");
+                    chart.addBar(new BarModel("행복",0,0xFFFFDC00));
+
                 }
 
             }
@@ -411,10 +424,11 @@ public class MypageActivity extends AppCompatActivity {
 
                 if(snapshot.exists()) {
                 int sad = snapshot.getValue(Integer.class);
-                sad_text.setText(sad + "번");
+                chart.addBar(new BarModel("슬픔",sad,0xFF56B7F1));
+
                 }
                 else{
-                    sad_text.setText("슬픔");
+                    chart.addBar(new BarModel("슬픔",0,0xFF56B7F1));
                 }
 
 
@@ -433,10 +447,10 @@ public class MypageActivity extends AppCompatActivity {
                 if(snapshot.exists()) {
 
                 int angry = snapshot.getValue(Integer.class);
-                angry_text.setText(angry+ "번" );
+                    chart.addBar(new BarModel("분노",angry,0xFFED3A16));
             }
                 else{
-                    angry_text.setText("분노");
+                    chart.addBar(new BarModel("분노",0,0xFFED3A16));
             }
 
 
