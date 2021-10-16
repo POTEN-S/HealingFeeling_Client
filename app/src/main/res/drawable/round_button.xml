@@ -1,17 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="#00FF0000">
-    <item>
-        <shape android:shape="oval">
-            <corners
-                android:radius="10dp"/>
-            <stroke
-                android:width="3dp"
-                android:color="@color/white"/>
-            <size
-                android:width="40dp"
-                android:height="40dp"
-                />
-        </shape>
-    </item>
-</ripple>
+version https://git-lfs.github.com/spec/v1
+oid sha256:53829d31ae0f056034db70156321bd855d9375a1c84932ebc1897b1ac8eb3202
+size 517

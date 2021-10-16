@@ -106,14 +106,14 @@ public class ChattingFragment extends Fragment {
         if (G.nickName != null) {
             etName.setText(G.nickName);
             Picasso.get().load(G.profileUri).into(ivProfile);
-            ivProfile.setImageResource(R.drawable.user_image);
+            ivProfile.setImageResource(R.drawable.image_chat);
             //처음이 아니다, 이미 접속한 적이 있다.
             isFirst = false;
 
 
             //폰에 저장되어있는 프로필 읽어오기
         }else{
-            ivProfile.setImageResource(R.drawable.user_image);
+            ivProfile.setImageResource(R.drawable.image_chat);
         }
         return v;
     }
@@ -135,7 +135,7 @@ public class ChattingFragment extends Fragment {
                     //변경된 이미지가 있다.
                     isChanged=true;
                 }else{
-                    ivProfile.setImageResource(R.drawable.user_image);
+                    ivProfile.setImageResource(R.drawable.image_chat);
                 }
                 break;
         }

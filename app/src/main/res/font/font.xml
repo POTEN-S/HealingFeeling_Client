@@ -1,8 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<font-family xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <font android:fontStyle="normal"
-        android:fontWeight="400"
-        android:font="@font/dancingscript"></font>
-
-</font-family>
+version https://git-lfs.github.com/spec/v1
+oid sha256:b225d1e4311bc344a544c821ce1931ee6ac77c4eb9453885cfb69e94798d17b3
+size 256

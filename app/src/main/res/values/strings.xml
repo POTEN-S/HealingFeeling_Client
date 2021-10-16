@@ -1,6 +1,3 @@
-<resources>
-    <string name="app_name">healingfeeling</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-</resources>
+version https://git-lfs.github.com/spec/v1
+oid sha256:9ccd10220c559cad4f540bbdf01921acd21fd978bc1d6cc1c52f352698322e13
+size 241

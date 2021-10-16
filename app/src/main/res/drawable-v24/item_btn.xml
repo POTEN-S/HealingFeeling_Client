@@ -1,9 +1,3 @@
-<selector
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:state_pressed="true" android:drawable="@drawable/ic_baseline_star_24"/>
-    <item
-        android:state_selected="true"
-        android:drawable="@drawable/ic_baseline_star_24"/>
-    <item android:drawable="@drawable/ic_baseline_star_border_24"/>
-</selector>
+version https://git-lfs.github.com/spec/v1
+oid sha256:6c9bd4534e6a134cea806334c2261439e62cc351f63cb4119db39dda3b74906d
+size 359

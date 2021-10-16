@@ -1,17 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white"
-    tools:context=".ui.home.BookFragment">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-</LinearLayout>
+version https://git-lfs.github.com/spec/v1
+oid sha256:6a1e10615964df3b5531b43f28ba78b35d117ada560fffb6a40bb3e0370ecd50
+size 635

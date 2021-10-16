@@ -1,8 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="my_array">
-        <item>노래</item>
-        <item>책</item>
-        <item>장소</item>
-    </string-array>
-</resources>
+version https://git-lfs.github.com/spec/v1
+oid sha256:da6d8e089ba53974b0b3b61c222db01b16a4244012cd244cf7259c1df2265f30
+size 206
