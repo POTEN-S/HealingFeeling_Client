@@ -2,6 +2,7 @@ package com.example.healingfeeling.ui.home;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -107,7 +108,9 @@ public class SongFragment extends Fragment {
                     bundle.putString("titletext", title);
                     bundle.putString("category", category);
                     bundle.putString("user_uid",the_uid);
-                    BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(getContext()); // PostFragment 선언
+                    BottomSheetFragment bottomSheetFragment = new BottomSheetFragment(getContext());
+                    //bottomSheetFragment.getWindow().findViewById(R.id.design_bottom_sheet).setBackgroundResource(android.R.color.transparent);
+                   // bottomSheetFragment.getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));// PostFragment 선언
                     bottomSheetFragment.setArguments(bundle); //번들을 postFragment로 보낼 준비
                     bottomSheetFragment.show(((AppCompatActivity) getContext()).getSupportFragmentManager(), bottomSheetFragment.getTag());
 

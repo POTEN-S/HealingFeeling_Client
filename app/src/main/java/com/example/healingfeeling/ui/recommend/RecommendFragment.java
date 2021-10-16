@@ -130,13 +130,13 @@ public class RecommendFragment extends Fragment {
         mDBReference.child("userid").setValue("CvOap2Q2t7MTe47zBxAvBpgFBTW2")
                 .addOnSuccessListener(aVoid -> {
                     // Write was successful!
-                    Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "저장을 완료했습니다.", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // Write failed
-                        Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(getContext(), "저장을 실패했습니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
 

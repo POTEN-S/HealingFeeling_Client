@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity  {
         View view = binding.getRoot();
         setContentView(view);
         setListener();
-        
+
 
 
 
