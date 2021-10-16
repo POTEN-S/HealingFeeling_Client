@@ -1,7 +1,10 @@
 package com.example.healingfeeling.ui.home;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,6 +32,17 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         this.context = context;
     }
 
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+
+        setStyle(STYLE_NORMAL,
+                R.style.TransparentBottomSheetDialogFragment);
+        return super.onCreateDialog(savedInstanceState);
+
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -36,6 +50,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                              @Nullable Bundle savedInstanceState){
 
         View view = inflater.inflate(R.layout.bottom_sheet, container, false);
+        //view.setBackgroundResource(android.R.color.transparent);
 
         Button btnOK = view.findViewById(R.id.btnOK);
 
@@ -53,6 +68,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                 }
 
                 CustomDialog dialog = new CustomDialog(getContext(),titletext,category,user_uid);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 dialog.show();
                 dismiss();
             }
@@ -88,5 +104,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
         return view;
     }
+
 
 }
